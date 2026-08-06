@@ -1,0 +1,417 @@
+generated: '2026-08-05'
+method: derived
+source: openapi/viagogo-account.json, openapi/viagogo-catalog.json, openapi/viagogo-inventory.json,
+  openapi/viagogo-sales.json, openapi/viagogo-webhooks.json
+docs: https://developer.viagogo.net/docs/overview/basic-types
+notes: >-
+  Derived from $ref edges, HAL `_links`/`_embedded` blocks and id-reference fields
+  across the five published OpenAPI definitions (199 component schemas, 111 of them
+  non-link wrappers). Only entities and relationships that actually appear in the
+  specs are listed; nothing is inferred from domain intuition. Because the API is
+  HAL, most traversal is by link rel rather than by foreign key — the `via` column
+  names the path parameter or property that carries the reference.
+identifiers:
+  style: opaque integers and strings, per resource
+  external_ids: >-
+    Seller listings can additionally be addressed by a caller-owned `external_id`
+    through the /externalsellerlistings/{externalId} routes, and events by a
+    (platform, externalEventId) pair through
+    /catalog/events/external_mappings/{platform}/{externalEventId}.
+  prefixes: none published
+basic_types:
+- name: Money
+  docs: https://developer.viagogo.net/docs/overview/basic-types
+  description: Returned for monetary values, such as ticket prices, fees charged and
+    tax amounts.
+  used_by:
+  - Event.min_ticket_price
+  - SellerListing.ticket_price
+  - SellerListing.ticket_proceeds
+  - SellerListing.face_value
+  - Sale.proceeds
+  - Payment.payment_amount
+  - ListingConstraints.min_ticket_price
+- name: Country
+  description: Country reference carried on addresses, venues and event requests.
+  present_in_specs: 5
+
+entities:
+- name: User
+  api: viagogo Account API
+  spec: openapi/viagogo-account.json
+  operations:
+  - User_Get
+  - User_Patch
+  description: The authenticated viagogo user — the seller account every user-scoped
+    resource hangs off.
+- name: Address
+  api: viagogo Account API
+  spec: openapi/viagogo-account.json
+  operations:
+  - Addressess_GetUserAddresses
+  - Addressess_Get
+  - Addressess_Post
+  - Addressess_Patch
+  - Addressess_Delete
+- name: PaymentMethod
+  api: viagogo Account API
+  spec: openapi/viagogo-account.json
+  operations:
+  - PaymentMethods_GetListingPaymentMethods
+- name: Category
+  api: viagogo Catalog API
+  spec: openapi/viagogo-catalog.json
+  operations:
+  - Categories_MapCategory
+  - Events_GetEventsByCategoryId
+  - Events_GetAllEventsByCategoryId
+- name: Event
+  api: viagogo Catalog API
+  spec: openapi/viagogo-catalog.json
+  operations:
+  - Events_GetEvents
+  - Events_GetEvent
+  - Events_SearchEvents
+  - Events_GetEventsByEventIds
+  - Events_GetEventByExternalEventId
+  - Events_MapEvent
+- name: Venue
+  api: viagogo Catalog API
+  spec: openapi/viagogo-catalog.json
+  operations:
+  - Venues_GetVenues
+  - Venues_GetVenue
+- name: VenueConfigurationResource
+  api: viagogo Catalog API
+  spec: openapi/viagogo-catalog.json
+  operations:
+  - VenueConfigurations_GetVenueConfiguration
+  description: Seat-map configuration for a venue — sections, rows and ticket classes.
+- name: ListingOffer
+  api: viagogo Catalog API
+  spec: openapi/viagogo-catalog.json
+  operations:
+  - ListingOffers_CreateOffer
+  - ListingOffers_ListOffers
+  - ListingOffers_GetAllOffers
+  - ListingOffers_GetOffer
+  - ListingOffers_UpdateOffer
+  - ListingOffers_SetOfferState
+  - ListingOffers_DeleteOffer
+  - ListingOffers_GetBidderBalance
+  description: Instant-liquidity buyer bid against an event, scoped to exactly one
+    seating dimension (sectionId + optional rowId, OR ticketClassId).
+  states:
+  - Active
+  - Paused
+  - Fulfilled
+  - Expired
+  - Deleted
+- name: SellerEvent
+  api: viagogo Inventory API
+  spec: openapi/viagogo-inventory.json
+  operations:
+  - SellerEvents_GetSellerEvents
+  - SellerEvents_GetSellerEvent
+  - SellerEvents_PutSellerRequestedEvent
+  description: A seller-scoped view of an event, including requested events that do
+    not yet exist in the public catalog.
+- name: SellerListing
+  api: viagogo Inventory API
+  spec: openapi/viagogo-inventory.json
+  operations:
+  - SellerListings_GetSellerListings
+  - SellerListings_Get
+  - SellerListings_CreateListing
+  - SellerListings_CreateListingForRequestedEvent
+  - SellerListings_Patch
+  - SellerListings_DeleteListing
+  - SellerListings_GetByExternalListingId
+  - SellerListings_PatchByExternalListingId
+  - SellerListings_DeleteListingByExternalListingId
+  - SellerListings_GetSellerListingsRecentUpdates
+  description: The core inventory object — tickets a seller offers for one event.
+- name: ListingConstraints
+  api: viagogo Inventory API
+  spec: openapi/viagogo-inventory.json
+  operations:
+  - ListingConstraints_GetEventListingConstraints
+  - ListingConstraints_GetListingConstraints
+  - ListingConstraints_PutRequestedEventListingConstraints
+  description: What may legally be listed for an event — price bounds, sections/rows,
+    ticket and split types.
+- name: ETicket
+  api: viagogo Inventory API / viagogo Sales API
+  spec: openapi/viagogo-inventory.json, openapi/viagogo-sales.json
+  operations:
+  - ETicket_GetListingETickets
+  - ETicket_PostListingETickets
+  - ETicket_DeleteListingETicket
+  - ETicket_MarkBackETickets
+  - ETicket_GetSaleETickets
+  - ETicket_PostSaleETickets
+  - ETicket_DeleteSaleETicket
+- name: ETicketUpload
+  api: viagogo Inventory API / viagogo Sales API
+  spec: openapi/viagogo-inventory.json, openapi/viagogo-sales.json
+  operations:
+  - ETicket_UploadListingETicket
+  - ETicket_GetListingETicketUploads
+  - ETicket_UploadEventETicket
+  - ETicket_GetEventETicketUploads
+  - ETicket_UploadSaleETicket
+  - ETicket_GetSaleETicketUploads
+  - ETicket_UploadSaleTransfer
+- name: Shipment
+  api: viagogo Inventory API / viagogo Sales API
+  spec: openapi/viagogo-inventory.json, openapi/viagogo-sales.json
+  operations:
+  - Shipments_GetListingShipments
+  - Shipments_PutOrGetListingShipmentLabel
+  - Shipments_PatchListingShipment
+  - Shipments_GetListingShippingLabel
+  - Shipments_GetSaleShipments
+  - Shipments_PutOrGetSaleShipmentLabel
+  - Shipments_PatchSaleShipment
+  - Shipments_GetSaleShippingLabel
+- name: Sale
+  api: viagogo Sales API
+  spec: openapi/viagogo-sales.json
+  operations:
+  - Sales_GetSales
+  - Sales_Get
+  - Sales_Patch
+  - Sales_Delete
+  - Sales_GetSalesRecentUpdates
+  - Sales_UploadTransferStatusProof
+  description: A buyer purchase against a seller listing; drives the documented sale
+    state machine.
+  state_field: status
+  states_docs: https://developer.viagogo.net/docs/overview/transaction-states
+- name: TicketHolder
+  api: viagogo Sales API
+  spec: openapi/viagogo-sales.json
+  operations:
+  - TicketHolders_GetSaleTicketHolderDetails
+  description: Buyer identity needed to transfer tickets from a third-party ticketing
+    provider.
+- name: Payment
+  api: viagogo Sales API
+  spec: openapi/viagogo-sales.json
+  operations:
+  - Payments_GetPayments
+  - Payments_Get
+  - Payments_GetNextPayment
+  description: A seller payout aggregating charges, credits and proceeds across sales.
+- name: TransferStatusProof
+  api: viagogo Sales API
+  spec: openapi/viagogo-sales.json
+  operations:
+  - Sales_UploadTransferStatusProof
+- name: Webhook
+  api: viagogo Webhooks API
+  spec: openapi/viagogo-webhooks.json
+  operations:
+  - Webhooks_Get
+  - Webhooks_Get2
+  - Webhooks_Post
+  - Webhooks_Patch
+  - Webhooks_Delete
+  - Webhooks_PingWebhook
+
+relationships:
+- from: User
+  to: Address
+  type: has_many
+  via: /addresses (user-scoped)
+- from: User
+  to: SellerListing
+  type: has_many
+  via: /sellerlistings (user-scoped)
+- from: User
+  to: Sale
+  type: has_many
+  via: /sales (user-scoped)
+- from: User
+  to: Payment
+  type: has_many
+  via: /payments (user-scoped)
+- from: User
+  to: Webhook
+  type: has_many
+  via: /webhooks (user-scoped)
+- from: Category
+  to: Event
+  type: has_many
+  via: /catalog/categories/{categoryId}/events
+- from: Event
+  to: Venue
+  type: belongs_to
+  via: _embedded.venue (EmbeddedVenue)
+- from: Event
+  to: EventCategory
+  type: has_many
+  via: _embedded.categories
+- from: Event
+  to: VenueConfigurationResource
+  type: belongs_to
+  via: venue_config_id
+- from: Event
+  to: EmbeddedExternalMapping
+  type: has_many
+  via: _embedded.external_mappings
+- from: Event
+  to: MergedEntity
+  type: has_many
+  via: merged_events
+- from: VenueConfigurationResource
+  to: VenueConfigSectionResource
+  type: has_many
+  via: sections
+- from: VenueConfigSectionResource
+  to: VenueConfigSectionRowResource
+  type: has_many
+  via: rows
+- from: ListingOffer
+  to: Event
+  type: belongs_to
+  via: EventId
+- from: ListingOffer
+  to: VenueConfigSectionResource
+  type: belongs_to
+  via: SectionId (optionally + RowId) or TicketClassId
+- from: SellerListing
+  to: Event
+  type: belongs_to
+  via: POST /events/{eventId}/sellerlistings; _embedded.event
+- from: SellerListing
+  to: SeatingDetail
+  type: has_one
+  via: seating / display_seating
+- from: SellerListing
+  to: Money
+  type: has_one
+  via: ticket_price, ticket_proceeds, face_value, purchase_price_per_ticket, total_purchase_price
+- from: SellerListing
+  to: BarcodeInformation
+  type: has_many
+  via: barcodes
+- from: SellerListing
+  to: Address
+  type: belongs_to
+  via: ticket_location_address_id
+- from: SellerListing
+  to: ETicket
+  type: has_many
+  via: /sellerlistings/{listingId}/etickets
+- from: SellerListing
+  to: ETicketUpload
+  type: has_many
+  via: /sellerlistings/{listingId}/eticketuploads
+- from: SellerListing
+  to: Shipment
+  type: has_many
+  via: /sellerlistings/{listingId}/shipments
+- from: SellerListing
+  to: ListingConstraints
+  type: has_one
+  via: /sellerlistings/{listingId}/constraints
+- from: SellerListing
+  to: PaymentMethod
+  type: has_many
+  via: PUT /listings/{listingId}/paymentmethods
+- from: Event
+  to: ListingConstraints
+  type: has_one
+  via: /events/{eventId}/listingconstraints
+- from: ListingConstraints
+  to: Section
+  type: has_many
+  via: sections
+- from: Section
+  to: Row
+  type: has_many
+  via: rows
+- from: SellerEvent
+  to: Event
+  type: belongs_to
+  via: eventIdOrRequestedEventId
+- from: Sale
+  to: SellerListing
+  type: belongs_to
+  via: _embedded.seller_listing / external_listing_id
+- from: Sale
+  to: Event
+  type: belongs_to
+  via: _embedded.event (EmbeddedEvent)
+- from: Sale
+  to: Seating
+  type: has_one
+  via: seating
+- from: Sale
+  to: BarcodeInformation
+  type: has_many
+  via: barcodes
+- from: Sale
+  to: ETicket
+  type: has_many
+  via: /sales/{saleId}/etickets
+- from: Sale
+  to: ETicketUpload
+  type: has_many
+  via: /sales/{saleId}/eticketuploads
+- from: Sale
+  to: Shipment
+  type: has_many
+  via: /sales/{saleId}/shipments
+- from: Sale
+  to: TicketHolder
+  type: has_many
+  via: /sales/{saleId}/ticketholders
+- from: Sale
+  to: TransferStatusProof
+  type: has_many
+  via: /sales/{saleId}/transferstatusproof
+- from: Payment
+  to: PaymentSale
+  type: has_many
+  via: _embedded.sales
+- from: PaymentSale
+  to: ChargeDetail
+  type: has_many
+  via: charges, credits, proceeds
+- from: ChargeDetail
+  to: Sale
+  type: belongs_to
+  via: sale_id
+- from: Shipment
+  to: Address
+  type: has_one
+  via: delivery_address
+- from: Shipment
+  to: Carrier
+  type: belongs_to
+  via: _embedded.carrier
+- from: Carrier
+  to: PickupWindow
+  type: has_many
+  via: pickup_windows
+- from: Webhook
+  to: Topic
+  type: has_many
+  via: topics[]
+- from: SalesTopic
+  to: Sale
+  type: has_one
+  via: _embedded.sale (EmbeddedSale)
+- from: SellerListingUpdatesTopic
+  to: SellerListing
+  type: has_one
+  via: _embedded.seller_listing (EmbeddedSellerListing)
+
+coverage:
+  specs: 5
+  component_schemas: 199
+  non_link_schemas: 111
+  entities_catalogued: 20
+  relationships: 41

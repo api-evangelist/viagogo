@@ -1,0 +1,78 @@
+# OpenAPI Overlay 1.0.0 — API Evangelist enrichment of the published viagogo spec.
+# This overlay NEVER mutates openapi/viagogo-webhooks.json; it records only our additions.
+overlay: 1.0.0
+info:
+  title: API Evangelist enrichment overlay for the viagogo Webhooks API
+  version: 1.0.0
+x-generated: '2026-08-05'
+x-method: generated
+x-source: openapi/viagogo-webhooks.json
+extends: openapi/viagogo-webhooks.json
+x-upstream: https://api.viagogo.net/v2/openapi/webhooks.json
+actions:
+- target: $.info
+  description: Add a human summary, contact and external documentation the published spec omits.
+  update:
+    description: >-
+      viagogo Webhooks API. Served over application/hal+json from api.viagogo.net with a matching
+      sandbox.api.viagogo.net environment. All operations are authorized with OAuth2
+      bearer tokens issued by https://account.viagogo.com/oauth2/token.
+    contact:
+      name: viagogo Developer Support
+      url: https://support.viagogo.com/
+    x-apis-io-provider: viagogo
+- target: $
+  description: Attach external documentation and API Evangelist artifact cross-links.
+  update:
+    externalDocs:
+      description: viagogo developer portal
+      url: https://developer.viagogo.net/api-reference/webhooks
+    x-artifacts:
+      authentication: authentication/viagogo-authentication.yml
+      scopes: scopes/viagogo-scopes.yml
+      conventions: conventions/viagogo-conventions.yml
+      errors: errors/viagogo-problem-types.yml
+      data_model: data-model/viagogo-data-model.yml
+      lifecycle: lifecycle/viagogo-lifecycle.yml
+      webhooks: asyncapi/viagogo-webhooks.yml
+- target: $.components.securitySchemes.OAuth2
+  description: >-
+    The published spec declares empty scopes maps and carries required scopes only in
+    per-operation security requirements. Populate the flow scope maps with the
+    descriptions viagogo publishes on its Scopes page so tooling can render them.
+  update:
+    x-scopes-source: https://developer.viagogo.net/docs/authentication/scopes
+    x-scopes:
+      read:webhooks: "Grants read access to the user's webhooks."
+      write:webhooks: "Grants write access to the user's webhooks."
+- target: $.components.schemas.Error
+  description: Document the viagogo error envelope and its published error codes.
+  update:
+    description: >-
+      viagogo error envelope. `code` is a machine-readable error code, `message` is an
+      optionally-localized string safe to show a user, and `errors` maps a property path
+      to an array of localized validation messages. This is NOT RFC 9457 problem+json.
+    x-error-codes: errors/viagogo-problem-types.yml
+    x-media-type: application/hal+json
+- target: $
+  description: Record the HAL hypermedia contract and the cross-cutting query conventions.
+  update:
+    x-media-type:
+      response: application/hal+json
+      hypermedia: HAL
+      envelope: [_links, _embedded]
+    x-pagination:
+      style: page-number
+      params: [page, page_size]
+      default_page_size: 100
+      link_rels: [first, prev, next, last]
+    x-sorting:
+      param: sort
+      descending_prefix: '-'
+    x-sparse-fieldsets:
+      param: fields
+      typed_param: fields[TYPE]
+    x-idempotency:
+      supported: false
+      note: >-
+        viagogo publishes no Idempotency-Key mechanism. Retrying a POST is not safe.

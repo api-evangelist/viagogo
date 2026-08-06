@@ -1,0 +1,65 @@
+generated: '2026-08-05'
+method: searched
+source: https://developer.viagogo.net/blog
+docs: https://developer.viagogo.net/blog
+feeds:
+  rss: https://developer.viagogo.net/blog/rss.xml
+  atom: https://developer.viagogo.net/blog/atom.xml
+  archive: https://developer.viagogo.net/blog/archive
+x-evidence:
+- url: https://developer.viagogo.net/blog/rss.xml
+  http_status: 200
+  fetched: '2026-08-05'
+- url: https://developer.viagogo.net/sitemap.xml
+  http_status: 200
+  fetched: '2026-08-05'
+notes: >-
+  viagogo's change surface is the developer-portal "Announcements" blog, which is
+  a real dated, tagged, RSS/Atom-syndicated channel — but it carries exactly one
+  entry, published 2018-06-30, and the feed's lastBuildDate is that same day. The
+  channel exists and works; it is simply not being used. Machine-readable change
+  detection is in practice done against the nightly-synced OpenAPI definitions
+  rather than against this feed.
+scheme: dated announcements (blog), tagged by change class
+current_versions:
+  viagogo Account API: 2.249.0.0
+  viagogo Catalog API: 1.0.0.49
+  viagogo Inventory API: 2.249.0.0
+  viagogo Sales API: 2.249.0.0
+  viagogo Webhooks API: 2.249.0.0
+tags:
+- breaking-change
+- deprecation
+- tls
+entries:
+- title: TLS v1.0 Deprecation Notice
+  date: '2018-06-30'
+  url: https://developer.viagogo.net/blog/2018/06/30/tls-deprecation-notice
+  tags:
+  - tls
+  - deprecation
+  - breaking-change
+  breaking: true
+  additions: []
+  highlights:
+  - viagogo will disable support for TLS v1.0 on the public-facing API.
+  - Flagged as a possible breaking change for clients connecting over TLS 1.0.
+  - Driven by PCI Security Standards Council guidance requiring full deprecation of
+    TLS 1.0 for applications that process payments; applied across all inbound
+    connections.
+  - Advance notice given so customers and partners could prepare.
+entries_total: 1
+last_entry: '2018-06-30'
+machine_readable_change_detection:
+  method: diff the published OpenAPI definitions
+  sources:
+  - https://api.viagogo.net/v2/openapi/account.json
+  - https://api.viagogo.net/catalog/openapi/openapi.json
+  - https://api.viagogo.net/v2/openapi/inventory.json
+  - https://api.viagogo.net/v2/openapi/sales.json
+  - https://api.viagogo.net/v2/openapi/webhooks.json
+  history: https://github.com/viagogo/viagogo-api-docs/commits/main/static/openapi
+  note: >-
+    The docs repository commits each nightly spec sync, so its git history is the
+    de facto changelog for API surface changes even though no entry is written to
+    the announcements blog.

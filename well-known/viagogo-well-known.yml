@@ -1,0 +1,121 @@
+generated: '2026-08-05'
+method: probed
+source: live GET probes of /.well-known/* on every viagogo host in apis.yml and the
+  OpenAPI servers[] blocks
+notes: >-
+  Five hosts were probed for eight well-known paths each. Only the identity hosts
+  answer: account.viagogo.com and sandbox.account.viagogo.com both serve a full
+  OpenID Connect / OAuth 2.0 Authorization Server Metadata document at both the
+  openid-configuration and oauth-authorization-server paths (identical bodies). No
+  security.txt (RFC 9116), no api-catalog (RFC 9727), no ai-plugin.json and no A2A
+  agent card were found on any host — those are recorded as real 404s, not gaps in
+  the probe.
+hosts_probed:
+- https://www.viagogo.com
+- https://developer.viagogo.net
+- https://api.viagogo.net
+- https://sandbox.api.viagogo.net
+- https://account.viagogo.com
+- https://sandbox.account.viagogo.com
+probes:
+- host: account.viagogo.com
+  path: /.well-known/openid-configuration
+  status: 200
+  content_type: application/json;charset=UTF-8
+  file: well-known/viagogo-openid-configuration.json
+- host: account.viagogo.com
+  path: /.well-known/oauth-authorization-server
+  status: 200
+  content_type: application/json;charset=UTF-8
+  file: well-known/viagogo-openid-configuration.json
+  note: Identical body to the openid-configuration document.
+- host: sandbox.account.viagogo.com
+  path: /.well-known/openid-configuration
+  status: 200
+  content_type: application/json;charset=UTF-8
+  file: well-known/viagogo-sandbox-openid-configuration.json
+- host: account.viagogo.com
+  path: /.well-known/jwks
+  status: null
+  note: Referenced as `jwks_uri` by the discovery document; not independently probed.
+- host: www.viagogo.com
+  path: /.well-known/security.txt
+  status: 404
+- host: viagogo.com
+  path: /.well-known/security.txt
+  status: 404
+- host: developer.viagogo.net
+  path: /.well-known/security.txt
+  status: 404
+- host: api.viagogo.net
+  path: /.well-known/security.txt
+  status: 404
+- host: sandbox.api.viagogo.net
+  path: /.well-known/security.txt
+  status: 404
+- host: api.viagogo.net
+  path: /.well-known/openid-configuration
+  status: 404
+- host: api.viagogo.net
+  path: /.well-known/oauth-authorization-server
+  status: 000
+  note: Connection failed rather than returning a status.
+- host: www.viagogo.com
+  path: /.well-known/api-catalog
+  status: 404
+- host: developer.viagogo.net
+  path: /.well-known/api-catalog
+  status: 404
+- host: api.viagogo.net
+  path: /.well-known/api-catalog
+  status: 404
+- host: www.viagogo.com
+  path: /.well-known/ai-plugin.json
+  status: 404
+- host: developer.viagogo.net
+  path: /.well-known/ai-plugin.json
+  status: 404
+- host: www.viagogo.com
+  path: /.well-known/agent-card.json
+  status: 404
+- host: developer.viagogo.net
+  path: /.well-known/agent-card.json
+  status: 404
+- host: api.viagogo.net
+  path: /.well-known/agent-card.json
+  status: 404
+- host: sandbox.api.viagogo.net
+  path: /.well-known/agent-card.json
+  status: 404
+- host: account.viagogo.com
+  path: /.well-known/agent-card.json
+  status: 404
+- host: www.viagogo.com
+  path: /.well-known/agent.json
+  status: 404
+- host: developer.viagogo.net
+  path: /.well-known/agent.json
+  status: 404
+- host: api.viagogo.net
+  path: /.well-known/agent.json
+  status: 404
+- host: sandbox.api.viagogo.net
+  path: /.well-known/agent.json
+  status: 404
+- host: account.viagogo.com
+  path: /.well-known/agent.json
+  status: 404
+- host: developer.viagogo.net
+  path: /llms.txt
+  status: 404
+- host: www.viagogo.com
+  path: /llms.txt
+  status: 404
+found:
+  openid_configuration: true
+  oauth_authorization_server: true
+  security_txt: false
+  api_catalog: false
+  ai_plugin: false
+  agent_card: false
+  llms_txt: false

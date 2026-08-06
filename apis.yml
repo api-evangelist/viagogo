@@ -1,23 +1,232 @@
 aid: viagogo
 name: viagogo
-description: 'viagogo is a company surfaced via the API Evangelist harvest backlog (source: secondary-market)
-  and added to the network as a stub for full-pipeline profiling.'
+description: 'viagogo is a global online ticket marketplace for live events — concerts,
+  sport and theatre — operating in more than 90 countries and, since the 2020 acquisition
+  of StubHub, part of StubHub Holdings. viagogo publishes a public developer program
+  at developer.viagogo.net covering five OAuth2-secured HTTP APIs — Catalog (events,
+  venues, categories and instant-liquidity listing offers), Account (users, addresses,
+  payment methods), Inventory (seller listings, listing constraints, e-tickets and
+  shipments), Sales (sales, payments, ticket holders, transfer proof) and Webhooks
+  (topic subscriptions) — all served from api.viagogo.net over application/hal+json
+  with a matching sandbox.api.viagogo.net environment, official GogoKit client libraries
+  for .NET, Python, Ruby and PHP, and machine-readable OpenAPI 3.0 definitions synced
+  nightly from the API host into the public docs repository.'
 url: https://raw.githubusercontent.com/api-evangelist/viagogo/refs/heads/main/apis.yml
 x-type: company
 x-source: harvest:secondary-market
-x-tier: stub
-x-tier-reason: harvest
+x-tier: profiled
+x-tier-reason: enrichment
 specificationVersion: '0.20'
 created: '2026-08-05'
 modified: '2026-08-05'
+image: https://img.vggcdn.net/img/assets/logo/viagogo_logo_apidocs.png
 tags:
 - Company
-apis: []
+- Ticketing
+- Events
+- Marketplace
+- Entertainment
+- Secondary Market
+- Commerce
+- Travel and Leisure
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+apis:
+- aid: viagogo:viagogo-catalog-api
+  name: viagogo Catalog API
+  description: Read the viagogo event catalog — search and list categories, events
+    and venues, resolve events by external platform identifier, map inbound event/venue/category
+    requests onto the platform, read venue configurations, and place and manage instant-liquidity
+    listing offers (buyer bids) against an event.
+  humanURL: https://developer.viagogo.net/api-reference/catalog
+  baseURL: https://api.viagogo.net
+  tags:
+  - Catalog
+  - Events
+  - Venues
+  - Categories
+  properties:
+  - type: OpenAPI
+    url: openapi/viagogo-catalog.json
+  - type: Documentation
+    url: https://developer.viagogo.net/api-reference/catalog
+  - type: APIReference
+    url: https://developer.viagogo.net/api-reference/catalog
+  - type: OpenAPI Source
+    url: https://api.viagogo.net/catalog/openapi/openapi.json
+  - type: Overlay
+    url: overlays/viagogo-catalog-overlay.yaml
+- aid: viagogo:viagogo-account-api
+  name: viagogo Account API
+  description: Manage the authenticated viagogo user — read and update the user profile,
+    list, create, update and delete addresses, and list the payment methods available
+    for a listing.
+  humanURL: https://developer.viagogo.net/api-reference/account
+  baseURL: https://api.viagogo.net/v2
+  tags:
+  - Account
+  - Users
+  - Addresses
+  - Payment Methods
+  properties:
+  - type: OpenAPI
+    url: openapi/viagogo-account.json
+  - type: Documentation
+    url: https://developer.viagogo.net/api-reference/account
+  - type: APIReference
+    url: https://developer.viagogo.net/api-reference/account
+  - type: OpenAPI Source
+    url: https://api.viagogo.net/v2/openapi/account.json
+  - type: Overlay
+    url: overlays/viagogo-account-overlay.yaml
+- aid: viagogo:viagogo-inventory-api
+  name: viagogo Inventory API
+  description: Manage seller inventory on the viagogo platform — create, preview,
+    update and delete seller listings (by viagogo id or by your own external id),
+    read listing constraints, create seller and requested events, upload and mark
+    back e-tickets, and print and update shipping labels for listings.
+  humanURL: https://developer.viagogo.net/api-reference/inventory
+  baseURL: https://api.viagogo.net/v2
+  tags:
+  - Inventory
+  - Listings
+  - E-Tickets
+  - Shipments
+  properties:
+  - type: OpenAPI
+    url: openapi/viagogo-inventory.json
+  - type: Documentation
+    url: https://developer.viagogo.net/api-reference/inventory
+  - type: APIReference
+    url: https://developer.viagogo.net/api-reference/inventory
+  - type: OpenAPI Source
+    url: https://api.viagogo.net/v2/openapi/inventory.json
+  - type: Overlay
+    url: overlays/viagogo-inventory-overlay.yaml
+- aid: viagogo:viagogo-sales-api
+  name: viagogo Sales API
+  description: Work the seller side of a viagogo sale — list and read sales and recent
+    updates, confirm, update or reject a sale, read ticket holder details, upload
+    e-tickets and proof of transfer, print and update shipping labels, and read seller
+    payments including a preview of the next payment.
+  humanURL: https://developer.viagogo.net/api-reference/sales
+  baseURL: https://api.viagogo.net/v2
+  tags:
+  - Sales
+  - Payments
+  - E-Tickets
+  - Fulfillment
+  properties:
+  - type: OpenAPI
+    url: openapi/viagogo-sales.json
+  - type: Documentation
+    url: https://developer.viagogo.net/api-reference/sales
+  - type: APIReference
+    url: https://developer.viagogo.net/api-reference/sales
+  - type: OpenAPI Source
+    url: https://api.viagogo.net/v2/openapi/sales.json
+  - type: Overlay
+    url: overlays/viagogo-sales-overlay.yaml
+- aid: viagogo:viagogo-webhooks-api
+  name: viagogo Webhooks API
+  description: Subscribe a server application to viagogo platform topics — create,
+    read, update, delete and ping webhooks, each configured with a callback url, an
+    Authorization header value and a set of topics such as sales, sale updates, seller
+    listing updates, provisional sales and ticket re-transfer.
+  humanURL: https://developer.viagogo.net/api-reference/webhooks
+  baseURL: https://api.viagogo.net/v2
+  tags:
+  - Webhooks
+  - Events
+  - Notifications
+  properties:
+  - type: OpenAPI
+    url: openapi/viagogo-webhooks.json
+  - type: Documentation
+    url: https://developer.viagogo.net/api-reference/webhooks
+  - type: APIReference
+    url: https://developer.viagogo.net/api-reference/webhooks
+  - type: OpenAPI Source
+    url: https://api.viagogo.net/v2/openapi/webhooks.json
+  - type: Webhooks
+    url: asyncapi/viagogo-webhooks.yml
+  - type: Overlay
+    url: overlays/viagogo-webhooks-overlay.yaml
 common:
 - type: Website
-  url: https://forgeglobal.com/viagogo_stock/
+  url: https://www.viagogo.com/
+- type: DeveloperPortal
+  url: https://developer.viagogo.net/
+- type: Documentation
+  url: https://developer.viagogo.net/docs/overview/introduction
+- type: APIReference
+  url: https://developer.viagogo.net/api-reference/inventory
+- type: GettingStarted
+  url: https://developer.viagogo.net/docs/authentication/basic-steps
+- type: Support
+  url: https://support.viagogo.com/
+- type: Blog
+  url: https://developer.viagogo.net/blog
+- type: GitHubOrganization
+  url: https://github.com/viagogo
+- type: Login
+  url: https://my.viagogo.com/secure/login
+- type: TermsOfService
+  url: https://www.viagogo.com/secure/help/termsandconditions
+- type: PrivacyPolicy
+  url: https://www.viagogo.com/secure/help/privacy
+- type: Authentication
+  url: authentication/viagogo-authentication.yml
+- type: OAuthScopes
+  url: scopes/viagogo-scopes.yml
+- type: Packages
+  url: packages/viagogo-packages.yml
+- type: SDKs
+  url: packages/viagogo-packages.yml
+- type: WellKnown
+  url: well-known/viagogo-well-known.yml
+- type: OpenIDConnect
+  url: well-known/viagogo-openid-configuration.json
+- type: Sandbox
+  url: sandbox/viagogo-sandbox.yml
+- type: Conventions
+  url: conventions/viagogo-conventions.yml
+- type: ErrorCatalog
+  url: errors/viagogo-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/viagogo-lifecycle.yml
+- type: ChangeLog
+  url: changelog/viagogo-changelog.yml
+- type: Conformance
+  url: conformance/viagogo-conformance.yml
+- type: DataModel
+  url: data-model/viagogo-data-model.yml
+- type: DomainSecurity
+  url: security/viagogo-domain-security.yml
+- type: Webhooks
+  url: asyncapi/viagogo-webhooks.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: LLMsTxt
+  url: llms/viagogo-llms.txt
+x-enrichment:
+  date: '2026-08-05'
+  status: enriched
+  artifacts_added: 32
+  pass: local-v1
+x-coverage:
+  state: covered
+  detail: viagogo publishes five real OpenAPI 3.0 definitions on the API host root
+    (api.viagogo.net), a full Docusaurus developer portal, an OIDC discovery document
+    and four official SDKs on public registries — all reachable anonymously.
+  evidence:
+  - url: https://api.viagogo.net/catalog/openapi/openapi.json
+    status: 200
+  - url: https://developer.viagogo.net/
+    status: 200
+  - url: https://account.viagogo.com/.well-known/openid-configuration
+    status: 200
+  checked: '2026-08-05'

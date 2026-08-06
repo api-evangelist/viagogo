@@ -1,0 +1,139 @@
+generated: '2026-08-05'
+method: searched
+source: https://developer.viagogo.net/docs/overview/error-responses
+docs: https://developer.viagogo.net/docs/overview/error-responses
+derived_from:
+- openapi/viagogo-account.json
+- openapi/viagogo-catalog.json
+- openapi/viagogo-inventory.json
+- openapi/viagogo-sales.json
+- openapi/viagogo-webhooks.json
+x-evidence:
+- url: https://raw.githubusercontent.com/viagogo/viagogo-api-docs/main/docs/overview/error-responses.md
+  http_status: 200
+  fetched: '2026-08-05'
+format: proprietary
+rfc9457: false
+content_type: application/hal+json
+notes: >-
+  viagogo does not use RFC 9457 problem+json. It publishes its own error envelope
+  with a machine-readable `code`, an optionally-localized human `message`, and a
+  per-property `errors` map for validation failures. The nine codes below are quoted
+  verbatim from the provider's Error Responses page. The five shared OpenAPI response
+  components (requires_authentication, forbidden, not_found, validation_failed,
+  internal_server_error) are the spec-side counterpart and are recorded alongside.
+envelope:
+  schema: '#/components/schemas/Error'
+  properties:
+    code:
+      type: string
+      nullable: true
+      description: A specific machine-readable error code.
+    message:
+      type: string
+      nullable: true
+      description: A possibly-localized error message that can be displayed to a user.
+    errors:
+      type: object
+      nullable: true
+      description: Map of property path to an array of localized validation messages.
+  example:
+    code: validation_failed
+    message: null
+    errors:
+      seller_listing.ticket_price:
+      - You must provide either 'ticket_price' or 'ticket_proceeds'
+problem_types:
+- code: https_required
+  status: 400
+  title: HTTPS required
+  description: The request is not using an SSL connection.
+  remediation: Call the API over https:// only; all viagogo API access is HTTPS.
+  documented: true
+- code: user_agent_required
+  status: 400
+  title: User-Agent required
+  description: The request does not include a valid User-Agent header.
+  remediation: Send a descriptive User-Agent header identifying your application.
+  documented: true
+- code: invalid_request_body
+  status: 400
+  title: Invalid request body
+  description: This request does not include a valid JSON body.
+  remediation: Send a well-formed JSON body matching the operation's request schema.
+  documented: true
+- code: validation_failed
+  status: 400
+  title: Validation failed
+  description: The request data is not valid. `errors` will contain an object with
+    a localized message that describes the validation error for each property of the
+    data.
+  remediation: Read the `errors` map, correct the named properties and retry.
+  documented: true
+  openapi_response_component: validation_failed
+- code: insufficient_scope
+  status: 403
+  title: Insufficient scope
+  description: The access token used in the request does not have the scope required
+    to access this resource.
+  remediation: Re-request the token with the required scope — see scopes/viagogo-scopes.yml.
+  documented: true
+- code: invalid_seller_listing_action
+  status: 403
+  title: Invalid seller listing action
+  description: The request is attempting to perform an operation on a SellerListing
+    that does not currently support that action.
+  remediation: Check the listing's current state and constraints (ListingConstraints_GetListingConstraints)
+    before retrying.
+  documented: true
+- code: create_listing_not_allowed
+  status: 403
+  title: Create listing not allowed
+  description: The request is attempting to create a listing for an Event that tickets
+    cannot currently be listed for.
+  remediation: Call ListingConstraints_GetEventListingConstraints for the event before
+    creating a listing.
+  documented: true
+- code: invalid_delete
+  status: 403
+  title: Invalid delete
+  description: The request is attempting to delete a resource that cannot be deleted.
+  documented: true
+- code: internal_server_error
+  status: 500
+  title: Internal server error
+  description: Something is broken. We'll get this fixed ASAP!
+  remediation: Retry with backoff; quote the `vgg-correlation-id` response header when
+    contacting support.
+  documented: true
+  openapi_response_component: internal_server_error
+status_responses:
+- status: 400
+  component: validation_failed
+  description: The request data is not valid. errors will contain an object with a
+    localized message that describes the validation error for each property of the
+    data.
+- status: 401
+  component: requires_authentication
+  description: Authentication credentials were missing or incorrect.
+- status: 403
+  component: forbidden
+  description: The request is understood, but it has been refused or access is not
+    allowed. An accompanying error message will explain why.
+- status: 404
+  component: not_found
+  description: The URI requested is invalid or the resource requested, such as an event,
+    does not exist.
+- status: 500
+  component: internal_server_error
+  description: Internal server error
+coverage:
+  documented_codes: 9
+  shared_openapi_response_components: 5
+  operations_declaring_4xx_or_5xx: 90
+  status_codes_used:
+  - 400
+  - 401
+  - 403
+  - 404
+  - 500

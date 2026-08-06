@@ -1,0 +1,140 @@
+generated: '2026-08-05'
+method: searched
+source: https://developer.viagogo.net/docs/authentication/scopes
+docs: https://developer.viagogo.net/docs/authentication/scopes
+derived_from:
+- openapi/viagogo-account.json
+- openapi/viagogo-catalog.json
+- openapi/viagogo-inventory.json
+- openapi/viagogo-sales.json
+- openapi/viagogo-webhooks.json
+x-evidence:
+  fetched: '2026-08-05'
+  url: https://raw.githubusercontent.com/viagogo/viagogo-api-docs/main/docs/authentication/scopes.md
+  http_status: 200
+notes: >-
+  Scope descriptions are quoted verbatim from the viagogo Scopes documentation page.
+  Eight further scopes appear in the published OpenAPI security requirements but are
+  not listed on that page; they are marked `documented: false` and carry no invented
+  description. Scopes are requested as a space-delimited `scope` parameter on the
+  token request against https://account.viagogo.com/oauth2/token.
+authorization_server: https://account.viagogo.com/
+authorization_endpoint: https://account.viagogo.com/authorize
+token_endpoint: https://account.viagogo.com/oauth2/token
+sandbox_token_endpoint: https://sandbox.account.viagogo.com/oauth2/token
+scopes:
+- scope: read:events
+  description: Grants read-only access to events on the viagogo platform.
+  documented: true
+  sources:
+  - openapi/viagogo-catalog.json
+- scope: read:payment
+  description: Grants read-only access to the user's payments.
+  documented: true
+  sources:
+  - openapi/viagogo-sales.json
+- scope: read:sales
+  description: Grants read access to the user's sales.
+  documented: true
+  sources:
+  - openapi/viagogo-inventory.json
+  - openapi/viagogo-sales.json
+- scope: write:sales
+  description: Grants write access to the user's sales. This allows users to use your
+    application to confirm and fulfill sales.
+  documented: true
+  sources:
+  - openapi/viagogo-inventory.json
+  - openapi/viagogo-sales.json
+- scope: read:sellerlistings
+  description: Grants read access to the user's listings.
+  documented: true
+  sources:
+  - openapi/viagogo-inventory.json
+  - openapi/viagogo-sales.json
+- scope: write:sellerlistings
+  description: Grants write access to the user's listings. This allows users to use
+    your application to create and update listings.
+  documented: true
+  sources:
+  - openapi/viagogo-inventory.json
+  - openapi/viagogo-sales.json
+- scope: read:webhooks
+  description: Grants read access to the user's webhooks.
+  documented: true
+  sources:
+  - openapi/viagogo-webhooks.json
+- scope: write:webhooks
+  description: Grants write access to the user's webhooks.
+  documented: true
+  sources:
+  - openapi/viagogo-webhooks.json
+- scope: write:requestedevents
+  description: Grants write access to the user's requested events. This allows users
+    to use your application to request an event to be added to the viagogo platform.
+  documented: true
+  sources:
+  - openapi/viagogo-inventory.json
+- scope: read:categories
+  description: null
+  documented: false
+  note: Required by Categories_MapCategory; not listed on the Scopes docs page.
+  sources:
+  - openapi/viagogo-catalog.json
+- scope: read:venues
+  description: null
+  documented: false
+  note: Required by Venues_GetVenues and Venues_GetVenue; not listed on the Scopes
+    docs page.
+  sources:
+  - openapi/viagogo-catalog.json
+- scope: read:venue_configurations
+  description: null
+  documented: false
+  note: Required by VenueConfigurations_GetVenueConfiguration; not listed on the Scopes
+    docs page.
+  sources:
+  - openapi/viagogo-catalog.json
+- scope: manage:listingoffers
+  description: null
+  documented: false
+  note: Required by every /catalog/listingoffers operation (instant-liquidity buyer
+    bids); not listed on the Scopes docs page.
+  sources:
+  - openapi/viagogo-catalog.json
+- scope: read:user
+  description: null
+  documented: false
+  note: Required across Account, Inventory and Sales for user-scoped reads; not listed
+    on the Scopes docs page.
+  sources:
+  - openapi/viagogo-account.json
+  - openapi/viagogo-inventory.json
+  - openapi/viagogo-sales.json
+- scope: write:user
+  description: null
+  documented: false
+  note: Required for user profile and address writes, shipping labels and event e-ticket
+    uploads; not listed on the Scopes docs page.
+  sources:
+  - openapi/viagogo-account.json
+  - openapi/viagogo-inventory.json
+  - openapi/viagogo-sales.json
+- scope: write:brokerage
+  description: null
+  documented: false
+  note: Appears in an Account API security requirement; not listed on the Scopes docs
+    page.
+  sources:
+  - openapi/viagogo-account.json
+- scope: write:purchases
+  description: null
+  documented: false
+  note: Appears in a Sales API security requirement; not listed on the Scopes docs
+    page.
+  sources:
+  - openapi/viagogo-sales.json
+coverage:
+  scopes_total: 17
+  documented_on_docs_page: 9
+  spec_only: 8

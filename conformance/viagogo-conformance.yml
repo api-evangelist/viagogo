@@ -1,0 +1,143 @@
+generated: '2026-08-05'
+method: derived
+source: openapi/*.json, https://developer.viagogo.net/docs/, well-known/viagogo-openid-configuration.json
+x-evidence:
+- url: https://account.viagogo.com/.well-known/openid-configuration
+  http_status: 200
+  fetched: '2026-08-05'
+- url: https://raw.githubusercontent.com/viagogo/viagogo-api-docs/main/docs/overview/media-type.md
+  http_status: 200
+  fetched: '2026-08-05'
+- url: https://developer.viagogo.net/blog/2018/06/30/tls-deprecation-notice
+  http_status: 200
+  fetched: '2026-08-05'
+notes: >-
+  Each entry records whether viagogo's published surface conforms, with the evidence
+  that decision rests on. A `false` here means "not published / not conformant on the
+  public surface", never "we did not look". viagogo publishes no compliance or
+  certification program page for its API (no SOC 2 / ISO 27001 / PCI attestation
+  page was found), so no Compliance pointer is claimed.
+conformance:
+- id: oauth2
+  conforms: true
+  evidence: All five OpenAPI definitions declare an `oauth2` securityScheme with
+    implicit, clientCredentials and authorizationCode flows against
+    https://account.viagogo.com/oauth2/token, and the docs state "The viagogo API
+    uses OAuth2 for all authentication."
+- id: rfc6749
+  conforms: true
+  evidence: The docs cite RFC 6749 directly for the client-credentials grant, the
+    authorization-code grant and the refresh-token grant (§6).
+- id: oauth2-authorization-server-metadata
+  conforms: true
+  evidence: https://account.viagogo.com/.well-known/oauth-authorization-server returns
+    200 with issuer, authorization_endpoint, token_endpoint and jwks_uri (RFC 8414).
+- id: oidc
+  conforms: partial
+  evidence: >-
+    https://account.viagogo.com/.well-known/openid-configuration returns a valid
+    OIDC discovery document advertising `openid` and `offline_access` scopes, RS256
+    id_token signing and the code/id_token response types. The viagogo API itself is
+    authorized with OAuth2 access tokens; OIDC identity is a property of the
+    account.viagogo.com authorization server, not of the API contract.
+- id: pkce
+  conforms: true
+  evidence: The authorization server advertises code_challenge_methods_supported
+    ["plain", "S256"] (RFC 7636).
+- id: private-key-jwt
+  conforms: true
+  evidence: token_endpoint_auth_methods_supported includes private_key_jwt alongside
+    client_secret_basic and client_secret_post.
+- id: par
+  conforms: false
+  evidence: require_pushed_authorization_requests is false and no pushed_authorization_request_endpoint
+    is advertised (RFC 9126).
+- id: mtls-bound-tokens
+  conforms: false
+  evidence: tls_client_certificate_bound_access_tokens is false (RFC 8705).
+- id: openapi
+  conforms: true
+  evidence: Five OpenAPI 3.0.0 definitions are published and served from the API host
+    root, covering 90 operations across 105 paths.
+- id: hal
+  conforms: true
+  evidence: "All viagogo API resources are represented using the application/hal+json
+    media type with _links and _embedded, per the HAL specification."
+- id: rfc9457
+  conforms: false
+  evidence: Errors use a proprietary {code, message, errors} envelope served as
+    application/hal+json, not application/problem+json. See errors/viagogo-problem-types.yml.
+- id: json:api
+  conforms: false
+  evidence: The API uses HAL, not JSON:API. It does borrow JSON:API-style sparse
+    fieldsets (`fields[TYPE]`) and comma-separated `sort` with a `-` descending
+    prefix, but the media type and document structure are HAL.
+- id: pagination
+  conforms: true
+  evidence: Page-number pagination with `page`/`page_size`, a documented default of
+    100 items, `total_items` in the envelope, and pre-built first/prev/next/last link
+    rels the client is directed to follow.
+- id: idempotency
+  conforms: false
+  evidence: No Idempotency-Key header parameter appears in any of the 90 operations
+    and no safe-retry semantics are documented. See conventions/viagogo-conventions.yml.
+- id: webhooks
+  conforms: true
+  evidence: A dedicated Webhooks API with subscription CRUD, a ping trigger and seven
+    documented topic payload schemas. See asyncapi/viagogo-webhooks.yml.
+- id: webhook-signatures
+  conforms: false
+  evidence: Delivery authentication is a subscriber-supplied static `authorization_header`
+    value; no HMAC signature header, timestamp or replay protection is published.
+- id: asyncapi
+  conforms: false
+  evidence: No AsyncAPI document published — /asyncapi.yaml and /asyncapi.json return
+    404 on both the docs host and the API host, and none exists in the viagogo GitHub
+    organization.
+- id: rfc8594
+  conforms: false
+  evidence: No Sunset or Deprecation response headers are declared in any spec and no
+    deprecation policy page is published; deprecations are announced on the developer
+    blog (last entry 2018).
+- id: rfc9116
+  conforms: false
+  evidence: /.well-known/security.txt returns 404 on viagogo.com, www.viagogo.com,
+    developer.viagogo.net, api.viagogo.net and sandbox.api.viagogo.net.
+- id: rfc9727
+  conforms: false
+  evidence: /.well-known/api-catalog returns 404 on every probed host.
+- id: cors
+  conforms: true
+  evidence: "We support cross-origin resource sharing to allow you to interact
+    securely with our API from a client-side web application."
+- id: tls
+  conforms: true
+  evidence: TLSv1.3 negotiated on www.viagogo.com, developer.viagogo.net and
+    api.viagogo.net. viagogo deprecated TLS v1.0 on the public API in 2018, citing
+    PCI Security Standards Council guidance.
+- id: hsts
+  conforms: partial
+  evidence: www.viagogo.com sends Strict-Transport-Security with max-age 31536000;
+    developer.viagogo.net does not, and none was observed on api.viagogo.net. See
+    security/viagogo-domain-security.yml.
+- id: dnssec
+  conforms: false
+  evidence: Neither viagogo.com nor viagogo.net is DNSSEC-signed.
+- id: dmarc
+  conforms: partial
+  evidence: Both viagogo.com and viagogo.net publish SPF and DMARC records, at
+    policy `quarantine` rather than `reject`.
+- id: pci-dss
+  conforms: unknown
+  evidence: >-
+    viagogo referenced PCI Security Standards Council guidance when deprecating TLS
+    1.0 and stated "we only support payments on the viagogo website application".
+    No PCI attestation or compliance page was found on the public surface, so no
+    compliance claim is recorded either way.
+summary:
+  conforms: 11
+  partial: 3
+  not_conformant: 11
+  unknown: 1
+  compliance_program_published: false
+  trust_center_published: false

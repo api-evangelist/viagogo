@@ -1,0 +1,102 @@
+generated: '2026-08-05'
+method: searched
+source: https://developer.viagogo.net/docs/overview/libraries
+docs: https://developer.viagogo.net/docs/overview/libraries
+x-evidence:
+- url: https://api.nuget.org/v3/registration5-semver1/gogokit/index.json
+  http_status: 200
+  fetched: '2026-08-05'
+- url: https://pypi.org/pypi/gogokit/json
+  http_status: 200
+  fetched: '2026-08-05'
+- url: https://rubygems.org/api/v1/gems/gogokit.json
+  http_status: 200
+  fetched: '2026-08-05'
+- url: https://packagist.org/search.json?q=gogokit
+  http_status: 200
+  fetched: '2026-08-05'
+notes: >-
+  GogoKit is viagogo's official client-library family, published from the viagogo
+  GitHub organization and named on the provider's own Libraries page. Registry
+  versions and last-push dates are recorded as found; several libraries have not
+  been updated in years and that is stated rather than smoothed over. gogokit.js
+  exists in the GitHub org but has no npm release and no code pushed since 2015,
+  so it is recorded as unreleased rather than as a shipping SDK.
+packages:
+- language: dotnet
+  name: GogoKit
+  official: true
+  registry: nuget
+  registry_url: https://www.nuget.org/packages/GogoKit
+  version: 4.1.0
+  repository: https://github.com/viagogo/gogokit.net
+  description: GogoKit is a lightweight, async viagogo API client library for .NET.
+  total_downloads: 383599
+  last_pushed: '2023-10-26'
+  listed_on_docs: true
+- language: python
+  name: gogokit
+  official: true
+  registry: pypi
+  registry_url: https://pypi.org/project/gogokit/
+  version: 0.2.0
+  repository: https://github.com/viagogo/gogokit.py
+  description: GogoKit is a lightweight, viagogo API client library for Python.
+  last_pushed: '2020-04-06'
+  listed_on_docs: true
+- language: ruby
+  name: gogokit
+  official: true
+  registry: rubygems
+  registry_url: https://rubygems.org/gems/gogokit
+  version: 0.5.0
+  repository: https://github.com/viagogo/gogokit.rb
+  description: Ruby toolkit for working with the viagogo API.
+  total_downloads: 15698
+  last_pushed: '2016-06-27'
+  listed_on_docs: true
+- language: php
+  name: viagogo/gogokit
+  official: true
+  registry: packagist
+  registry_url: https://packagist.org/packages/viagogo/gogokit
+  version: null
+  repository: https://github.com/viagogo/gogokit.php
+  description: A viagogo API client library for PHP.
+  total_downloads: 7121
+  last_pushed: '2020-09-23'
+  listed_on_docs: true
+- language: javascript
+  name: gogokit.js
+  official: true
+  registry: null
+  registry_url: null
+  version: null
+  repository: https://github.com/viagogo/gogokit.js
+  description: JavaScript client library in the viagogo GitHub organization.
+  status: unreleased
+  last_pushed: '2015-10-11'
+  listed_on_docs: false
+  note: No npm package published under the name `gogokit`; the registry lookup returned
+    no such package.
+supporting_libraries:
+- language: dotnet
+  name: HalKit
+  official: true
+  repository: https://github.com/viagogo/HalKit
+  registry_url: https://www.nuget.org/packages/HalKit
+  description: A lightweight .NET library for creating and consuming HAL hypermedia
+    APIs — the media-type layer GogoKit for .NET is built on.
+  last_pushed: '2022-12-08'
+coverage:
+  official_sdks: 4
+  languages:
+  - dotnet
+  - python
+  - ruby
+  - php
+  registries:
+  - nuget
+  - pypi
+  - rubygems
+  - packagist

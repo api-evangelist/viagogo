@@ -1,0 +1,194 @@
+generated: '2026-08-05'
+method: searched
+source: https://developer.viagogo.net/docs/overview/introduction
+docs: https://developer.viagogo.net/docs/overview/introduction
+derived_from:
+- openapi/viagogo-account.json
+- openapi/viagogo-catalog.json
+- openapi/viagogo-inventory.json
+- openapi/viagogo-sales.json
+- openapi/viagogo-webhooks.json
+x-evidence:
+- url: https://raw.githubusercontent.com/viagogo/viagogo-api-docs/main/docs/overview/media-type.md
+  http_status: 200
+  fetched: '2026-08-05'
+- url: https://raw.githubusercontent.com/viagogo/viagogo-api-docs/main/docs/overview/pagination.md
+  http_status: 200
+  fetched: '2026-08-05'
+- url: https://raw.githubusercontent.com/viagogo/viagogo-api-docs/main/docs/overview/sorting.md
+  http_status: 200
+  fetched: '2026-08-05'
+- url: https://raw.githubusercontent.com/viagogo/viagogo-api-docs/main/docs/overview/sparse-fieldsets.md
+  http_status: 200
+  fetched: '2026-08-05'
+- url: https://api.viagogo.net/v2/user
+  http_status: 401
+  fetched: '2026-08-05'
+  note: Live unauthenticated request; response headers inspected for tracing and rate-limit
+    signals.
+
+transport:
+  scheme: https-only
+  statement: All API access is over HTTPS, and accessed from the api.viagogo.net domain.
+  http_version_observed: HTTP/2
+  cors: true
+  cors_statement: We support cross-origin resource sharing to allow you to interact
+    securely with our API from a client-side web application.
+  user_agent_required: true
+  user_agent_note: A missing or invalid User-Agent header returns the `user_agent_required`
+    error (400).
+
+media_type:
+  request: application/json
+  response: application/hal+json
+  hypermedia: HAL (Hypertext Application Language)
+  spec: http://stateless.co/hal_specification.html
+  envelope_properties:
+  - _links — a JSON object containing a set of hyperlinks to other resources
+  - _embedded — a JSON object containing other resources embedded inside the current
+    resource
+  - the regular properties of the resource
+  docs: https://developer.viagogo.net/docs/overview/media-type
+
+authentication:
+  style: oauth2-bearer
+  header: 'Authorization: Bearer <access_token>'
+  detail: authentication/viagogo-authentication.yml
+  scopes: scopes/viagogo-scopes.yml
+
+pagination:
+  style: page-number
+  default_page_size: 100
+  params:
+  - name: page
+    in: query
+    type: integer
+    description: Which page of data to retrieve. 1-based; omitting it returns the
+      first page.
+  - name: page_size
+    in: query
+    type: integer
+    description: Custom page size on the API response.
+  response_fields:
+  - total_items
+  - page
+  - page_size
+  - _links
+  - _embedded
+  link_rels:
+  - first
+  - prev
+  - next
+  - last
+  guidance: API responses return pre-built pagination links with rels first, prev,
+    next and last, and client applications are encouraged to follow these links for
+    pagination.
+  docs: https://developer.viagogo.net/docs/overview/pagination
+
+sorting:
+  param: sort
+  style: comma-separated field list
+  descending_prefix: '-'
+  default_order: ascending
+  example: GET https://api.viagogo.net/inventory/sellerlistings?sort=event_date,-price
+  docs: https://developer.viagogo.net/docs/overview/sorting
+
+sparse_fieldsets:
+  param: fields
+  typed_param: fields[TYPE]
+  style: comma-separated field name list, per resource type
+  example: GET https://api.viagogo.net/v2/events/4695621?fields=id,name,_embedded&fields[venue]=city
+  docs: https://developer.viagogo.net/docs/overview/sparse-fieldsets
+
+incremental_sync:
+  supported: true
+  params:
+  - name: updated_since
+    type: date-time
+    description: Filters the response to only return items updated since the given
+      timestamp.
+  - name: min_resource_version
+    type: uint64
+    description: Lower bound on the monotonic resource_version cursor.
+  sort_key: resource_version
+  operations:
+  - Events_GetEvents
+  - SellerListings_GetSellerListingsRecentUpdates
+  - Sales_GetSalesRecentUpdates
+
+idempotency:
+  supported: false
+  idempotency_key_header: null
+  statement: >-
+    viagogo publishes no idempotency-key mechanism. No operation in any of the five
+    OpenAPI definitions declares an Idempotency-Key (or equivalent) header parameter,
+    and the documentation does not describe safe retry semantics for POST.
+  closest_mechanism:
+    field: external_id
+    scope: seller listings
+    operations:
+    - SellerListings_CreateListingForRequestedEvent
+    - SellerListings_CreateListing
+    - SellerListings_GetByExternalListingId
+    - SellerListings_PatchByExternalListingId
+    - SellerListings_DeleteListingByExternalListingId
+    docs: https://developer.viagogo.net/docs/guides/creating-a-listing
+    published_semantics: >-
+      "To prevent duplication of listings in our system due to race conditions, it
+      is recommended that you provide an external_id (the Id of the listing in your
+      system when creating a listing). If an attempt is made to create a listing
+      with an external_id that already exists for your user, then we will delete the
+      old listing and create the new one."
+    assessment: >-
+      This is a client-supplied correlation key for de-duplication, NOT idempotency.
+      Replaying the same request deletes the previous listing and creates a new one
+      with a new viagogo listing id, so the operation is not idempotent and a retry
+      is not a no-op. Recorded here so integrators are not misled into treating
+      external_id as a safe-retry token.
+
+request_tracing:
+  response_header: vgg-correlation-id
+  format: uuid
+  observed_on: 'https://api.viagogo.net/v2/user (401)'
+  method: probed
+  note: Returned on responses from the viagogo API edge; not documented on the
+    developer portal, so quote it to support when reporting an issue but do not rely
+    on it contractually.
+
+rate_limits:
+  documented: false
+  headers_observed: []
+  note: No rate-limit policy is published and no X-RateLimit-* or Retry-After headers
+    were observed on the probed response. Absence recorded, not assumed.
+
+versioning:
+  detail: lifecycle/viagogo-lifecycle.yml
+  style: path-prefix
+  current:
+  - /v2 — Account, Inventory, Sales, Webhooks (spec version 2.249.0.0)
+  - unversioned /catalog — Catalog (spec version 1.0.0.49)
+  spec_version_scheme: four-part numeric (major.minor.build.revision) in info.version
+
+errors:
+  detail: errors/viagogo-problem-types.yml
+  format: proprietary
+  rfc9457: false
+  content_type: application/hal+json
+  envelope:
+    code: machine-readable error code string
+    message: localized message that can be displayed to a user (may be null)
+    errors: object mapping property path to an array of localized validation messages
+  docs: https://developer.viagogo.net/docs/overview/error-responses
+
+localization:
+  docs: https://developer.viagogo.net/docs/overview/localization
+  response_header_observed: content-language
+  note: Error messages may be localized for display to a user.
+
+state_machines:
+- name: Sale states
+  docs: https://developer.viagogo.net/docs/overview/transaction-states
+  field: status
+  note: Sales move through documented states (UnderReview, ConfirmSale, UploadETickets,
+    TransferTDT, PrintShippingLabels, GetPaid, Complete, Cancelled and others); the
+    state dictates the seller action required.

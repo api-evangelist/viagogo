@@ -1,0 +1,680 @@
+generated: '2026-08-05'
+method: derived
+status: candidate
+source: openapi/viagogo-account.json, openapi/viagogo-catalog.json, openapi/viagogo-inventory.json, openapi/viagogo-sales.json, openapi/viagogo-webhooks.json
+published_by_provider: false
+x-evidence:
+- url: https://mcp.viagogo.com/
+  http_status: 000
+  fetched: '2026-08-05'
+- url: https://mcp.viagogo.net/
+  http_status: 000
+  fetched: '2026-08-05'
+- url: https://api.viagogo.net/mcp
+  http_status: 404
+  fetched: '2026-08-05'
+- url: https://developer.viagogo.net/mcp
+  http_status: 405
+  fetched: '2026-08-05'
+notes: >-
+  viagogo operates NO Model Context Protocol server. A tools/list POST was sent to
+  mcp.viagogo.com, mcp.viagogo.net, api.viagogo.net/mcp and developer.viagogo.net/mcp;
+  the first two do not resolve, the third 404s and the fourth returns 405 from the
+  static docs host. No first-party MCP package or repository exists in the viagogo
+  GitHub organization or on the public registries. The only viagogo-labelled MCP
+  surface found is a third-party Apify scraper of the viagogo UK website, which is
+  neither operated nor endorsed by viagogo and is marked deprecated.
+  
+  What follows is therefore a CANDIDATE tool design derived one-to-one from the
+  provider's own published OpenAPI operations — a proposal for viagogo, not a
+  description of anything callable today. No `type: MCPServer` pointer is wired into
+  apis.yml for this file, because that pointer asserts the provider runs a server and
+  viagogo does not.
+server:
+  name: viagogo
+  transport: null
+  url: null
+  status: not-published
+auth_model_if_built:
+  scheme: OAuth2 bearer, delegated from https://account.viagogo.com/oauth2/token
+  scopes: scopes/viagogo-scopes.yml
+  note: >-
+    Every candidate tool inherits the exact scope requirement of its backing operation.
+    Write tools (create/patch/delete listings, confirm or reject sales, upload e-tickets)
+    move real inventory and real money and would need explicit human escalation.
+candidate_tools:
+- name: addressess_get_user_addresses
+  description: "List addresses"
+  api: viagogo Account API
+  source_operation: openapi/viagogo-account.json#Addressess_GetUserAddresses
+  http: GET /addresses
+  consequence: read
+  scopes: [read:user]
+- name: addressess_post
+  description: "Create an address"
+  api: viagogo Account API
+  source_operation: openapi/viagogo-account.json#Addressess_Post
+  http: POST /addresses
+  consequence: write
+  scopes: [write:user]
+- name: addressess_get
+  description: "Get an address"
+  api: viagogo Account API
+  source_operation: openapi/viagogo-account.json#Addressess_Get
+  http: GET /addresses/{addressId}
+  consequence: read
+  scopes: [read:user]
+- name: addressess_patch
+  description: "Update an address"
+  api: viagogo Account API
+  source_operation: openapi/viagogo-account.json#Addressess_Patch
+  http: PATCH /addresses/{addressId}
+  consequence: write
+  scopes: [write:user]
+- name: addressess_delete
+  description: "Delete an address"
+  api: viagogo Account API
+  source_operation: openapi/viagogo-account.json#Addressess_Delete
+  http: DELETE /addresses/{addressId}
+  consequence: destructive
+  scopes: [write:user]
+- name: payment_methods_get_listing_payment_methods
+  description: "List payment methods for a listing"
+  api: viagogo Account API
+  source_operation: openapi/viagogo-account.json#PaymentMethods_GetListingPaymentMethods
+  http: PUT /listings/{listingId}/paymentmethods
+  consequence: write
+  scopes: [read:user]
+- name: user_get
+  description: "Get the authenticated user"
+  api: viagogo Account API
+  source_operation: openapi/viagogo-account.json#User_Get
+  http: GET /user
+  consequence: read
+  scopes: [read:user]
+- name: user_patch
+  description: "Update the authenticated user"
+  api: viagogo Account API
+  source_operation: openapi/viagogo-account.json#User_Patch
+  http: PATCH /user
+  consequence: write
+  scopes: [write:user]
+- name: categories_map_category
+  description: "Search categories"
+  api: viagogo Catalog API
+  source_operation: openapi/viagogo-catalog.json#Categories_MapCategory
+  http: GET /catalog/categories/map
+  consequence: read
+  scopes: [read:categories]
+- name: events_get_events
+  description: "List events"
+  api: viagogo Catalog API
+  source_operation: openapi/viagogo-catalog.json#Events_GetEvents
+  http: GET /catalog/events
+  consequence: read
+  scopes: [read:events]
+- name: events_get_events_by_event_ids
+  description: "List events by event ids."
+  api: viagogo Catalog API
+  source_operation: openapi/viagogo-catalog.json#Events_GetEventsByEventIds
+  http: PUT /catalog/events
+  consequence: write
+  scopes: [read:events]
+- name: events_get_events_by_category_id
+  description: "List events by category id."
+  api: viagogo Catalog API
+  source_operation: openapi/viagogo-catalog.json#Events_GetEventsByCategoryId
+  http: GET /catalog/categories/{categoryId}/events
+  consequence: read
+  scopes: [read:events]
+- name: events_get_event_by_external_event_id
+  description: "Get an event on the viagogo platform using an identifier from an external platform."
+  api: viagogo Catalog API
+  source_operation: openapi/viagogo-catalog.json#Events_GetEventByExternalEventId
+  http: GET /catalog/events/external_mappings/{platform}/{externalEventId}
+  consequence: read
+  scopes: [read:events]
+- name: events_get_event
+  description: "Get an event"
+  api: viagogo Catalog API
+  source_operation: openapi/viagogo-catalog.json#Events_GetEvent
+  http: GET /catalog/events/{eventId}
+  consequence: read
+  scopes: [read:events]
+- name: events_search_events
+  description: "Search events"
+  api: viagogo Catalog API
+  source_operation: openapi/viagogo-catalog.json#Events_SearchEvents
+  http: GET /catalog/events/search
+  consequence: read
+  scopes: [read:events]
+- name: events_get_all_events_by_category_id
+  description: "Get all events under a CategoryId"
+  api: viagogo Catalog API
+  source_operation: openapi/viagogo-catalog.json#Events_GetAllEventsByCategoryId
+  http: GET /catalog/categories/{categoryId}/allevents
+  consequence: read
+  scopes: [read:events]
+- name: events_map_event
+  description: "Map request to StubHub Event, Venue and Category"
+  api: viagogo Catalog API
+  source_operation: openapi/viagogo-catalog.json#Events_MapEvent
+  http: POST /catalog/mapevent
+  consequence: write
+  scopes: [read:events]
+- name: listing_offers_create_offer
+  description: "Create a new instant liquidity offer (buyer bid) for a specific event."
+  api: viagogo Catalog API
+  source_operation: openapi/viagogo-catalog.json#ListingOffers_CreateOffer
+  http: POST /catalog/listingoffers
+  consequence: write
+  scopes: [manage:listingoffers]
+- name: listing_offers_list_offers
+  description: "List caller's live offers (Active + Paused) for a specific event."
+  api: viagogo Catalog API
+  source_operation: openapi/viagogo-catalog.json#ListingOffers_ListOffers
+  http: GET /catalog/listingoffers/event/{eventId}
+  consequence: read
+  scopes: [manage:listingoffers]
+- name: listing_offers_get_all_offers
+  description: "All offers (non-deleted) for a specific event \u2014 active, paused, fulfilled and expired."
+  api: viagogo Catalog API
+  source_operation: openapi/viagogo-catalog.json#ListingOffers_GetAllOffers
+  http: GET /catalog/listingoffers/event/{eventId}/all
+  consequence: read
+  scopes: [manage:listingoffers]
+- name: listing_offers_get_offer
+  description: "Get a single offer by ID."
+  api: viagogo Catalog API
+  source_operation: openapi/viagogo-catalog.json#ListingOffers_GetOffer
+  http: GET /catalog/listingoffers/{id}
+  consequence: read
+  scopes: [manage:listingoffers]
+- name: listing_offers_delete_offer
+  description: "Soft-delete an offer."
+  api: viagogo Catalog API
+  source_operation: openapi/viagogo-catalog.json#ListingOffers_DeleteOffer
+  http: DELETE /catalog/listingoffers/{id}
+  consequence: destructive
+  scopes: [manage:listingoffers]
+- name: listing_offers_update_offer
+  description: "Update mutable fields on an Active or Paused offer."
+  api: viagogo Catalog API
+  source_operation: openapi/viagogo-catalog.json#ListingOffers_UpdateOffer
+  http: PATCH /catalog/listingoffers/{id}
+  consequence: write
+  scopes: [manage:listingoffers]
+- name: listing_offers_set_offer_state
+  description: "Transition offer state: Active (1) to resume, Paused (4) to pause."
+  api: viagogo Catalog API
+  source_operation: openapi/viagogo-catalog.json#ListingOffers_SetOfferState
+  http: PATCH /catalog/listingoffers/{id}/state
+  consequence: write
+  scopes: [manage:listingoffers]
+- name: listing_offers_get_bidder_balance
+  description: "Get the caller's outstanding bidder balance \u2014 total redeemable coupon value"
+  api: viagogo Catalog API
+  source_operation: openapi/viagogo-catalog.json#ListingOffers_GetBidderBalance
+  http: GET /catalog/listingoffers/bidderbalance
+  consequence: read
+  scopes: [manage:listingoffers]
+- name: venue_configurations_get_venue_configuration
+  description: "Get a venue configuration"
+  api: viagogo Catalog API
+  source_operation: openapi/viagogo-catalog.json#VenueConfigurations_GetVenueConfiguration
+  http: GET /catalog/venues/configurations/{configId}
+  consequence: read
+  scopes: [read:venue_configurations]
+- name: venues_get_venues
+  description: "List venues"
+  api: viagogo Catalog API
+  source_operation: openapi/viagogo-catalog.json#Venues_GetVenues
+  http: GET /catalog/venues
+  consequence: read
+  scopes: [read:venues]
+- name: venues_get_venue
+  description: "Get a venue"
+  api: viagogo Catalog API
+  source_operation: openapi/viagogo-catalog.json#Venues_GetVenue
+  http: GET /catalog/venues/{venueId}
+  consequence: read
+  scopes: [read:venues]
+- name: seller_listings_patch
+  description: "Update a seller listing"
+  api: viagogo Inventory API
+  source_operation: openapi/viagogo-inventory.json#SellerListings_Patch
+  http: PATCH /sellerlistings/{listingId}
+  consequence: write
+  scopes: [write:sellerlistings]
+- name: seller_listings_get
+  description: "Get a seller listing"
+  api: viagogo Inventory API
+  source_operation: openapi/viagogo-inventory.json#SellerListings_Get
+  http: GET /sellerlistings/{listingId}
+  consequence: read
+  scopes: [read:sellerlistings]
+- name: seller_listings_delete_listing
+  description: "Delete a seller listing"
+  api: viagogo Inventory API
+  source_operation: openapi/viagogo-inventory.json#SellerListings_DeleteListing
+  http: DELETE /sellerlistings/{listingId}
+  consequence: destructive
+  scopes: [write:sellerlistings]
+- name: seller_listings_get_seller_listings_recent_updates
+  description: "List seller listings (recent updates)"
+  api: viagogo Inventory API
+  source_operation: openapi/viagogo-inventory.json#SellerListings_GetSellerListingsRecentUpdates
+  http: GET /sellerlistings/recentupdates
+  consequence: read
+  scopes: [read:sellerlistings]
+- name: seller_listings_get_seller_listings
+  description: "List seller listings"
+  api: viagogo Inventory API
+  source_operation: openapi/viagogo-inventory.json#SellerListings_GetSellerListings
+  http: GET /sellerlistings
+  consequence: read
+  scopes: [read:sellerlistings]
+- name: seller_listings_create_listing_for_requested_event
+  description: "Create a seller listing for a requested event"
+  api: viagogo Inventory API
+  source_operation: openapi/viagogo-inventory.json#SellerListings_CreateListingForRequestedEvent
+  http: POST /sellerlistings
+  consequence: write
+  scopes: [write:requestedevents, write:sellerlistings]
+- name: seller_listings_create_listing_preview
+  description: "Preview a seller listing"
+  api: viagogo Inventory API
+  source_operation: openapi/viagogo-inventory.json#SellerListings_CreateListingPreview
+  http: POST /events/{eventId}/sellerlistingpreview
+  consequence: write
+  scopes: [write:sellerlistings]
+- name: seller_listings_update_listing_preview
+  description: "Preview a seller listing update"
+  api: viagogo Inventory API
+  source_operation: openapi/viagogo-inventory.json#SellerListings_UpdateListingPreview
+  http: POST /sellerlistings/{listingId}/updatepreview
+  consequence: write
+  scopes: [write:sellerlistings]
+- name: seller_listings_create_listing_preview_for_requested_event
+  description: "Preview a seller listing for a requested event"
+  api: viagogo Inventory API
+  source_operation: openapi/viagogo-inventory.json#SellerListings_CreateListingPreviewForRequestedEvent
+  http: POST /sellerlistingpreview
+  consequence: write
+  scopes: [write:requestedevents, write:sellerlistings]
+- name: seller_listings_create_listing
+  description: "Create a seller listing"
+  api: viagogo Inventory API
+  source_operation: openapi/viagogo-inventory.json#SellerListings_CreateListing
+  http: POST /events/{eventId}/sellerlistings
+  consequence: write
+  scopes: [write:sellerlistings]
+- name: seller_listings_get_by_external_listing_id
+  description: "Get a seller listing by external ID"
+  api: viagogo Inventory API
+  source_operation: openapi/viagogo-inventory.json#SellerListings_GetByExternalListingId
+  http: GET /externalsellerlistings/{externallistingId}
+  consequence: read
+  scopes: [read:sellerlistings]
+- name: seller_listings_patch_by_external_listing_id
+  description: "Update a seller listing by external ID"
+  api: viagogo Inventory API
+  source_operation: openapi/viagogo-inventory.json#SellerListings_PatchByExternalListingId
+  http: PATCH /externalsellerlistings/{externalId}
+  consequence: write
+  scopes: [write:sellerlistings]
+- name: seller_listings_delete_listing_by_external_listing_id
+  description: "Delete a seller listing by external ID"
+  api: viagogo Inventory API
+  source_operation: openapi/viagogo-inventory.json#SellerListings_DeleteListingByExternalListingId
+  http: DELETE /externalsellerlistings/{externalId}
+  consequence: destructive
+  scopes: [write:sellerlistings]
+- name: listing_constraints_get_event_listing_constraints
+  description: "List listing constraints for an event"
+  api: viagogo Inventory API
+  source_operation: openapi/viagogo-inventory.json#ListingConstraints_GetEventListingConstraints
+  http: GET /events/{eventId}/listingconstraints
+  consequence: read
+  scopes: []
+- name: listing_constraints_get_listing_constraints
+  description: "Get listing constraints for a seller listing"
+  api: viagogo Inventory API
+  source_operation: openapi/viagogo-inventory.json#ListingConstraints_GetListingConstraints
+  http: GET /sellerlistings/{listingId}/constraints
+  consequence: read
+  scopes: [write:sellerlistings]
+- name: listing_constraints_put_requested_event_listing_constraints
+  description: "Get listing constraints for a requested event"
+  api: viagogo Inventory API
+  source_operation: openapi/viagogo-inventory.json#ListingConstraints_PutRequestedEventListingConstraints
+  http: PUT /listingconstraints
+  consequence: write
+  scopes: [write:requestedevents, write:sellerlistings]
+- name: seller_events_get_seller_events
+  description: "List seller events"
+  api: viagogo Inventory API
+  source_operation: openapi/viagogo-inventory.json#SellerEvents_GetSellerEvents
+  http: GET /sellerevents
+  consequence: read
+  scopes: [read:sellerlistings]
+- name: seller_events_put_seller_requested_event
+  description: "Create a seller event"
+  api: viagogo Inventory API
+  source_operation: openapi/viagogo-inventory.json#SellerEvents_PutSellerRequestedEvent
+  http: PUT /sellerevents
+  consequence: write
+  scopes: [write:requestedevents]
+- name: seller_events_get_seller_event
+  description: "Get a seller event"
+  api: viagogo Inventory API
+  source_operation: openapi/viagogo-inventory.json#SellerEvents_GetSellerEvent
+  http: GET /sellerevents/{eventIdOrRequestedEventId}
+  consequence: read
+  scopes: [read:sellerlistings]
+- name: shipments_get_listing_shipping_label
+  description: "Get a shipping label for a seller listing"
+  api: viagogo Inventory API
+  source_operation: openapi/viagogo-inventory.json#Shipments_GetListingShippingLabel
+  http: GET /sellerlistings/{listingId}/shipments/{shipmentId}/label
+  consequence: read
+  scopes: [read:sellerlistings, read:user]
+- name: shipments_get_listing_shipments
+  description: "List shipments for a seller listing"
+  api: viagogo Inventory API
+  source_operation: openapi/viagogo-inventory.json#Shipments_GetListingShipments
+  http: GET /sellerlistings/{listingId}/shipments
+  consequence: read
+  scopes: [read:sellerlistings, read:user]
+- name: shipments_put_or_get_listing_shipment_label
+  description: "Print a shipping label for a seller listing"
+  api: viagogo Inventory API
+  source_operation: openapi/viagogo-inventory.json#Shipments_PutOrGetListingShipmentLabel
+  http: PUT /sellerlistings/{listingId}/shipments
+  consequence: write
+  scopes: [write:sellerlistings, write:user]
+- name: shipments_patch_listing_shipment
+  description: "Update a shipment for a seller listing"
+  api: viagogo Inventory API
+  source_operation: openapi/viagogo-inventory.json#Shipments_PatchListingShipment
+  http: PATCH /sellerlistings/{listingId}/shipments/{shipmentId}
+  consequence: write
+  scopes: [write:sellerlistings, write:user]
+- name: e_ticket_upload_listing_e_ticket
+  description: "Upload e-tickets for a seller listing"
+  api: viagogo Inventory API
+  source_operation: openapi/viagogo-inventory.json#ETicket_UploadListingETicket
+  http: POST /sellerlistings/{listingId}/eticketuploads
+  consequence: write
+  scopes: [write:sellerlistings]
+- name: e_ticket_get_listing_e_ticket_uploads
+  description: "List e-ticket uploads for a seller listing"
+  api: viagogo Inventory API
+  source_operation: openapi/viagogo-inventory.json#ETicket_GetListingETicketUploads
+  http: GET /sellerlistings/{listingId}/eticketuploads
+  consequence: read
+  scopes: [read:sellerlistings]
+- name: e_ticket_upload_event_e_ticket
+  description: "Upload e-tickets for an event"
+  api: viagogo Inventory API
+  source_operation: openapi/viagogo-inventory.json#ETicket_UploadEventETicket
+  http: POST /events/{eventId}/eticketuploads
+  consequence: write
+  scopes: [write:user]
+- name: e_ticket_get_event_e_ticket_uploads
+  description: "List e-ticket uploads for an event"
+  api: viagogo Inventory API
+  source_operation: openapi/viagogo-inventory.json#ETicket_GetEventETicketUploads
+  http: GET /events/{eventId}/eticketuploads
+  consequence: read
+  scopes: [read:user]
+- name: e_ticket_get_listing_e_tickets
+  description: "List e-tickets for a seller listing"
+  api: viagogo Inventory API
+  source_operation: openapi/viagogo-inventory.json#ETicket_GetListingETickets
+  http: GET /sellerlistings/{listingId}/etickets
+  consequence: read
+  scopes: [read:sellerlistings]
+- name: e_ticket_mark_back_e_tickets
+  description: "Mark-back e-tickets from a seller listing"
+  api: viagogo Inventory API
+  source_operation: openapi/viagogo-inventory.json#ETicket_MarkBackETickets
+  http: PATCH /sellerlistings/{listingId}/etickets
+  consequence: write
+  scopes: [write:sellerlistings]
+- name: e_ticket_post_listing_e_tickets
+  description: "Upload and save e-tickets for a seller listing"
+  api: viagogo Inventory API
+  source_operation: openapi/viagogo-inventory.json#ETicket_PostListingETickets
+  http: POST /sellerlistings/{listingId}/etickets
+  consequence: write
+  scopes: [write:sellerlistings]
+- name: e_ticket_delete_listing_e_ticket
+  description: "Delete e-ticket from a seller listing"
+  api: viagogo Inventory API
+  source_operation: openapi/viagogo-inventory.json#ETicket_DeleteListingETicket
+  http: DELETE /sellerlistings/{listingId}/etickets/{ETicketId}
+  consequence: destructive
+  scopes: [write:sellerlistings]
+- name: e_ticket_delete_event_e_ticket
+  description: "Delete e-ticket from an event"
+  api: viagogo Inventory API
+  source_operation: openapi/viagogo-inventory.json#ETicket_DeleteEventETicket
+  http: DELETE /events/{eventId}/etickets/{eticketId}
+  consequence: destructive
+  scopes: [write:user]
+- name: e_ticket_document_get_marked_back_e_ticket_document
+  description: "Get marked back e-ticket file for seller listing"
+  api: viagogo Inventory API
+  source_operation: openapi/viagogo-inventory.json#ETicketDocument_GetMarkedBackETicketDocument
+  http: GET /sellerlistings/{listingId}/markedbacketickets/{markedBackETicketId}/document
+  consequence: read
+  scopes: [read:sellerlistings]
+- name: shipments_get_sale_shipping_label
+  description: "Get shipping label for a sale"
+  api: viagogo Sales API
+  source_operation: openapi/viagogo-sales.json#Shipments_GetSaleShippingLabel
+  http: GET /sales/{saleId}/shipments/{shipmentId}/label
+  consequence: read
+  scopes: [read:sales, read:user]
+- name: shipments_get_sale_shipments
+  description: "List shipments for a sale"
+  api: viagogo Sales API
+  source_operation: openapi/viagogo-sales.json#Shipments_GetSaleShipments
+  http: GET /sales/{saleId}/shipments
+  consequence: read
+  scopes: [read:sales, read:user]
+- name: shipments_put_or_get_sale_shipment_label
+  description: "Print a shipping label for a sale"
+  api: viagogo Sales API
+  source_operation: openapi/viagogo-sales.json#Shipments_PutOrGetSaleShipmentLabel
+  http: PUT /sales/{saleId}/shipments
+  consequence: write
+  scopes: [write:sales, write:user]
+- name: shipments_patch_sale_shipment
+  description: "Update a shipment for a sale"
+  api: viagogo Sales API
+  source_operation: openapi/viagogo-sales.json#Shipments_PatchSaleShipment
+  http: PATCH /sales/{saleId}/shipments/{shipmentId}
+  consequence: write
+  scopes: [write:sales, write:user]
+- name: e_ticket_upload_sale_e_ticket
+  description: "Upload e-tickets or proof of transfer for a sale"
+  api: viagogo Sales API
+  source_operation: openapi/viagogo-sales.json#ETicket_UploadSaleETicket
+  http: POST /sales/{saleId}/eticketuploads
+  consequence: write
+  scopes: [write:sales, write:user]
+- name: e_ticket_get_sale_e_ticket_uploads
+  description: "List e-ticket uploads for a sale"
+  api: viagogo Sales API
+  source_operation: openapi/viagogo-sales.json#ETicket_GetSaleETicketUploads
+  http: GET /sales/{saleId}/eticketuploads
+  consequence: read
+  scopes: [read:sales, read:user]
+- name: e_ticket_upload_sale_transfer
+  description: "Upload e-ticket transfer for a sale"
+  api: viagogo Sales API
+  source_operation: openapi/viagogo-sales.json#ETicket_UploadSaleTransfer
+  http: POST /sales/{saleId}/transferuploads/{transferType}
+  consequence: write
+  scopes: [write:sales, write:user]
+- name: e_ticket_get_sale_e_tickets
+  description: "List e-tickets for a sale"
+  api: viagogo Sales API
+  source_operation: openapi/viagogo-sales.json#ETicket_GetSaleETickets
+  http: GET /sales/{saleId}/etickets
+  consequence: read
+  scopes: [read:sales, read:user]
+- name: e_ticket_post_sale_e_tickets
+  description: "Upload and save e-tickets for a sale"
+  api: viagogo Sales API
+  source_operation: openapi/viagogo-sales.json#ETicket_PostSaleETickets
+  http: POST /sales/{saleId}/etickets
+  consequence: write
+  scopes: [write:sales, write:user]
+- name: e_ticket_delete_sale_e_ticket
+  description: "Delete e-ticket from a sale"
+  api: viagogo Sales API
+  source_operation: openapi/viagogo-sales.json#ETicket_DeleteSaleETicket
+  http: DELETE /sales/{saleId}/etickets/{eticketId}
+  consequence: destructive
+  scopes: [write:sales, write:user]
+- name: sales_get_sales_recent_updates
+  description: "List sales (recent updates)"
+  api: viagogo Sales API
+  source_operation: openapi/viagogo-sales.json#Sales_GetSalesRecentUpdates
+  http: GET /sales/recentupdates
+  consequence: read
+  scopes: [read:sales, read:user]
+- name: sales_get_sales
+  description: "List sales"
+  api: viagogo Sales API
+  source_operation: openapi/viagogo-sales.json#Sales_GetSales
+  http: GET /sales
+  consequence: read
+  scopes: [read:sales, read:user]
+- name: sales_get
+  description: "Get a sale"
+  api: viagogo Sales API
+  source_operation: openapi/viagogo-sales.json#Sales_Get
+  http: GET /sales/{saleId}
+  consequence: read
+  scopes: [read:sales, read:user]
+- name: sales_patch
+  description: "Update a sale"
+  api: viagogo Sales API
+  source_operation: openapi/viagogo-sales.json#Sales_Patch
+  http: PATCH /sales/{saleId}
+  consequence: write
+  scopes: [write:sales, write:user]
+- name: sales_delete
+  description: "Reject a sale"
+  api: viagogo Sales API
+  source_operation: openapi/viagogo-sales.json#Sales_Delete
+  http: DELETE /sales/{saleId}
+  consequence: destructive
+  scopes: [write:sales, write:user]
+- name: payments_get_payments
+  description: "List payments"
+  api: viagogo Sales API
+  source_operation: openapi/viagogo-sales.json#Payments_GetPayments
+  http: GET /payments
+  consequence: read
+  scopes: [read:payment, read:user]
+- name: payments_get
+  description: "Get a payment"
+  api: viagogo Sales API
+  source_operation: openapi/viagogo-sales.json#Payments_Get
+  http: GET /payments/{paymentId}
+  consequence: read
+  scopes: [read:payment, read:user]
+- name: payments_get_next_payment
+  description: "Preview next payment"
+  api: viagogo Sales API
+  source_operation: openapi/viagogo-sales.json#Payments_GetNextPayment
+  http: GET /payments/next
+  consequence: read
+  scopes: [read:payment, read:user]
+- name: e_ticket_document_get_e_ticket_thumbnail
+  description: "Get e-ticket thumbnail file"
+  api: viagogo Sales API
+  source_operation: openapi/viagogo-sales.json#ETicketDocument_GetETicketThumbnail
+  http: GET /etickets/{eticketId}/thumbnail
+  consequence: read
+  scopes: [read:user]
+- name: e_ticket_document_get_e_ticket_upload_document
+  description: "Get e-ticket upload file"
+  api: viagogo Sales API
+  source_operation: openapi/viagogo-sales.json#ETicketDocument_GetETicketUploadDocument
+  http: GET /eticketuploads/{eticketUploadId}/document
+  consequence: read
+  scopes: [read:user]
+- name: e_ticket_document_get_e_ticket_document
+  description: "Get e-ticket file"
+  api: viagogo Sales API
+  source_operation: openapi/viagogo-sales.json#ETicketDocument_GetETicketDocument
+  http: GET /etickets/{eticketId}/document
+  consequence: read
+  scopes: [read:user]
+- name: ticket_holders_get_sale_ticket_holder_details
+  description: "List ticket holder details for a sale"
+  api: viagogo Sales API
+  source_operation: openapi/viagogo-sales.json#TicketHolders_GetSaleTicketHolderDetails
+  http: GET /sales/{saleId}/ticketholders
+  consequence: read
+  scopes: [read:sales, read:user]
+- name: sales_upload_transfer_status_proof
+  description: "Upload transfer status proof for a sale"
+  api: viagogo Sales API
+  source_operation: openapi/viagogo-sales.json#Sales_UploadTransferStatusProof
+  http: POST /sales/{saleId}/transferstatusproof
+  consequence: write
+  scopes: [write:sales, write:user]
+- name: webhooks_get
+  description: "List webhooks"
+  api: viagogo Webhooks API
+  source_operation: openapi/viagogo-webhooks.json#Webhooks_Get
+  http: GET /webhooks
+  consequence: read
+  scopes: [read:webhooks]
+- name: webhooks_post
+  description: "Create a webhook"
+  api: viagogo Webhooks API
+  source_operation: openapi/viagogo-webhooks.json#Webhooks_Post
+  http: POST /webhooks
+  consequence: write
+  scopes: [write:webhooks]
+- name: webhooks_get2
+  description: "Get a webhook"
+  api: viagogo Webhooks API
+  source_operation: openapi/viagogo-webhooks.json#Webhooks_Get2
+  http: GET /webhooks/{webhookId}
+  consequence: read
+  scopes: [read:webhooks]
+- name: webhooks_patch
+  description: "Update a webhook"
+  api: viagogo Webhooks API
+  source_operation: openapi/viagogo-webhooks.json#Webhooks_Patch
+  http: PATCH /webhooks/{webhookId}
+  consequence: write
+  scopes: [write:webhooks]
+- name: webhooks_delete
+  description: "Delete a webhook"
+  api: viagogo Webhooks API
+  source_operation: openapi/viagogo-webhooks.json#Webhooks_Delete
+  http: DELETE /webhooks/{webhookId}
+  consequence: destructive
+  scopes: [write:webhooks]
+- name: webhooks_ping_webhook
+  description: "Ping a webhook"
+  api: viagogo Webhooks API
+  source_operation: openapi/viagogo-webhooks.json#Webhooks_PingWebhook
+  http: POST /webhooks/{webhookId}/ping
+  consequence: write
+  scopes: [write:webhooks]
+coverage:
+  candidate_tools: 90
+  read_only_tools: 47
+  mutating_tools: 43
+  source_specs: 5

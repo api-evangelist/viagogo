@@ -1,0 +1,107 @@
+generated: '2026-08-05'
+method: searched
+source: https://developer.viagogo.net/blog
+derived_from:
+- openapi/viagogo-account.json
+- openapi/viagogo-catalog.json
+- openapi/viagogo-inventory.json
+- openapi/viagogo-sales.json
+- openapi/viagogo-webhooks.json
+x-evidence:
+- url: https://developer.viagogo.net/blog/rss.xml
+  http_status: 200
+  fetched: '2026-08-05'
+- url: https://developer.viagogo.net/blog/2018/06/30/tls-deprecation-notice
+  http_status: 200
+  fetched: '2026-08-05'
+- url: https://status.viagogo.com/
+  http_status: 000
+  fetched: '2026-08-05'
+  note: DNS/connection failure — no status host at that name.
+- url: https://api.viagogo.net/v2/openapi/sales.json
+  http_status: 200
+  fetched: '2026-08-05'
+notes: >-
+  viagogo runs a real but sparse lifecycle surface. Version numbers are carried in
+  each OpenAPI `info.version` and the definitions are re-synced from the API host
+  nightly, so version drift is publicly observable. Deprecation is communicated
+  through the developer-portal Announcements blog, which has a `breaking-change`
+  and a `deprecation` tag — but only one dated entry, from 2018. No status page, no
+  SLA and no Sunset/Deprecation header policy (RFC 8594) were found; those absences
+  are recorded rather than assumed.
+
+versioning:
+  scheme: path-prefix + four-part spec version
+  path_versions:
+  - prefix: /v2
+    apis:
+    - viagogo Account API
+    - viagogo Inventory API
+    - viagogo Sales API
+    - viagogo Webhooks API
+    spec_version: 2.249.0.0
+  - prefix: (unversioned)
+    apis:
+    - viagogo Catalog API
+    spec_version: 1.0.0.49
+  spec_version_field: info.version
+  version_negotiation: none published (no version header, no query parameter)
+  policy_page: null
+
+spec_publication:
+  machine_readable: true
+  canonical_locations:
+  - https://api.viagogo.net/v2/openapi/account.json
+  - https://api.viagogo.net/catalog/openapi/openapi.json
+  - https://api.viagogo.net/v2/openapi/inventory.json
+  - https://api.viagogo.net/v2/openapi/sales.json
+  - https://api.viagogo.net/v2/openapi/webhooks.json
+  mirror: https://github.com/viagogo/viagogo-api-docs/tree/main/static/openapi
+  sync: >-
+    A scheduled GitHub Action (.github/workflows/sync-openapi-definitions.yml, cron
+    "0 0 * * *") pulls each definition from the API host nightly and opens a pull
+    request when it changes. The docs mirror can therefore lag the API host by up to
+    a day — as of this probe the mirrored Catalog spec was 1.0.0.40 / 10 paths while
+    the API host served 1.0.0.49 / 17 paths.
+
+deprecation:
+  policy_published: false
+  policy_url: null
+  announcement_channel: https://developer.viagogo.net/blog
+  announcement_tags:
+  - https://developer.viagogo.net/blog/tags/deprecation
+  - https://developer.viagogo.net/blog/tags/breaking-change
+  - https://developer.viagogo.net/blog/tags/tls
+  sunset_header: false
+  deprecation_header: false
+  rfc8594: false
+  notice_period_published: false
+  precedent:
+  - title: TLS v1.0 Deprecation Notice
+    date: '2018-06-30'
+    url: https://developer.viagogo.net/blog/2018/06/30/tls-deprecation-notice
+    breaking: true
+    summary: viagogo announced disabling TLS v1.0 on the public API, flagged as a
+      possible breaking change for clients that do not support TLS v1.1+, citing PCI
+      Security Standards Council guidance. Advance notice was given so partners could
+      prepare.
+  deprecated_operations_in_spec: 0
+  note: 'No operation in any of the five OpenAPI definitions carries `deprecated: true`.'
+
+status_page:
+  published: false
+  url: null
+  probed:
+  - url: https://status.viagogo.com/
+    status: 000
+  note: No status or uptime page was found for the viagogo API on any probed host.
+
+sla:
+  published: false
+  url: null
+
+support:
+  channel: https://support.viagogo.com/
+  developer_issues: https://github.com/viagogo/viagogo-api-docs/issues
+  note: The docs site is open source; issues and documentation pull requests are
+    accepted on the public repository.

@@ -1,0 +1,90 @@
+generated: '2026-08-05'
+method: searched
+source: https://developer.viagogo.net/docs/overview/sandbox-environment
+docs: https://developer.viagogo.net/docs/overview/sandbox-environment
+x-evidence:
+- url: https://raw.githubusercontent.com/viagogo/viagogo-api-docs/main/docs/overview/sandbox-environment.md
+  http_status: 200
+  fetched: '2026-08-05'
+- url: https://sandbox.account.viagogo.com/.well-known/openid-configuration
+  http_status: 200
+  fetched: '2026-08-05'
+notes: >-
+  viagogo publishes a full parallel sandbox: a separate API host, a separate OAuth2
+  authorization server, and separate credentials. Every one of the five OpenAPI
+  definitions declares the sandbox host as its second `servers[]` entry, so the
+  sandbox is machine-readable and not merely a docs claim. viagogo publishes no test
+  card numbers, magic identifiers, fixture triggers or time simulation — nothing is
+  invented here to fill that gap.
+model: separate-environment
+environments:
+- name: production
+  api_base_url: https://api.viagogo.net
+  api_base_url_v2: https://api.viagogo.net/v2
+  token_endpoint: https://account.viagogo.com/oauth2/token
+  authorization_endpoint: https://account.viagogo.com/authorize
+  credentials: production Client ID / Client Secret
+- name: sandbox
+  api_base_url: https://sandbox.api.viagogo.net
+  api_base_url_v2: https://sandbox.api.viagogo.net/v2
+  token_endpoint: https://sandbox.account.viagogo.com/oauth2/token
+  authorization_endpoint: https://sandbox.account.viagogo.com/authorize
+  credentials: sandbox Client ID / Client Secret
+  statement: "You can use our sandbox environment for testing purposes, before moving
+    to the production. Use your sandbox credentials to make calls to the sandbox
+    environment."
+declared_in_specs:
+  openapi/viagogo-account.json:
+  - https://api.viagogo.net/v2
+  - https://sandbox.api.viagogo.net/v2
+  openapi/viagogo-catalog.json:
+  - https://api.viagogo.net
+  - https://sandbox.api.viagogo.net
+  openapi/viagogo-inventory.json:
+  - https://api.viagogo.net/v2
+  - https://sandbox.api.viagogo.net/v2
+  openapi/viagogo-sales.json:
+  - https://api.viagogo.net/v2
+  - https://sandbox.api.viagogo.net/v2
+  openapi/viagogo-webhooks.json:
+  - https://api.viagogo.net/v2
+  - https://sandbox.api.viagogo.net/v2
+sdk_support:
+- language: dotnet
+  mechanism: "GogoKitConfiguration { ViagogoApiEnvironment = ApiEnvironment.Sandbox
+    }"
+  source: https://developer.viagogo.net/docs/guides/creating-a-listing
+key_prefixes: []
+test_values: []
+test_clocks: false
+fixture_triggers:
+- name: Ping a webhook
+  operationId: Webhooks_PingWebhook
+  method: POST
+  path: /webhooks/{webhookId}/ping
+  spec: openapi/viagogo-webhooks.json
+  description: Triggers a PingTopic delivery to the configured webhook url, so a
+    subscriber can verify its receiver end to end without waiting for a real sale.
+- name: Preview a seller listing
+  operationId: SellerListings_CreateListingPreview
+  method: POST
+  path: /events/{eventId}/sellerlistingpreview
+  spec: openapi/viagogo-inventory.json
+  description: Dry-run a listing create and see the resulting pricing/proceeds before
+    committing.
+- name: Preview a seller listing update
+  operationId: SellerListings_UpdateListingPreview
+  method: POST
+  path: /sellerlistings/{listingId}/updatepreview
+  spec: openapi/viagogo-inventory.json
+  description: Dry-run a listing update.
+- name: Preview next payment
+  operationId: Payments_GetNextPayment
+  method: GET
+  path: /payments/next
+  spec: openapi/viagogo-sales.json
+  description: Read the projected next seller payment without side effects.
+gaps:
+- No published test card numbers, test bank accounts or magic test identifiers.
+- No self-service sandbox signup; sandbox credentials are issued by viagogo alongside
+  production credentials.

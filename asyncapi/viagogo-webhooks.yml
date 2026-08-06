@@ -1,0 +1,207 @@
+generated: '2026-08-05'
+method: derived
+source: openapi/viagogo-webhooks.json
+docs: https://developer.viagogo.net/api-reference/webhooks
+type: Webhooks
+asyncapi_published: false
+x-evidence:
+- url: https://api.viagogo.net/v2/openapi/webhooks.json
+  http_status: 200
+  fetched: '2026-08-05'
+- url: https://developer.viagogo.net/api-reference/webhooks
+  http_status: 200
+  fetched: '2026-08-05'
+- url: https://developer.viagogo.net/asyncapi.yaml
+  http_status: 404
+  fetched: '2026-08-05'
+- url: https://api.viagogo.net/asyncapi.yaml
+  http_status: 404
+  fetched: '2026-08-05'
+notes: >-
+  viagogo publishes no AsyncAPI document — probed /asyncapi.yaml and /asyncapi.json
+  on the docs and API hosts and searched the viagogo GitHub organization; nothing
+  exists, and none is fabricated here. viagogo does publish a first-class webhook
+  surface: a dedicated Webhooks API with full CRUD plus a ping trigger, and one
+  documented payload schema per topic. This catalog is derived from those schemas
+  and from the operations that manage subscriptions.
+  Topic *identifiers* are typed as a free-string `topic` property with no enum in
+  the specification, so the wire values are not published; each entry below is keyed
+  by the schema name viagogo uses for its payload and carries the provider's own
+  description verbatim.
+
+subscription:
+  model: per-user subscription, created over the API
+  base_url: https://api.viagogo.net/v2
+  sandbox_base_url: https://sandbox.api.viagogo.net/v2
+  delivery: HTTP POST of the topic payload to the subscriber's configured url
+  security:
+    receiver_authentication:
+      mechanism: static Authorization header
+      field: authorization_header
+      description: The Authorization header value that should be included in requests
+        to the webhook.
+      note: >-
+        Delivery authentication is a shared static header value chosen by the
+        subscriber. viagogo publishes no payload signing (no HMAC signature header),
+        no timestamp/replay protection and no mTLS option, so receivers cannot
+        cryptographically verify origin — treat the header as a bearer secret and
+        rotate it via Webhooks_Patch.
+    scopes:
+    - read:webhooks
+    - write:webhooks
+  subscription_fields:
+  - name: id
+    type: integer
+    description: The webhook identifier.
+  - name: name
+    type: string
+    description: The name of the webhook.
+  - name: url
+    type: string
+    description: The server endpoint that will receive the webhook payload.
+  - name: authorization_header
+    type: string
+    description: The Authorization header value that should be included in requests
+      to the webhook.
+  - name: topics
+    type: array[string]
+    description: An array of the topics the webhook is trigger for.
+  - name: created_at
+    type: date-time
+    description: The date when the webhook was created.
+
+management_operations:
+- operationId: Webhooks_Get
+  method: GET
+  path: /webhooks
+  summary: List webhooks
+  scopes:
+  - read:webhooks
+- operationId: Webhooks_Post
+  method: POST
+  path: /webhooks
+  summary: Create a webhook
+  scopes:
+  - write:webhooks
+- operationId: Webhooks_Get2
+  method: GET
+  path: /webhooks/{webhookId}
+  summary: Get a webhook
+  scopes:
+  - read:webhooks
+- operationId: Webhooks_Patch
+  method: PATCH
+  path: /webhooks/{webhookId}
+  summary: Update a webhook
+  scopes:
+  - write:webhooks
+- operationId: Webhooks_Delete
+  method: DELETE
+  path: /webhooks/{webhookId}
+  summary: Delete a webhook
+  scopes:
+  - write:webhooks
+- operationId: Webhooks_PingWebhook
+  method: POST
+  path: /webhooks/{webhookId}/ping
+  summary: Ping a webhook
+  scopes:
+  - write:webhooks
+  note: Returns 202 Accepted; triggers a PingTopic delivery so a receiver can be
+    verified end to end.
+
+guidance: >-
+  When configuring a webhook, you can choose the topics you would like to receive
+  payloads for. You should only subscribe to the specific topics that you plan on
+  handling so that you can limit the number of HTTP requests to your server.
+
+topics:
+- schema: PingTopic
+  description: Triggered any time a Webhook is pinged.
+  payload_fields:
+  - topic
+  - action
+  - _links
+  - _embedded
+  trigger: Webhooks_PingWebhook
+- schema: SalesTopic
+  description: Triggered when something happens that affects a sale (e.g. you sell
+    one or more tickets).
+  payload_fields:
+  - topic
+  - action
+  - barcodes
+  - _links
+  - _embedded
+  embeds:
+  - EmbeddedSale
+  - EmbeddedEvent
+- schema: SaleUpdatesTopic
+  description: Triggered when an update is made to a sale that you did not initiate.
+    You will need to filter by the action that you are interested in.
+  actions:
+  - name: FailedBarcodeValidation
+    description: Validation of a set of barcodes uploaded against an order has failed,
+      and barcodes need re-uploading.
+  payload_fields:
+  - topic
+  - action
+  - barcodes
+  - _links
+  - _embedded
+- schema: SellerListingUpdatesTopic
+  description: Triggered when an update is made to a listing that you did not initiate.
+    You will need to filter by the action that you are interested in.
+  actions:
+  - name: FailedBarcodeValidation
+    description: Validation of a set of barcodes uploaded against a listing has failed,
+      and barcodes need re-uploading.
+  - name: ListingDeliverabilityExpired
+    description: A listing is no longer deliverable to a customer. To increase the
+      deliverability of electronic type tickets, preupload them (e.g. pre-upload
+      barcodes or PDF files). To increase deliverability of paper tickets, opt your
+      tickets into our LMS program.
+  payload_fields:
+  - topic
+  - action
+  - barcodes
+  - _links
+  - _embedded
+  embeds:
+  - EmbeddedSellerListing
+  - EmbeddedEvent
+- schema: ProvisionalSaleTopic
+  description: Triggered when a provisional sale occurs. The normal SalesTopic webhook
+    will confirm the provisional sale. If you want to reject the provisional sale,
+    ignore it and reject the sale when it comes through as normal.
+  payload_fields:
+  - topic
+  - action
+  - barcodes
+  - _links
+  - _embedded
+- schema: CancelProvisionalSaleTopic
+  description: Triggered when a provisional sale is cancelled.
+  payload_fields:
+  - topic
+  - action
+  - barcodes
+  - _links
+  - _embedded
+- schema: ReTransferTicketTopic
+  description: Triggered when a ticket was not received by the buyer, so the ticket
+    must be re-transferred from the 3rd party provider.
+  payload_fields:
+  - topic
+  - action
+  - barcodes
+  - _links
+  - _embedded
+
+coverage:
+  topics: 7
+  management_operations: 6
+  payload_schemas_in_spec: 48
+  retry_policy_published: false
+  signature_verification_published: false
+  topic_identifier_enum_published: false
