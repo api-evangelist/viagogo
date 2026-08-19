@@ -16,7 +16,7 @@ x-type: company
 x-source: harvest:secondary-market
 x-tier: profiled
 x-tier-reason: enrichment
-specificationVersion: '0.20'
+specificationVersion: '0.23'
 created: '2026-08-05'
 modified: '2026-08-05'
 image: https://img.vggcdn.net/img/assets/logo/viagogo_logo_apidocs.png
