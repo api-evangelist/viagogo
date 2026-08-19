@@ -1,0 +1,258 @@
+openapi: 3.2.0
+info:
+  title: viagogo Account User API
+  version: 2.249.0.0
+  x-logo:
+    url: https://img.vggcdn.net/img/assets/logo/viagogo_logo_apidocs.png
+    backgroundColor: '#222222'
+servers:
+- url: https://api.viagogo.net/v2
+  description: Production
+- url: https://sandbox.api.viagogo.net/v2
+  description: Sandbox
+security:
+- OAuth2:
+  - read:user
+  - write:brokerage
+  - write:user
+tags:
+- name: User
+paths:
+  /user:
+    get:
+      tags:
+      - User
+      summary: Get the authenticated user
+      operationId: User_Get
+      responses:
+        '200':
+          description: ''
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '404':
+          $ref: '#/components/responses/not_found'
+          description: null
+        '403':
+          $ref: '#/components/responses/forbidden'
+          description: null
+        '401':
+          $ref: '#/components/responses/requires_authentication'
+          description: null
+        '500':
+          $ref: '#/components/responses/internal_server_error'
+          description: null
+      security:
+      - OAuth2:
+        - read:user
+    patch:
+      tags:
+      - User
+      summary: Update the authenticated user
+      operationId: User_Patch
+      requestBody:
+        x-name: body
+        content:
+          application/json:
+            schema:
+              oneOf:
+              - $ref: '#/components/schemas/PatchUserRequest'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+        '403':
+          $ref: '#/components/responses/forbidden'
+          description: null
+        '400':
+          $ref: '#/components/responses/validation_failed'
+          description: null
+        '401':
+          $ref: '#/components/responses/requires_authentication'
+          description: null
+        '500':
+          $ref: '#/components/responses/internal_server_error'
+          description: null
+      security:
+      - OAuth2:
+        - write:user
+components:
+  schemas:
+    Link:
+      type: object
+      additionalProperties: false
+      properties:
+        href:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        templated:
+          type: boolean
+    UserLinks:
+      title: UserLinks
+      type: object
+      properties:
+        self:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+        user:addresses:
+          description: The collection of Addresses associated with this user.
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+        user:paymentmethods:
+          description: The collection of PaymentMethods associated with this user.
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+        user:sales:
+          description: The collection of Sales associated with this user.
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+        user:salesaggregates:
+          description: The aggregated sales data associated with this user.
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+        user:sellerlistings:
+          description: The collection of SellerListings associated with this user.
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+        user:update:
+          description: Update the settings for this user.
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+        user:webhooks:
+          description: The collection of Webhooks associated with this user.
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+    PatchUserRequest:
+      type: object
+      description: An authenticated user.
+      additionalProperties: false
+      properties:
+        full_name:
+          type:
+          - string
+          - 'null'
+          description: The full name of the user.
+        email_optin:
+          type:
+          - boolean
+          - 'null'
+          description: True if the user is signed up for the viagogo email newsletter; otherwise, false.
+    User:
+      type: object
+      description: An authenticated user.
+      additionalProperties: false
+      properties:
+        full_name:
+          type:
+          - string
+          - 'null'
+          description: The full name of the user.
+        email:
+          type:
+          - string
+          - 'null'
+          description: The email address of the user.
+        primary_phone:
+          type:
+          - string
+          - 'null'
+          description: The primary phone number of the user.
+        email_optin:
+          type: boolean
+          description: True if the user is signed up for the viagogo email newsletter; otherwise, false.
+        _links:
+          oneOf:
+          - $ref: '#/components/schemas/UserLinks'
+    Error:
+      type: object
+      additionalProperties: false
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+        message:
+          type:
+          - string
+          - 'null'
+        errors:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type: array
+            items:
+              type: string
+  responses:
+    internal_server_error:
+      description: Internal server error
+      content:
+        application/hal+json:
+          schema:
+            oneOf:
+            - $ref: '#/components/schemas/Error'
+    validation_failed:
+      description: The request data is not valid. errors will contain an object with a localized message that describes the validation error for each property of the data.
+      content:
+        application/hal+json:
+          schema:
+            oneOf:
+            - $ref: '#/components/schemas/Error'
+    requires_authentication:
+      description: Authentication credentials were missing or incorrect.
+      content:
+        application/hal+json:
+          schema:
+            oneOf:
+            - $ref: '#/components/schemas/Error'
+    not_found:
+      description: The URI requested is invalid or the resource requested, such as an event, does not exist.
+      content:
+        application/hal+json:
+          schema:
+            oneOf:
+            - $ref: '#/components/schemas/Error'
+    forbidden:
+      description: The request is understood, but it has been refused or access is not allowed. An accompanying error message will explain why.
+      content:
+        application/hal+json:
+          schema:
+            oneOf:
+            - $ref: '#/components/schemas/Error'
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      bearerFormat: JWT
+      flows:
+        implicit:
+          authorizationUrl: https://account.viagogo.com/authorize
+          tokenUrl: https://account.viagogo.com/oauth2/token
+          refreshUrl: https://account.viagogo.com/oauth2/token
+        clientCredentials:
+          tokenUrl: https://account.viagogo.com/oauth2/token
+        authorizationCode:
+          authorizationUrl: https://account.viagogo.com/authorize
+          tokenUrl: https://account.viagogo.com/oauth2/token
+          refreshUrl: https://account.viagogo.com/oauth2/token
+x-tagGroups:
+- name: Endpoints
+  tags:
+  - Addresses
+  - PaymentMethods
+  - User
+- name: Resources
+  tags:
+  - Resource_Address
+  - Resource_Addresss
+  - Resource_PaymentMethods
+  - Resource_User

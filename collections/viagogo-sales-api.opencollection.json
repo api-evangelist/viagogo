@@ -1,0 +1,188 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "viagogo Sales API",
+    "version": "2.249.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "https://account.viagogo.com/oauth2/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Sales",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List sales (recent updates)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.viagogo.net/v2/sales/recentupdates",
+            "params": [
+              {
+                "name": "updated_since",
+                "value": "",
+                "type": "query",
+                "description": "Filters the response to only return items that have been updated since the given timestamp"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://account.viagogo.com/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "List sales for the authenticated user that have been created or updated over a certain period of time."
+        },
+        {
+          "info": {
+            "name": "List sales",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.viagogo.net/v2/sales",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Specifies which page of data to retrieve."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Set custom page sizes on response."
+              },
+              {
+                "name": "updated_since",
+                "value": "",
+                "type": "query",
+                "description": "Filters the response to only return items that have been updated since the given timestamp"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Determines the ordering of items. A comma-separated string containing `created_at`, `event_date`, `inhand_at`, `payment_amount`, `quantity`, or`resource_version`."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://account.viagogo.com/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "List sales for the authenticated user."
+        },
+        {
+          "info": {
+            "name": "Get a sale",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.viagogo.net/v2/sales/:saleId",
+            "params": [
+              {
+                "name": "saleId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://account.viagogo.com/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get a sale"
+        },
+        {
+          "info": {
+            "name": "Update a sale",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.viagogo.net/v2/sales/:saleId",
+            "params": [
+              {
+                "name": "saleId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://account.viagogo.com/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Update a sale"
+        },
+        {
+          "info": {
+            "name": "Reject a sale",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.viagogo.net/v2/sales/:saleId",
+            "params": [
+              {
+                "name": "saleId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://account.viagogo.com/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Report a problem with a sale of tickets."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

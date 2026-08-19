@@ -1,0 +1,56 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "viagogo Sales Ticket Holders API",
+    "version": "2.249.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "https://account.viagogo.com/oauth2/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "TicketHolders",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List ticket holder details for a sale",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.viagogo.net/v2/sales/:saleId/ticketholders",
+            "params": [
+              {
+                "name": "saleId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://account.viagogo.com/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "List ticket holder details for a sale"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

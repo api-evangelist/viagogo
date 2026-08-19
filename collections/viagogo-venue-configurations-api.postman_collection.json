@@ -1,0 +1,377 @@
+{
+  "item": [
+    {
+      "id": "d5f2aac3-68af-443d-83ce-515dc1d0a004",
+      "name": "Venue Configurations",
+      "description": {
+        "content": "View venue configurations on the viagogo platform",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f9ac86f3-0dca-47ab-ad8e-8867a363f8a7",
+          "name": "Get a venue configuration",
+          "request": {
+            "name": "Get a venue configuration",
+            "description": {},
+            "url": {
+              "path": [
+                "catalog",
+                "venues",
+                "configurations",
+                ":configId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "configId",
+                  "description": "(Required) The venue configuration identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/hal+json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "redirect_uri",
+                  "value": "https://account.viagogo.com/oauth2/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://account.viagogo.com/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "implicit"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "ee40baba-4032-4e33-a5f8-d4e03718925c",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catalog",
+                    "venues",
+                    "configurations",
+                    ":configId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "configId",
+                      "description": "(Required) The venue configuration identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/hal+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/hal+json"
+                }
+              ],
+              "body": "{\n  \"config_id\": 7220,\n  \"sections\": [\n    {\n      \"section_id\": 8548,\n      \"section_name\": \"string\",\n      \"rows\": [\n        {\n          \"row_id\": 3204,\n          \"row_name\": \"string\",\n          \"ticket_class_id\": null,\n          \"ticket_class_name\": null\n        },\n        {\n          \"row_id\": 8184,\n          \"row_name\": \"string\",\n          \"ticket_class_id\": 2089,\n          \"ticket_class_name\": \"string\"\n        }\n      ]\n    },\n    {\n      \"section_id\": 1274,\n      \"section_name\": \"string\",\n      \"rows\": [\n        {\n          \"row_id\": 2525,\n          \"row_name\": \"string\",\n          \"ticket_class_id\": null,\n          \"ticket_class_name\": null\n        },\n        {\n          \"row_id\": 3942,\n          \"row_name\": \"string\",\n          \"ticket_class_id\": 6718,\n          \"ticket_class_name\": null\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4dfd28c6-4b24-4c23-94ca-12769d1619c1",
+              "name": "Authentication credentials were missing or incorrect.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catalog",
+                    "venues",
+                    "configurations",
+                    ":configId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "configId",
+                      "description": "(Required) The venue configuration identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/hal+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/hal+json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_1\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "65f4991a-fc62-4dff-90d6-b35dd97df1b9",
+              "name": "The request is understood, but it has been refused or access is not allowed. An accompanying error message will explain why.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catalog",
+                    "venues",
+                    "configurations",
+                    ":configId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "configId",
+                      "description": "(Required) The venue configuration identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/hal+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/hal+json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "394bfa32-1291-459c-9587-5fe53147f091",
+              "name": "The URI requested is invalid or the resource requested, such as an event, does not exist.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catalog",
+                    "venues",
+                    "configurations",
+                    ":configId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "configId",
+                      "description": "(Required) The venue configuration identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/hal+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/hal+json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "11ba22c5-bd67-437e-bd33-3a6e9ebb5e45",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catalog",
+                    "venues",
+                    "configurations",
+                    ":configId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "configId",
+                      "description": "(Required) The venue configuration identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/hal+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/hal+json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.viagogo.net",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "redirect_uri",
+        "value": "https://account.viagogo.com/oauth2/token"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://account.viagogo.com/authorize"
+      },
+      {
+        "key": "grant_type",
+        "value": "implicit"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "16501188-c3e3-4cce-9f82-7c3f6459758f",
+    "name": "viagogo Catalog Venue Configurations API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "View venue configurations on the viagogo platform",
+      "type": "text/plain"
+    }
+  }
+}

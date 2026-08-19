@@ -1,0 +1,572 @@
+openapi: 3.2.0
+info:
+  title: viagogo Account Addresses API
+  version: 2.249.0.0
+  x-logo:
+    url: https://img.vggcdn.net/img/assets/logo/viagogo_logo_apidocs.png
+    backgroundColor: '#222222'
+servers:
+- url: https://api.viagogo.net/v2
+  description: Production
+- url: https://sandbox.api.viagogo.net/v2
+  description: Sandbox
+security:
+- OAuth2:
+  - read:user
+  - write:brokerage
+  - write:user
+tags:
+- name: Addresses
+paths:
+  /addresses:
+    get:
+      tags:
+      - Addresses
+      summary: List addresses
+      description: List addresses for the current user.
+      operationId: Addressess_GetUserAddresses
+      parameters:
+      - name: page
+        in: query
+        description: Specifies which page of data to retrieve.
+        schema:
+          type: integer
+          format: int32
+      - name: page_size
+        in: query
+        description: Set custom page sizes on response.
+        schema:
+          type: integer
+          format: int32
+      - name: sort
+        in: query
+        description: Determines the ordering of items. A comma-separated string containing `default`, or`id`.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Addresss'
+        '404':
+          $ref: '#/components/responses/not_found'
+          description: null
+        '403':
+          $ref: '#/components/responses/forbidden'
+          description: null
+        '401':
+          $ref: '#/components/responses/requires_authentication'
+          description: null
+        '500':
+          $ref: '#/components/responses/internal_server_error'
+          description: null
+      security:
+      - OAuth2:
+        - read:user
+    post:
+      tags:
+      - Addresses
+      summary: Create an address
+      operationId: Addressess_Post
+      requestBody:
+        x-name: body
+        content:
+          application/json:
+            schema:
+              oneOf:
+              - $ref: '#/components/schemas/PostAddressRequest'
+      responses:
+        '201':
+          description: ''
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Address'
+        '403':
+          $ref: '#/components/responses/forbidden'
+          description: null
+        '400':
+          $ref: '#/components/responses/validation_failed'
+          description: null
+        '401':
+          $ref: '#/components/responses/requires_authentication'
+          description: null
+        '500':
+          $ref: '#/components/responses/internal_server_error'
+          description: null
+      security:
+      - OAuth2:
+        - write:user
+  /addresses/{addressId}:
+    get:
+      tags:
+      - Addresses
+      summary: Get an address
+      operationId: Addressess_Get
+      parameters:
+      - name: addressId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: ''
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Address'
+        '404':
+          $ref: '#/components/responses/not_found'
+          description: null
+        '403':
+          $ref: '#/components/responses/forbidden'
+          description: null
+        '401':
+          $ref: '#/components/responses/requires_authentication'
+          description: null
+        '500':
+          $ref: '#/components/responses/internal_server_error'
+          description: null
+      security:
+      - OAuth2:
+        - read:user
+    patch:
+      tags:
+      - Addresses
+      summary: Update an address
+      operationId: Addressess_Patch
+      parameters:
+      - name: addressId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      requestBody:
+        x-name: body
+        content:
+          application/json:
+            schema:
+              oneOf:
+              - $ref: '#/components/schemas/PatchAddressRequest'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/Address'
+        '403':
+          $ref: '#/components/responses/forbidden'
+          description: null
+        '400':
+          $ref: '#/components/responses/validation_failed'
+          description: null
+        '401':
+          $ref: '#/components/responses/requires_authentication'
+          description: null
+        '500':
+          $ref: '#/components/responses/internal_server_error'
+          description: null
+      security:
+      - OAuth2:
+        - write:user
+    delete:
+      tags:
+      - Addresses
+      summary: Delete an address
+      operationId: Addressess_Delete
+      parameters:
+      - name: addressId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '204':
+          description: null
+        '403':
+          $ref: '#/components/responses/forbidden'
+          description: null
+        '401':
+          $ref: '#/components/responses/requires_authentication'
+          description: null
+        '500':
+          $ref: '#/components/responses/internal_server_error'
+          description: null
+      security:
+      - OAuth2:
+        - write:user
+components:
+  schemas:
+    AddresssEmbeddedResources:
+      title: AddresssEmbeddedResources
+      type: object
+      properties:
+        items:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Address'
+    Address:
+      type: object
+      description: An address is a delivery, pickup or billing address associated with the current user.
+      additionalProperties: false
+      properties:
+        id:
+          type:
+          - integer
+          - 'null'
+          description: The address identifier.
+          format: int32
+        full_name:
+          type:
+          - string
+          - 'null'
+          description: The full name of the recipient.
+        default:
+          type:
+          - boolean
+          - 'null'
+          description: True if the address is the user’s default address; Otherwise, false.
+        address_1:
+          type:
+          - string
+          - 'null'
+          description: The first line of the address.
+        address_2:
+          type:
+          - string
+          - 'null'
+          description: The second line of the address.
+        address_3:
+          type:
+          - string
+          - 'null'
+          description: The third line of the address.
+        city:
+          type:
+          - string
+          - 'null'
+          description: The name of the city where the address is located.
+        state_province:
+          type:
+          - string
+          - 'null'
+          description: The name of the State or Province where the address is located.
+        postal_code:
+          type:
+          - string
+          - 'null'
+          description: The postal code for the address.
+        _links:
+          oneOf:
+          - $ref: '#/components/schemas/AddressLinks'
+        _embedded:
+          oneOf:
+          - $ref: '#/components/schemas/AddressEmbeddedResources'
+    Addresss:
+      type: object
+      additionalProperties: false
+      properties:
+        total_items:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        page:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        page_size:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        _links:
+          oneOf:
+          - $ref: '#/components/schemas/AddresssLinks'
+        _embedded:
+          oneOf:
+          - $ref: '#/components/schemas/AddresssEmbeddedResources'
+    PostAddressRequest:
+      type: object
+      description: An address is a delivery, pickup or billing address associated with the current user.
+      additionalProperties: false
+      properties:
+        full_name:
+          type:
+          - string
+          - 'null'
+          description: The full name of the recipient.
+        default:
+          type:
+          - boolean
+          - 'null'
+          description: True if the address is the current user's default address; Otherwise, false.
+        address_1:
+          type:
+          - string
+          - 'null'
+          description: The first line of the address.
+        address_2:
+          type:
+          - string
+          - 'null'
+          description: The second line of the address.
+        address_3:
+          type:
+          - string
+          - 'null'
+          description: The third line of the address.
+        city:
+          type:
+          - string
+          - 'null'
+          description: The name of the city where the address is located.
+        state_province:
+          type:
+          - string
+          - 'null'
+          description: The name of the State or Province where the address is located.
+        postal_code:
+          type:
+          - string
+          - 'null'
+          description: The postal code for the address.
+        country_code:
+          type:
+          - string
+          - 'null'
+          description: The 2 character ISO code that identifies the country in which the address is located.
+    CountryLinks:
+      title: CountryLinks
+      type: object
+      properties:
+        self:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+        country:events:
+          description: The events taking place in a country.
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+        country:localwebpage:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+    Country:
+      type: object
+      additionalProperties: false
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+          description: The two-letter ISO 3166 code for the country.
+        name:
+          type:
+          - string
+          - 'null'
+          description: The name of the country.
+        _links:
+          oneOf:
+          - $ref: '#/components/schemas/CountryLinks'
+    Link:
+      type: object
+      additionalProperties: false
+      properties:
+        href:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        templated:
+          type: boolean
+    AddresssLinks:
+      title: AddresssLinks
+      type: object
+      properties:
+        self:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+        first:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+        last:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+        next:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+        prev:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+    AddressEmbeddedResources:
+      title: AddressEmbeddedResources
+      type: object
+      properties:
+        country:
+          description: The Country where the address is located.
+          oneOf:
+          - $ref: '#/components/schemas/Country'
+    AddressLinks:
+      title: AddressLinks
+      type: object
+      properties:
+        self:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+        address:carrier:
+          description: The pickup windows available for Carrier collection.
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+        address:delete:
+          description: Delete the current user’s address.
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+        address:update:
+          description: Update the details of the current user’s address.
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+    PatchAddressRequest:
+      type: object
+      description: An address is a delivery, pickup or billing address associated with the current user.
+      additionalProperties: false
+      properties:
+        full_name:
+          type:
+          - string
+          - 'null'
+          description: The full name of the recipient.
+        default:
+          type:
+          - boolean
+          - 'null'
+          description: True if the address is the current user's default address; Otherwise, false.
+        address_1:
+          type:
+          - string
+          - 'null'
+          description: The first line of the address.
+        address_2:
+          type:
+          - string
+          - 'null'
+          description: The second line of the address.
+        address_3:
+          type:
+          - string
+          - 'null'
+          description: The third line of the address.
+        city:
+          type:
+          - string
+          - 'null'
+          description: The name of the city where the address is located.
+        state_province:
+          type:
+          - string
+          - 'null'
+          description: The name of the State or Province where the address is located.
+        postal_code:
+          type:
+          - string
+          - 'null'
+          description: The postal code for the address.
+        country_code:
+          type:
+          - string
+          - 'null'
+          description: The 2 character ISO code that identifies the country in which the address is located.
+    Error:
+      type: object
+      additionalProperties: false
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+        message:
+          type:
+          - string
+          - 'null'
+        errors:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type: array
+            items:
+              type: string
+  responses:
+    internal_server_error:
+      description: Internal server error
+      content:
+        application/hal+json:
+          schema:
+            oneOf:
+            - $ref: '#/components/schemas/Error'
+    validation_failed:
+      description: The request data is not valid. errors will contain an object with a localized message that describes the validation error for each property of the data.
+      content:
+        application/hal+json:
+          schema:
+            oneOf:
+            - $ref: '#/components/schemas/Error'
+    requires_authentication:
+      description: Authentication credentials were missing or incorrect.
+      content:
+        application/hal+json:
+          schema:
+            oneOf:
+            - $ref: '#/components/schemas/Error'
+    not_found:
+      description: The URI requested is invalid or the resource requested, such as an event, does not exist.
+      content:
+        application/hal+json:
+          schema:
+            oneOf:
+            - $ref: '#/components/schemas/Error'
+    forbidden:
+      description: The request is understood, but it has been refused or access is not allowed. An accompanying error message will explain why.
+      content:
+        application/hal+json:
+          schema:
+            oneOf:
+            - $ref: '#/components/schemas/Error'
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      bearerFormat: JWT
+      flows:
+        implicit:
+          authorizationUrl: https://account.viagogo.com/authorize
+          tokenUrl: https://account.viagogo.com/oauth2/token
+          refreshUrl: https://account.viagogo.com/oauth2/token
+        clientCredentials:
+          tokenUrl: https://account.viagogo.com/oauth2/token
+        authorizationCode:
+          authorizationUrl: https://account.viagogo.com/authorize
+          tokenUrl: https://account.viagogo.com/oauth2/token
+          refreshUrl: https://account.viagogo.com/oauth2/token
+x-tagGroups:
+- name: Endpoints
+  tags:
+  - Addresses
+  - PaymentMethods
+  - User
+- name: Resources
+  tags:
+  - Resource_Address
+  - Resource_Addresss
+  - Resource_PaymentMethods
+  - Resource_User

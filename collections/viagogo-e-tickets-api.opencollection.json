@@ -1,0 +1,680 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Viagogo E Tickets API",
+    "version": "2.249.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "E-Tickets",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List e-ticket uploads for a seller listing",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.viagogo.net/v2/sellerlistings/:listingId/eticketuploads",
+            "params": [
+              {
+                "name": "listingId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Specifies which page of data to retrieve."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Set custom page sizes on response."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://account.viagogo.com/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "List e-ticket uploads for a seller listing"
+        },
+        {
+          "info": {
+            "name": "Upload e-tickets for a seller listing",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.viagogo.net/v2/sellerlistings/:listingId/eticketuploads",
+            "params": [
+              {
+                "name": "listingId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Specifies which page of data to retrieve."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Set custom page sizes on response."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://account.viagogo.com/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Upload e-tickets for a seller listing"
+        },
+        {
+          "info": {
+            "name": "List e-ticket uploads for an event",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.viagogo.net/v2/events/:eventId/eticketuploads",
+            "params": [
+              {
+                "name": "eventId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://account.viagogo.com/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "List e-ticket uploads for an event"
+        },
+        {
+          "info": {
+            "name": "Upload e-tickets for an event",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.viagogo.net/v2/events/:eventId/eticketuploads",
+            "params": [
+              {
+                "name": "eventId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Specifies which page of data to retrieve."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Set custom page sizes on response."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://account.viagogo.com/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Upload e-tickets for an event"
+        },
+        {
+          "info": {
+            "name": "List e-tickets for a seller listing",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.viagogo.net/v2/sellerlistings/:listingId/etickets",
+            "params": [
+              {
+                "name": "listingId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Specifies which page of data to retrieve."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Set custom page sizes on response."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://account.viagogo.com/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "List e-tickets for a seller listing"
+        },
+        {
+          "info": {
+            "name": "Upload and save e-tickets for a seller listing",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.viagogo.net/v2/sellerlistings/:listingId/etickets",
+            "params": [
+              {
+                "name": "listingId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Specifies which page of data to retrieve."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Set custom page sizes on response."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://account.viagogo.com/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Upload and save e-tickets for a seller listing"
+        },
+        {
+          "info": {
+            "name": "Mark-back e-tickets from a seller listing",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.viagogo.net/v2/sellerlistings/:listingId/etickets",
+            "params": [
+              {
+                "name": "listingId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Specifies which page of data to retrieve."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Set custom page sizes on response."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://account.viagogo.com/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Removes a certain number of e-tickets that you no longer wish to sell from your listing."
+        },
+        {
+          "info": {
+            "name": "Delete e-ticket from a seller listing",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.viagogo.net/v2/sellerlistings/:listingId/etickets/:ETicketId",
+            "params": [
+              {
+                "name": "listingId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "eticketId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://account.viagogo.com/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Delete e-ticket from a seller listing"
+        },
+        {
+          "info": {
+            "name": "Delete e-ticket from an event",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.viagogo.net/v2/events/:eventId/etickets/:eticketId",
+            "params": [
+              {
+                "name": "eventId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "eticketId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://account.viagogo.com/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Delete e-ticket from an event"
+        },
+        {
+          "info": {
+            "name": "Get marked back e-ticket file for seller listing",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.viagogo.net/v2/sellerlistings/:listingId/markedbacketickets/:markedBackETicketId/document",
+            "params": [
+              {
+                "name": "listingId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "markedBackETicketId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://account.viagogo.com/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get marked back e-ticket file for seller listing"
+        },
+        {
+          "info": {
+            "name": "List e-ticket uploads for a sale",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.viagogo.net/v2/sales/:saleId/eticketuploads",
+            "params": [
+              {
+                "name": "saleId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Specifies which page of data to retrieve."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Set custom page sizes on response."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://account.viagogo.com/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "List e-ticket uploads for a sale"
+        },
+        {
+          "info": {
+            "name": "Upload e-tickets or proof of transfer for a sale",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.viagogo.net/v2/sales/:saleId/eticketuploads",
+            "params": [
+              {
+                "name": "saleId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Specifies which page of data to retrieve."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Set custom page sizes on response."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://account.viagogo.com/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Once the PDFs has been successfully been uploaded, you must also patch the sale confirming which pages of each PDF should be saved against the order. To do this, the Ids of the etickets property embedded in the EticketUploadEmbeddedResources of each upload, and patch the sale with those Ids."
+        },
+        {
+          "info": {
+            "name": "Upload e-ticket transfer for a sale",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.viagogo.net/v2/sales/:saleId/transferuploads/:transferType",
+            "params": [
+              {
+                "name": "saleId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "transferType",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Specifies which page of data to retrieve."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Set custom page sizes on response."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://account.viagogo.com/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Supported transfer types are \"acceptance\" for proof of acceptance."
+        },
+        {
+          "info": {
+            "name": "List e-tickets for a sale",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.viagogo.net/v2/sales/:saleId/etickets",
+            "params": [
+              {
+                "name": "saleId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Specifies which page of data to retrieve."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Set custom page sizes on response."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://account.viagogo.com/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "List e-tickets for a sale"
+        },
+        {
+          "info": {
+            "name": "Upload and save e-tickets for a sale",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.viagogo.net/v2/sales/:saleId/etickets",
+            "params": [
+              {
+                "name": "saleId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://account.viagogo.com/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Upload and save e-tickets for a sale"
+        },
+        {
+          "info": {
+            "name": "Delete e-ticket from a sale",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.viagogo.net/v2/sales/:saleId/etickets/:eticketId",
+            "params": [
+              {
+                "name": "saleId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "eticketId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://account.viagogo.com/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Delete e-ticket from a sale"
+        },
+        {
+          "info": {
+            "name": "Get e-ticket thumbnail file",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.viagogo.net/v2/etickets/:eticketId/thumbnail",
+            "params": [
+              {
+                "name": "eticketId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://account.viagogo.com/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Download an image file containing a thumbnail of an E-Ticket"
+        },
+        {
+          "info": {
+            "name": "Get e-ticket upload file",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.viagogo.net/v2/eticketuploads/:eticketUploadId/document",
+            "params": [
+              {
+                "name": "eticketUploadId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://account.viagogo.com/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Download the original file that was uploaded."
+        },
+        {
+          "info": {
+            "name": "Get e-ticket file",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.viagogo.net/v2/etickets/:eticketId/document",
+            "params": [
+              {
+                "name": "eticketId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://account.viagogo.com/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Download a PDF file containing an E-Ticket."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

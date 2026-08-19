@@ -1,0 +1,3064 @@
+{
+  "item": [
+    {
+      "id": "3a0b5008-ccc2-4ccc-8e6c-d6731a8c66d2",
+      "name": "Shipments",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "81d3d27b-f3d2-48b5-a950-8c91599dcc6a",
+          "name": "Get a shipping label for a seller listing",
+          "request": {
+            "name": "Get a shipping label for a seller listing",
+            "description": {},
+            "url": {
+              "path": [
+                "sellerlistings",
+                ":listingId",
+                "shipments",
+                ":shipmentId",
+                "label"
+              ],
+              "host": [
+                "{{sellerlistings-listingId-shipments-shipmentId-label-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "listingId",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "shipmentId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/octet-stream"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "redirect_uri",
+                  "value": "https://account.viagogo.com/oauth2/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://account.viagogo.com/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "implicit"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "3176abb6-1007-4a05-a962-11fcc69ed23e",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sellerlistings",
+                    ":listingId",
+                    "shipments",
+                    ":shipmentId",
+                    "label"
+                  ],
+                  "host": [
+                    "{{sellerlistings-listingId-shipments-shipmentId-label-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "listingId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "shipmentId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/octet-stream"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/octet-stream"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d0bf5c80-14a9-415d-b3ab-30a297ff29ff",
+              "name": "Authentication credentials were missing or incorrect.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sellerlistings",
+                    ":listingId",
+                    "shipments",
+                    ":shipmentId",
+                    "label"
+                  ],
+                  "host": [
+                    "{{sellerlistings-listingId-shipments-shipmentId-label-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "listingId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "shipmentId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/hal+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/hal+json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": null,\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f6190682-8a70-45fd-adad-7ddeba64b819",
+              "name": "The request is understood, but it has been refused or access is not allowed. An accompanying error message will explain why.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sellerlistings",
+                    ":listingId",
+                    "shipments",
+                    ":shipmentId",
+                    "label"
+                  ],
+                  "host": [
+                    "{{sellerlistings-listingId-shipments-shipmentId-label-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "listingId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "shipmentId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/hal+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/hal+json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": null,\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b94ae55b-e279-4364-9942-c3aeb3d2888b",
+              "name": "The URI requested is invalid or the resource requested, such as an event, does not exist.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sellerlistings",
+                    ":listingId",
+                    "shipments",
+                    ":shipmentId",
+                    "label"
+                  ],
+                  "host": [
+                    "{{sellerlistings-listingId-shipments-shipmentId-label-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "listingId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "shipmentId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/hal+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/hal+json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": null,\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "79805fc7-f808-4ca7-a921-b1035d610053",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sellerlistings",
+                    ":listingId",
+                    "shipments",
+                    ":shipmentId",
+                    "label"
+                  ],
+                  "host": [
+                    "{{sellerlistings-listingId-shipments-shipmentId-label-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "listingId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "shipmentId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/hal+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/hal+json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": null,\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2ba68ef4-4fec-4889-98cc-0cf2b9ba5ca3",
+          "name": "List shipments for a seller listing",
+          "request": {
+            "name": "List shipments for a seller listing",
+            "description": {},
+            "url": {
+              "path": [
+                "sellerlistings",
+                ":listingId",
+                "shipments"
+              ],
+              "host": [
+                "{{sellerlistings-listingId-shipments-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "Specifies which page of data to retrieve."
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "<integer>",
+                  "description": "Set custom page sizes on response."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "listingId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/hal+json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "redirect_uri",
+                  "value": "https://account.viagogo.com/oauth2/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://account.viagogo.com/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "implicit"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "513dfbae-3644-420d-8cc3-3b8541af4eaa",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sellerlistings",
+                    ":listingId",
+                    "shipments"
+                  ],
+                  "host": [
+                    "{{sellerlistings-listingId-shipments-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "listingId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/hal+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/hal+json"
+                }
+              ],
+              "body": "{\n  \"total_items\": null,\n  \"page\": null,\n  \"page_size\": null,\n  \"_links\": {\n    \"self\": {\n      \"href\": null,\n      \"title\": \"string\",\n      \"templated\": true\n    },\n    \"first\": {\n      \"href\": null,\n      \"title\": null,\n      \"templated\": true\n    },\n    \"last\": {\n      \"href\": \"string\",\n      \"title\": \"string\",\n      \"templated\": false\n    },\n    \"next\": {\n      \"href\": null,\n      \"title\": \"string\",\n      \"templated\": true\n    },\n    \"prev\": {\n      \"href\": null,\n      \"title\": \"string\",\n      \"templated\": true\n    },\n    \"shipment:create\": {\n      \"href\": null,\n      \"title\": null,\n      \"templated\": false\n    }\n  },\n  \"_embedded\": {\n    \"items\": [\n      \"\",\n      \"\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0507d785-4da8-47dc-a29c-9df738d9e509",
+              "name": "Authentication credentials were missing or incorrect.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sellerlistings",
+                    ":listingId",
+                    "shipments"
+                  ],
+                  "host": [
+                    "{{sellerlistings-listingId-shipments-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "listingId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/hal+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/hal+json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": null,\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9d810be0-e851-4b61-88a2-c8ee7e2e60a1",
+              "name": "The request is understood, but it has been refused or access is not allowed. An accompanying error message will explain why.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sellerlistings",
+                    ":listingId",
+                    "shipments"
+                  ],
+                  "host": [
+                    "{{sellerlistings-listingId-shipments-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "listingId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/hal+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/hal+json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": null,\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "088ff5c7-1fca-4743-9219-5e07f35219a1",
+              "name": "The URI requested is invalid or the resource requested, such as an event, does not exist.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sellerlistings",
+                    ":listingId",
+                    "shipments"
+                  ],
+                  "host": [
+                    "{{sellerlistings-listingId-shipments-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "listingId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/hal+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/hal+json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": null,\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d5d92eb8-eb60-41dc-9f40-12728f74a6d1",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sellerlistings",
+                    ":listingId",
+                    "shipments"
+                  ],
+                  "host": [
+                    "{{sellerlistings-listingId-shipments-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "listingId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/hal+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/hal+json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": null,\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "15c08b93-7475-4025-b1e9-cc9126941521",
+          "name": "Print a shipping label for a seller listing",
+          "request": {
+            "name": "Print a shipping label for a seller listing",
+            "description": {},
+            "url": {
+              "path": [
+                "sellerlistings",
+                ":listingId",
+                "shipments"
+              ],
+              "host": [
+                "{{sellerlistings-listingId-shipments-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "listingId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/hal+json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "redirect_uri",
+                  "value": "https://account.viagogo.com/oauth2/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://account.viagogo.com/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "implicit"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "eaf7dbf4-8d8f-472f-a2ef-34eebdc2ad8e",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sellerlistings",
+                    ":listingId",
+                    "shipments"
+                  ],
+                  "host": [
+                    "{{sellerlistings-listingId-shipments-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "listingId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/hal+json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/hal+json"
+                }
+              ],
+              "body": "{\n  \"id\": 9406,\n  \"tracking_number\": \"string\",\n  \"delivery_address\": {\n    \"full_name\": null,\n    \"address_1\": null,\n    \"address_2\": null,\n    \"address_3\": \"string\",\n    \"city\": null,\n    \"state_province\": null,\n    \"postal_code\": \"string\",\n    \"country_code\": \"string\",\n    \"country\": null\n  },\n  \"_links\": {\n    \"self\": {\n      \"href\": \"string\",\n      \"title\": \"string\",\n      \"templated\": true\n    },\n    \"shipment:entertrackingnumber\": {\n      \"href\": \"string\",\n      \"title\": \"string\",\n      \"templated\": false\n    },\n    \"shipment:label\": {\n      \"href\": null,\n      \"title\": \"string\",\n      \"templated\": false\n    }\n  },\n  \"_embedded\": {\n    \"delivery_method\": {\n      \"id\": 9016,\n      \"type\": 1,\n      \"name\": null,\n      \"description\": null,\n      \"_links\": {\n        \"self\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"deliverymethod:logo\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    },\n    \"pickup_addresses\": null,\n    \"pickups\": null,\n    \"shipment_state\": {\n      \"id\": 9230,\n      \"name\": \"string\",\n      \"title\": null,\n      \"description\": null\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c700a812-d27b-40dd-9716-42f880649669",
+              "name": "The request data is not valid. errors will contain an object with a localized message that describes the validation error for each property of the data.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sellerlistings",
+                    ":listingId",
+                    "shipments"
+                  ],
+                  "host": [
+                    "{{sellerlistings-listingId-shipments-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "listingId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/hal+json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/hal+json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": null,\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bcd3d160-2040-4c54-8b89-a02722bad4cc",
+              "name": "Authentication credentials were missing or incorrect.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sellerlistings",
+                    ":listingId",
+                    "shipments"
+                  ],
+                  "host": [
+                    "{{sellerlistings-listingId-shipments-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "listingId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/hal+json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/hal+json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": null,\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e2772159-2f08-4635-9be7-d4776106807a",
+              "name": "The request is understood, but it has been refused or access is not allowed. An accompanying error message will explain why.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sellerlistings",
+                    ":listingId",
+                    "shipments"
+                  ],
+                  "host": [
+                    "{{sellerlistings-listingId-shipments-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "listingId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/hal+json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/hal+json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": null,\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8071e7f3-5677-43f0-a778-1705ad943be8",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sellerlistings",
+                    ":listingId",
+                    "shipments"
+                  ],
+                  "host": [
+                    "{{sellerlistings-listingId-shipments-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "listingId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/hal+json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/hal+json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": null,\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cb248ea0-e61e-461d-bf41-05098ff9f113",
+          "name": "Update a shipment for a seller listing",
+          "request": {
+            "name": "Update a shipment for a seller listing",
+            "description": {},
+            "url": {
+              "path": [
+                "sellerlistings",
+                ":listingId",
+                "shipments",
+                ":shipmentId"
+              ],
+              "host": [
+                "{{sellerlistings-listingId-shipments-shipmentId-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<long>",
+                  "key": "listingId",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "shipmentId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/hal+json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "redirect_uri",
+                  "value": "https://account.viagogo.com/oauth2/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://account.viagogo.com/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "implicit"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tracking_number\": \"<string,null>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f07dbfbf-9280-4e92-9e83-7d000657de0a",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sellerlistings",
+                    ":listingId",
+                    "shipments",
+                    ":shipmentId"
+                  ],
+                  "host": [
+                    "{{sellerlistings-listingId-shipments-shipmentId-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "listingId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "shipmentId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/hal+json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"tracking_number\": \"<string,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/hal+json"
+                }
+              ],
+              "body": "{\n  \"id\": 9406,\n  \"tracking_number\": \"string\",\n  \"delivery_address\": {\n    \"full_name\": null,\n    \"address_1\": null,\n    \"address_2\": null,\n    \"address_3\": \"string\",\n    \"city\": null,\n    \"state_province\": null,\n    \"postal_code\": \"string\",\n    \"country_code\": \"string\",\n    \"country\": null\n  },\n  \"_links\": {\n    \"self\": {\n      \"href\": \"string\",\n      \"title\": \"string\",\n      \"templated\": true\n    },\n    \"shipment:entertrackingnumber\": {\n      \"href\": \"string\",\n      \"title\": \"string\",\n      \"templated\": false\n    },\n    \"shipment:label\": {\n      \"href\": null,\n      \"title\": \"string\",\n      \"templated\": false\n    }\n  },\n  \"_embedded\": {\n    \"delivery_method\": {\n      \"id\": 9016,\n      \"type\": 1,\n      \"name\": null,\n      \"description\": null,\n      \"_links\": {\n        \"self\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"deliverymethod:logo\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    },\n    \"pickup_addresses\": null,\n    \"pickups\": null,\n    \"shipment_state\": {\n      \"id\": 9230,\n      \"name\": \"string\",\n      \"title\": null,\n      \"description\": null\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b6f6b464-88c0-4285-a8c5-62e25ac6cdde",
+              "name": "The request data is not valid. errors will contain an object with a localized message that describes the validation error for each property of the data.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sellerlistings",
+                    ":listingId",
+                    "shipments",
+                    ":shipmentId"
+                  ],
+                  "host": [
+                    "{{sellerlistings-listingId-shipments-shipmentId-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "listingId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "shipmentId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/hal+json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"tracking_number\": \"<string,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/hal+json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": null,\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8e0d6070-ab7c-4e2f-aa6f-babdec96d364",
+              "name": "Authentication credentials were missing or incorrect.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sellerlistings",
+                    ":listingId",
+                    "shipments",
+                    ":shipmentId"
+                  ],
+                  "host": [
+                    "{{sellerlistings-listingId-shipments-shipmentId-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "listingId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "shipmentId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/hal+json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"tracking_number\": \"<string,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/hal+json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": null,\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "40b6e501-c9e7-4162-97f2-22586e7022a6",
+              "name": "The request is understood, but it has been refused or access is not allowed. An accompanying error message will explain why.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sellerlistings",
+                    ":listingId",
+                    "shipments",
+                    ":shipmentId"
+                  ],
+                  "host": [
+                    "{{sellerlistings-listingId-shipments-shipmentId-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "listingId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "shipmentId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/hal+json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"tracking_number\": \"<string,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/hal+json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": null,\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2743e3e2-22ab-4f68-a855-042310187fd9",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sellerlistings",
+                    ":listingId",
+                    "shipments",
+                    ":shipmentId"
+                  ],
+                  "host": [
+                    "{{sellerlistings-listingId-shipments-shipmentId-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<long>",
+                      "key": "listingId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "shipmentId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/hal+json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"tracking_number\": \"<string,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/hal+json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": null,\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5e4fbdf1-84b1-48fc-8ab5-c5ccfc29b124",
+          "name": "Get shipping label for a sale",
+          "request": {
+            "name": "Get shipping label for a sale",
+            "description": {},
+            "url": {
+              "path": [
+                "sales",
+                ":saleId",
+                "shipments",
+                ":shipmentId",
+                "label"
+              ],
+              "host": [
+                "{{sales-saleId-shipments-shipmentId-label-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "saleId",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "shipmentId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/octet-stream"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "redirect_uri",
+                  "value": "https://account.viagogo.com/oauth2/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://account.viagogo.com/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "implicit"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "6ca374de-965e-4f4d-b049-a4d75a034730",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sales",
+                    ":saleId",
+                    "shipments",
+                    ":shipmentId",
+                    "label"
+                  ],
+                  "host": [
+                    "{{sales-saleId-shipments-shipmentId-label-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "saleId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "shipmentId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/octet-stream"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/octet-stream"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "1be00bea-a4f6-4f2e-b31b-621646a7e0ca",
+              "name": "Authentication credentials were missing or incorrect.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sales",
+                    ":saleId",
+                    "shipments",
+                    ":shipmentId",
+                    "label"
+                  ],
+                  "host": [
+                    "{{sales-saleId-shipments-shipmentId-label-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "saleId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "shipmentId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/hal+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/hal+json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": null,\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "90b02910-e543-4775-a75c-f338426ea775",
+              "name": "The request is understood, but it has been refused or access is not allowed. An accompanying error message will explain why.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sales",
+                    ":saleId",
+                    "shipments",
+                    ":shipmentId",
+                    "label"
+                  ],
+                  "host": [
+                    "{{sales-saleId-shipments-shipmentId-label-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "saleId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "shipmentId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/hal+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/hal+json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": null,\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "66671536-25f3-4e12-8696-78d369668849",
+              "name": "The URI requested is invalid or the resource requested, such as an event, does not exist.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sales",
+                    ":saleId",
+                    "shipments",
+                    ":shipmentId",
+                    "label"
+                  ],
+                  "host": [
+                    "{{sales-saleId-shipments-shipmentId-label-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "saleId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "shipmentId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/hal+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/hal+json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": null,\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0a4d8cc8-b1c7-4599-ae93-2ffc8fd9b274",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sales",
+                    ":saleId",
+                    "shipments",
+                    ":shipmentId",
+                    "label"
+                  ],
+                  "host": [
+                    "{{sales-saleId-shipments-shipmentId-label-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "saleId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "shipmentId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/hal+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/hal+json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": null,\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "02ef2f5a-32cf-4360-869f-8f26fc01e26b",
+          "name": "List shipments for a sale",
+          "request": {
+            "name": "List shipments for a sale",
+            "description": {},
+            "url": {
+              "path": [
+                "sales",
+                ":saleId",
+                "shipments"
+              ],
+              "host": [
+                "{{sales-saleId-shipments-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "Specifies which page of data to retrieve."
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "<integer>",
+                  "description": "Set custom page sizes on response."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "saleId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/hal+json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "redirect_uri",
+                  "value": "https://account.viagogo.com/oauth2/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://account.viagogo.com/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "implicit"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "7405e6bc-04ee-4532-ab6b-9d9fad1eb1a6",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sales",
+                    ":saleId",
+                    "shipments"
+                  ],
+                  "host": [
+                    "{{sales-saleId-shipments-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "saleId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/hal+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/hal+json"
+                }
+              ],
+              "body": "{\n  \"total_items\": null,\n  \"page\": null,\n  \"page_size\": null,\n  \"_links\": {\n    \"self\": {\n      \"href\": null,\n      \"title\": \"string\",\n      \"templated\": true\n    },\n    \"first\": {\n      \"href\": null,\n      \"title\": null,\n      \"templated\": true\n    },\n    \"last\": {\n      \"href\": \"string\",\n      \"title\": \"string\",\n      \"templated\": false\n    },\n    \"next\": {\n      \"href\": null,\n      \"title\": \"string\",\n      \"templated\": true\n    },\n    \"prev\": {\n      \"href\": null,\n      \"title\": \"string\",\n      \"templated\": true\n    },\n    \"shipment:create\": {\n      \"href\": null,\n      \"title\": null,\n      \"templated\": false\n    }\n  },\n  \"_embedded\": {\n    \"items\": [\n      \"\",\n      \"\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4b759266-6359-4fae-81bd-3c2b3c73b69a",
+              "name": "Authentication credentials were missing or incorrect.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sales",
+                    ":saleId",
+                    "shipments"
+                  ],
+                  "host": [
+                    "{{sales-saleId-shipments-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "saleId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/hal+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/hal+json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": null,\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a665fe12-c8ae-46e5-b2bc-8bbdf81ffd27",
+              "name": "The request is understood, but it has been refused or access is not allowed. An accompanying error message will explain why.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sales",
+                    ":saleId",
+                    "shipments"
+                  ],
+                  "host": [
+                    "{{sales-saleId-shipments-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "saleId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/hal+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/hal+json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": null,\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4a84bf08-66d6-4fa4-acb9-b2a8656af988",
+              "name": "The URI requested is invalid or the resource requested, such as an event, does not exist.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sales",
+                    ":saleId",
+                    "shipments"
+                  ],
+                  "host": [
+                    "{{sales-saleId-shipments-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "saleId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/hal+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/hal+json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": null,\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0eb8c628-27e4-4c9e-8949-1fd372be55b0",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sales",
+                    ":saleId",
+                    "shipments"
+                  ],
+                  "host": [
+                    "{{sales-saleId-shipments-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "saleId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/hal+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/hal+json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": null,\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5c11c1a7-4df2-4afa-bab5-0e16c13ab5e5",
+          "name": "Print a shipping label for a sale",
+          "request": {
+            "name": "Print a shipping label for a sale",
+            "description": {},
+            "url": {
+              "path": [
+                "sales",
+                ":saleId",
+                "shipments"
+              ],
+              "host": [
+                "{{sales-saleId-shipments-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "saleId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/hal+json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "redirect_uri",
+                  "value": "https://account.viagogo.com/oauth2/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://account.viagogo.com/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "implicit"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "ae1713ee-8310-4d90-b62d-d2f5e2542499",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sales",
+                    ":saleId",
+                    "shipments"
+                  ],
+                  "host": [
+                    "{{sales-saleId-shipments-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "saleId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/hal+json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/hal+json"
+                }
+              ],
+              "body": "{\n  \"id\": 9406,\n  \"tracking_number\": \"string\",\n  \"delivery_address\": {\n    \"full_name\": null,\n    \"address_1\": null,\n    \"address_2\": null,\n    \"address_3\": \"string\",\n    \"city\": null,\n    \"state_province\": null,\n    \"postal_code\": \"string\",\n    \"country_code\": \"string\",\n    \"country\": null\n  },\n  \"_links\": {\n    \"self\": {\n      \"href\": \"string\",\n      \"title\": \"string\",\n      \"templated\": true\n    },\n    \"shipment:entertrackingnumber\": {\n      \"href\": \"string\",\n      \"title\": \"string\",\n      \"templated\": false\n    },\n    \"shipment:label\": {\n      \"href\": null,\n      \"title\": \"string\",\n      \"templated\": false\n    }\n  },\n  \"_embedded\": {\n    \"delivery_method\": {\n      \"id\": 9016,\n      \"type\": 1,\n      \"name\": null,\n      \"description\": null,\n      \"_links\": {\n        \"self\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"deliverymethod:logo\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    },\n    \"pickup_addresses\": null,\n    \"pickups\": null,\n    \"shipment_state\": {\n      \"id\": 9230,\n      \"name\": \"string\",\n      \"title\": null,\n      \"description\": null\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "05649c64-75d6-4766-8f37-d330c2212969",
+              "name": "The request data is not valid. errors will contain an object with a localized message that describes the validation error for each property of the data.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sales",
+                    ":saleId",
+                    "shipments"
+                  ],
+                  "host": [
+                    "{{sales-saleId-shipments-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "saleId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/hal+json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/hal+json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": null,\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c7604b01-2854-45bd-8c0c-029d5653b4bd",
+              "name": "Authentication credentials were missing or incorrect.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sales",
+                    ":saleId",
+                    "shipments"
+                  ],
+                  "host": [
+                    "{{sales-saleId-shipments-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "saleId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/hal+json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/hal+json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": null,\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4f164f9c-88d5-4c9b-ba85-62ddab7d4acf",
+              "name": "The request is understood, but it has been refused or access is not allowed. An accompanying error message will explain why.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sales",
+                    ":saleId",
+                    "shipments"
+                  ],
+                  "host": [
+                    "{{sales-saleId-shipments-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "saleId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/hal+json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/hal+json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": null,\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "15728276-1f8b-408c-8691-529a29fcbd75",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sales",
+                    ":saleId",
+                    "shipments"
+                  ],
+                  "host": [
+                    "{{sales-saleId-shipments-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "saleId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/hal+json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/hal+json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": null,\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8a3500a5-f1d5-45d9-a994-3b226a4ae69a",
+          "name": "Update a shipment for a sale",
+          "request": {
+            "name": "Update a shipment for a sale",
+            "description": {},
+            "url": {
+              "path": [
+                "sales",
+                ":saleId",
+                "shipments",
+                ":shipmentId"
+              ],
+              "host": [
+                "{{sales-saleId-shipments-shipmentId-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "saleId",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "shipmentId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/hal+json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "redirect_uri",
+                  "value": "https://account.viagogo.com/oauth2/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://account.viagogo.com/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "implicit"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tracking_number\": \"<string,null>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "fc7d9c7b-42b8-4274-a533-ad2025fd2d98",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sales",
+                    ":saleId",
+                    "shipments",
+                    ":shipmentId"
+                  ],
+                  "host": [
+                    "{{sales-saleId-shipments-shipmentId-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "saleId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "shipmentId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/hal+json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"tracking_number\": \"<string,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/hal+json"
+                }
+              ],
+              "body": "{\n  \"id\": 9406,\n  \"tracking_number\": \"string\",\n  \"delivery_address\": {\n    \"full_name\": null,\n    \"address_1\": null,\n    \"address_2\": null,\n    \"address_3\": \"string\",\n    \"city\": null,\n    \"state_province\": null,\n    \"postal_code\": \"string\",\n    \"country_code\": \"string\",\n    \"country\": null\n  },\n  \"_links\": {\n    \"self\": {\n      \"href\": \"string\",\n      \"title\": \"string\",\n      \"templated\": true\n    },\n    \"shipment:entertrackingnumber\": {\n      \"href\": \"string\",\n      \"title\": \"string\",\n      \"templated\": false\n    },\n    \"shipment:label\": {\n      \"href\": null,\n      \"title\": \"string\",\n      \"templated\": false\n    }\n  },\n  \"_embedded\": {\n    \"delivery_method\": {\n      \"id\": 9016,\n      \"type\": 1,\n      \"name\": null,\n      \"description\": null,\n      \"_links\": {\n        \"self\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"deliverymethod:logo\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    },\n    \"pickup_addresses\": null,\n    \"pickups\": null,\n    \"shipment_state\": {\n      \"id\": 9230,\n      \"name\": \"string\",\n      \"title\": null,\n      \"description\": null\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cb614a38-a15d-4f3b-88d4-c8a02cf8136c",
+              "name": "The request data is not valid. errors will contain an object with a localized message that describes the validation error for each property of the data.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sales",
+                    ":saleId",
+                    "shipments",
+                    ":shipmentId"
+                  ],
+                  "host": [
+                    "{{sales-saleId-shipments-shipmentId-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "saleId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "shipmentId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/hal+json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"tracking_number\": \"<string,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/hal+json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": null,\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b0c708fa-d7dd-4829-8e5e-18bdd99ea3c4",
+              "name": "Authentication credentials were missing or incorrect.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sales",
+                    ":saleId",
+                    "shipments",
+                    ":shipmentId"
+                  ],
+                  "host": [
+                    "{{sales-saleId-shipments-shipmentId-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "saleId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "shipmentId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/hal+json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"tracking_number\": \"<string,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/hal+json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": null,\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c24918eb-eeb0-4e36-ab6e-72c6960bdb6d",
+              "name": "The request is understood, but it has been refused or access is not allowed. An accompanying error message will explain why.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sales",
+                    ":saleId",
+                    "shipments",
+                    ":shipmentId"
+                  ],
+                  "host": [
+                    "{{sales-saleId-shipments-shipmentId-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "saleId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "shipmentId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/hal+json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"tracking_number\": \"<string,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/hal+json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": null,\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a7d1eecd-9977-413e-ad66-88abd4ec2762",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sales",
+                    ":saleId",
+                    "shipments",
+                    ":shipmentId"
+                  ],
+                  "host": [
+                    "{{sales-saleId-shipments-shipmentId-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "saleId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "shipmentId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/hal+json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"tracking_number\": \"<string,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/hal+json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": null,\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.viagogo.net/v2",
+      "key": "baseUrl"
+    },
+    {
+      "type": "string",
+      "value": "https://api.viagogo.net/v2",
+      "key": "sellerlistings-listingId-shipments-shipmentId-label-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.viagogo.net/v2",
+      "key": "sellerlistings-listingId-shipments-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.viagogo.net/v2",
+      "key": "sellerlistings-listingId-shipments-shipmentId-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.viagogo.net/v2",
+      "key": "sales-saleId-shipments-shipmentId-label-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.viagogo.net/v2",
+      "key": "sales-saleId-shipments-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://api.viagogo.net/v2",
+      "key": "sales-saleId-shipments-shipmentId-Url"
+    }
+  ],
+  "info": {
+    "_postman_id": "ce44e4e6-510b-4fe1-ba44-152236636b1a",
+    "name": "Viagogo Shipments API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Operations tagged Shipments across 2 of this provider's published API definitions: viagogo-inventory.json, viagogo-sales.json. Each path carries the servers of the definition it was published in.",
+      "type": "text/plain"
+    }
+  }
+}

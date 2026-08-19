@@ -1,0 +1,598 @@
+openapi: 3.2.0
+info:
+  title: viagogo Inventory Listing Constraints API
+  version: 2.249.0.0
+  x-logo:
+    url: https://img.vggcdn.net/img/assets/logo/viagogo_logo_apidocs.png
+    backgroundColor: '#222222'
+servers:
+- url: https://api.viagogo.net/v2
+  description: Production
+- url: https://sandbox.api.viagogo.net/v2
+  description: Sandbox
+security:
+- OAuth2:
+  - read:sales
+  - read:sellerlistings
+  - read:user
+  - write:requestedevents
+  - write:sales
+  - write:sellerlistings
+  - write:user
+tags:
+- name: ListingConstraints
+paths:
+  /events/{eventId}/listingconstraints:
+    get:
+      tags:
+      - ListingConstraints
+      summary: List listing constraints for an event
+      operationId: ListingConstraints_GetEventListingConstraints
+      parameters:
+      - name: eventId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: ''
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/ListingConstraints'
+        '404':
+          $ref: '#/components/responses/not_found'
+          description: null
+        '401':
+          $ref: '#/components/responses/requires_authentication'
+          description: null
+        '500':
+          $ref: '#/components/responses/internal_server_error'
+          description: null
+  /sellerlistings/{listingId}/constraints:
+    get:
+      tags:
+      - ListingConstraints
+      summary: Get listing constraints for a seller listing
+      operationId: ListingConstraints_GetListingConstraints
+      parameters:
+      - name: listingId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: ''
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/ListingConstraints'
+        '404':
+          $ref: '#/components/responses/not_found'
+          description: null
+        '403':
+          $ref: '#/components/responses/forbidden'
+          description: null
+        '401':
+          $ref: '#/components/responses/requires_authentication'
+          description: null
+        '500':
+          $ref: '#/components/responses/internal_server_error'
+          description: null
+      security:
+      - OAuth2:
+        - write:sellerlistings
+  /listingconstraints:
+    put:
+      tags:
+      - ListingConstraints
+      summary: Get listing constraints for a requested event
+      description: Get listings constraints for an event requested by the current user.
+      operationId: ListingConstraints_PutRequestedEventListingConstraints
+      requestBody:
+        x-name: body
+        content:
+          application/json:
+            schema:
+              oneOf:
+              - $ref: '#/components/schemas/PutRequestedEventRequest'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/ListingConstraints'
+        '403':
+          $ref: '#/components/responses/forbidden'
+          description: null
+        '400':
+          $ref: '#/components/responses/validation_failed'
+          description: null
+        '401':
+          $ref: '#/components/responses/requires_authentication'
+          description: null
+        '500':
+          $ref: '#/components/responses/internal_server_error'
+          description: null
+      security:
+      - OAuth2:
+        - write:sellerlistings
+        - write:requestedevents
+components:
+  schemas:
+    VenueRequest:
+      type: object
+      description: A venue is a location where an event takes place.
+      additionalProperties: false
+      required:
+      - name
+      - city
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+          description: The name of the venue.
+        city:
+          type:
+          - string
+          - 'null'
+          description: The name of the city where the venue is located.
+        state_province:
+          type:
+          - string
+          - 'null'
+          description: The name of the State or Province where the venue is located.
+    CountryRequest:
+      type: object
+      additionalProperties: false
+      required:
+      - code
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+          description: The two-letter ISO 3166 code for the country.
+    SplitType:
+      type: object
+      description: The way that the ticket(s) in a listing are allowed to be split up when sold.
+      additionalProperties: false
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+          description: The type of split. Can be Any, None, AvoidOne, AvoidOneAndThree, or Pairs.
+        name:
+          type:
+          - string
+          - 'null'
+          description: The localised name of the type of split.
+        description:
+          type:
+          - string
+          - 'null'
+          description: The localised description of the split.
+        _links:
+          oneOf:
+          - $ref: '#/components/schemas/SplitTypeLinks'
+    ListingNoteLinks:
+      title: ListingNoteLinks
+      type: object
+      properties:
+        self:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+    Section:
+      type: object
+      additionalProperties: false
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+        free_text_row:
+          type: boolean
+        queue_number_row:
+          type: boolean
+        rows:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Row'
+    ListingConstraintsLinks:
+      title: ListingConstraintsLinks
+      type: object
+      properties:
+        self:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+    Currency:
+      type: object
+      additionalProperties: false
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+          description: The ISO 4217 currency code that identifies the currency.
+        name:
+          type:
+          - string
+          - 'null'
+          description: The name of the currency.
+        symbol:
+          type:
+          - string
+          - 'null'
+          description: The symbol that identifies the currency.
+        decimal_places:
+          type:
+          - integer
+          - 'null'
+          description: The number of decimal places used to represent amounts in the currency.
+          format: int32
+        _links:
+          oneOf:
+          - $ref: '#/components/schemas/CurrencyLinks'
+    CurrencyLinks:
+      title: CurrencyLinks
+      type: object
+      properties:
+        self:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+    ListingNote:
+      type: object
+      description: Provides additional notes on a listing
+      additionalProperties: false
+      properties:
+        id:
+          type:
+          - integer
+          - 'null'
+          description: The listing note identifier.
+          format: int32
+        note:
+          type:
+          - string
+          - 'null'
+          description: The localized note.
+        type:
+          type:
+          - string
+          - 'null'
+          description: The listing note type name. Can be `Information`, `Perk`, `Defect` and `RestrictionOnUse`.
+        _links:
+          oneOf:
+          - $ref: '#/components/schemas/ListingNoteLinks'
+    SplitTypeLinks:
+      title: SplitTypeLinks
+      type: object
+      properties:
+        self:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+    TicketTypeLinks:
+      title: TicketTypeLinks
+      type: object
+      properties:
+        self:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+    ListingConstraints:
+      type: object
+      description: The constraints applied to a listing for a particular event on the viagogo marketplace.
+      additionalProperties: false
+      properties:
+        min_ticket_price:
+          oneOf:
+          - $ref: '#/components/schemas/Money'
+        max_ticket_price:
+          oneOf:
+          - $ref: '#/components/schemas/Money'
+        min_number_of_tickets:
+          type:
+          - integer
+          - 'null'
+          description: The minimum number of tickets available for purchase.
+          format: int32
+        max_number_of_tickets:
+          type:
+          - integer
+          - 'null'
+          description: The maximum number of tickets available for purchase.
+          format: int32
+        ticket_location_required:
+          type:
+          - boolean
+          - 'null'
+          description: True if a ticket location is required for tickets; Otherwise, false.
+        seats_required:
+          type:
+          - boolean
+          - 'null'
+          description: True if seat-level information (seat_to and seat_from) is required; Otherwise, false.
+        sections:
+          type:
+          - array
+          - 'null'
+          description: The valid section and row information. If no sections are specified then any text will be accepted for section and row.
+          items:
+            $ref: '#/components/schemas/Section'
+        primary_order_id_required:
+          type:
+          - boolean
+          - 'null'
+        home_or_away_required:
+          type:
+          - boolean
+          - 'null'
+        _links:
+          oneOf:
+          - $ref: '#/components/schemas/ListingConstraintsLinks'
+        _embedded:
+          oneOf:
+          - $ref: '#/components/schemas/ListingConstraintsEmbeddedResources'
+    TicketType:
+      type: object
+      additionalProperties: false
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+        name:
+          type:
+          - string
+          - 'null'
+        id:
+          type: integer
+          format: int32
+        _links:
+          oneOf:
+          - $ref: '#/components/schemas/TicketTypeLinks'
+    Link:
+      type: object
+      additionalProperties: false
+      properties:
+        href:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        templated:
+          type: boolean
+    PutRequestedEventRequest:
+      type: object
+      description: A requested event.
+      additionalProperties: false
+      properties:
+        event:
+          description: The event information.
+          oneOf:
+          - $ref: '#/components/schemas/EventRequest'
+        venue:
+          description: The venue where the event will take place.
+          oneOf:
+          - $ref: '#/components/schemas/VenueRequest'
+        country:
+          description: The country where the event will take place.
+          oneOf:
+          - $ref: '#/components/schemas/CountryRequest'
+    EventRequest:
+      type: object
+      additionalProperties: false
+      required:
+      - name
+      - start_date
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+          description: The name of the event.
+        start_date:
+          type:
+          - string
+          - 'null'
+          description: The date when the event starts.
+          format: date-time
+        date_confirmed:
+          type:
+          - boolean
+          - 'null'
+          description: True if the event start and end date have been confirmed; Otherwise, false.
+        note:
+          type:
+          - string
+          - 'null'
+          description: Additional notes on the event.
+    ListingConstraintsEmbeddedResources:
+      title: ListingConstraintsEmbeddedResources
+      type: object
+      properties:
+        connected_seller_listing_notes:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ListingNote'
+        currencies:
+          type:
+          - array
+          - 'null'
+          description: The valid currencies for the listing ticket price.
+          items:
+            $ref: '#/components/schemas/Currency'
+        listing_notes:
+          type:
+          - array
+          - 'null'
+          description: The available notes for this listing.
+          items:
+            $ref: '#/components/schemas/ListingNote'
+        required_unique_listing_notes:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ListingNote'
+        restricted_on_use_listing_notes:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ListingNote'
+        split_types:
+          type:
+          - array
+          - 'null'
+          description: The way that tickets are allowed to be split up when sold.
+          items:
+            $ref: '#/components/schemas/SplitType'
+        ticket_types:
+          type:
+          - array
+          - 'null'
+          description: The valid types of tickets.
+          items:
+            $ref: '#/components/schemas/TicketType'
+    Error:
+      type: object
+      additionalProperties: false
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+        message:
+          type:
+          - string
+          - 'null'
+        errors:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type: array
+            items:
+              type: string
+    Money:
+      type: object
+      description: Returned for monetary values, such as ticket prices, fees charged and tax amounts.
+      additionalProperties: false
+      required:
+      - amount
+      - currency_code
+      properties:
+        amount:
+          type:
+          - number
+          - 'null'
+          description: The decimal amount of the money.
+          format: decimal
+        currency_code:
+          type:
+          - string
+          - 'null'
+          description: The ISO 4217 currency code that the monetary value is represented in.
+        display:
+          type:
+          - string
+          - 'null'
+          description: A user-friendly string representing the monetary value.
+    Row:
+      type: object
+      additionalProperties: false
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+  responses:
+    internal_server_error:
+      description: Internal server error
+      content:
+        application/hal+json:
+          schema:
+            oneOf:
+            - $ref: '#/components/schemas/Error'
+    validation_failed:
+      description: The request data is not valid. errors will contain an object with a localized message that describes the validation error for each property of the data.
+      content:
+        application/hal+json:
+          schema:
+            oneOf:
+            - $ref: '#/components/schemas/Error'
+    not_found:
+      description: The URI requested is invalid or the resource requested, such as an event, does not exist.
+      content:
+        application/hal+json:
+          schema:
+            oneOf:
+            - $ref: '#/components/schemas/Error'
+    forbidden:
+      description: The request is understood, but it has been refused or access is not allowed. An accompanying error message will explain why.
+      content:
+        application/hal+json:
+          schema:
+            oneOf:
+            - $ref: '#/components/schemas/Error'
+    requires_authentication:
+      description: Authentication credentials were missing or incorrect.
+      content:
+        application/hal+json:
+          schema:
+            oneOf:
+            - $ref: '#/components/schemas/Error'
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      bearerFormat: JWT
+      flows:
+        implicit:
+          authorizationUrl: https://account.viagogo.com/authorize
+          tokenUrl: https://account.viagogo.com/oauth2/token
+          refreshUrl: https://account.viagogo.com/oauth2/token
+        clientCredentials:
+          tokenUrl: https://account.viagogo.com/oauth2/token
+        authorizationCode:
+          authorizationUrl: https://account.viagogo.com/authorize
+          tokenUrl: https://account.viagogo.com/oauth2/token
+          refreshUrl: https://account.viagogo.com/oauth2/token
+x-tagGroups:
+- name: Endpoints
+  tags:
+  - SellerListings
+  - SellerListings (External Id)
+  - SellerListings (Preview)
+  - E-Tickets
+  - ListingConstraints
+  - SellerEvents
+  - Shipments
+- name: Basic Types
+  tags:
+  - BasicType_Money
+- name: Resources
+  tags:
+  - Resource_ETickets
+  - Resource_ETicketUpload
+  - Resource_ETicketUploads
+  - Resource_ListingConstraints
+  - Resource_SellerEvent
+  - Resource_SellerEvents
+  - Resource_SellerListing
+  - Resource_SellerListings
+  - Resource_Shipment
+  - Resource_Shipments

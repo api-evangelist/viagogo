@@ -1,0 +1,574 @@
+openapi: 3.2.0
+info:
+  title: viagogo Catalog Listing Offers API
+  version: 1.0.0.49
+  x-logo:
+    url: https://img.vggcdn.net/img/assets/logo/viagogo_logo_apidocs.png
+    backgroundColor: '#222222'
+  description: Manage instant liquidity offers (buyer bids) on the viagogo platform
+servers:
+- url: https://api.viagogo.net
+  description: Production
+- url: https://sandbox.api.viagogo.net
+  description: Sandbox
+security:
+- OAuth2:
+  - manage:listingoffers
+  - read:categories
+  - read:events
+  - read:venue_configurations
+  - read:venues
+tags:
+- name: Listing Offers
+  description: Manage instant liquidity offers (buyer bids) on the viagogo platform
+paths:
+  /catalog/listingoffers:
+    post:
+      tags:
+      - Listing Offers
+      summary: Create a new instant liquidity offer (buyer bid) for a specific event.
+      operationId: ListingOffers_CreateOffer
+      requestBody:
+        x-name: body
+        content:
+          application/json:
+            schema:
+              oneOf:
+              - $ref: '#/components/schemas/CreateListingOfferRequest'
+        required: true
+      responses:
+        '200':
+          description: ''
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+        '403':
+          $ref: '#/components/responses/forbidden'
+          description: null
+        '400':
+          $ref: '#/components/responses/validation_failed'
+          description: null
+        '401':
+          $ref: '#/components/responses/requires_authentication'
+          description: null
+        '500':
+          $ref: '#/components/responses/internal_server_error'
+          description: null
+      security:
+      - OAuth2:
+        - manage:listingoffers
+  /catalog/listingoffers/event/{eventId}:
+    get:
+      tags:
+      - Listing Offers
+      summary: 'List caller''s live offers (Active + Paused) for a specific event.
+
+        Requires exactly one seating dimension: sectionId (+ optional rowId) OR ticketClassId.'
+      operationId: ListingOffers_ListOffers
+      parameters:
+      - name: eventId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: sectionId
+        in: query
+        schema:
+          type:
+          - integer
+          - 'null'
+          format: int32
+      - name: rowId
+        in: query
+        schema:
+          type:
+          - integer
+          - 'null'
+          format: int32
+      - name: ticketClassId
+        in: query
+        schema:
+          type:
+          - integer
+          - 'null'
+          format: int32
+      responses:
+        '200':
+          description: ''
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+        '404':
+          $ref: '#/components/responses/not_found'
+          description: null
+        '403':
+          $ref: '#/components/responses/forbidden'
+          description: null
+        '401':
+          $ref: '#/components/responses/requires_authentication'
+          description: null
+        '500':
+          $ref: '#/components/responses/internal_server_error'
+          description: null
+      security:
+      - OAuth2:
+        - manage:listingoffers
+  /catalog/listingoffers/event/{eventId}/all:
+    get:
+      tags:
+      - Listing Offers
+      summary: 'All offers (non-deleted) for a specific event — active, paused, fulfilled and expired.
+
+        Requires exactly one seating dimension: sectionId (+ optional rowId) OR ticketClassId.'
+      operationId: ListingOffers_GetAllOffers
+      parameters:
+      - name: eventId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: sectionId
+        in: query
+        schema:
+          type:
+          - integer
+          - 'null'
+          format: int32
+      - name: rowId
+        in: query
+        schema:
+          type:
+          - integer
+          - 'null'
+          format: int32
+      - name: ticketClassId
+        in: query
+        schema:
+          type:
+          - integer
+          - 'null'
+          format: int32
+      responses:
+        '200':
+          description: ''
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+        '404':
+          $ref: '#/components/responses/not_found'
+          description: null
+        '403':
+          $ref: '#/components/responses/forbidden'
+          description: null
+        '401':
+          $ref: '#/components/responses/requires_authentication'
+          description: null
+        '500':
+          $ref: '#/components/responses/internal_server_error'
+          description: null
+      security:
+      - OAuth2:
+        - manage:listingoffers
+  /catalog/listingoffers/{id}:
+    get:
+      tags:
+      - Listing Offers
+      summary: Get a single offer by ID.
+      operationId: ListingOffers_GetOffer
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: ''
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+        '404':
+          $ref: '#/components/responses/not_found'
+          description: null
+        '403':
+          $ref: '#/components/responses/forbidden'
+          description: null
+        '401':
+          $ref: '#/components/responses/requires_authentication'
+          description: null
+        '500':
+          $ref: '#/components/responses/internal_server_error'
+          description: null
+      security:
+      - OAuth2:
+        - manage:listingoffers
+    delete:
+      tags:
+      - Listing Offers
+      summary: Soft-delete an offer.
+      operationId: ListingOffers_DeleteOffer
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '204':
+          description: null
+        '403':
+          $ref: '#/components/responses/forbidden'
+          description: null
+        '401':
+          $ref: '#/components/responses/requires_authentication'
+          description: null
+        '500':
+          $ref: '#/components/responses/internal_server_error'
+          description: null
+      security:
+      - OAuth2:
+        - manage:listingoffers
+    patch:
+      tags:
+      - Listing Offers
+      summary: Update mutable fields on an Active or Paused offer.
+      operationId: ListingOffers_UpdateOffer
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      requestBody:
+        x-name: body
+        content:
+          application/json:
+            schema:
+              oneOf:
+              - $ref: '#/components/schemas/PatchListingOfferRequest'
+        required: true
+      responses:
+        '200':
+          description: ''
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+        '403':
+          $ref: '#/components/responses/forbidden'
+          description: null
+        '400':
+          $ref: '#/components/responses/validation_failed'
+          description: null
+        '401':
+          $ref: '#/components/responses/requires_authentication'
+          description: null
+        '500':
+          $ref: '#/components/responses/internal_server_error'
+          description: null
+      security:
+      - OAuth2:
+        - manage:listingoffers
+  /catalog/listingoffers/{id}/state:
+    patch:
+      tags:
+      - Listing Offers
+      summary: 'Transition offer state: Active (1) to resume, Paused (4) to pause.'
+      operationId: ListingOffers_SetOfferState
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      requestBody:
+        x-name: body
+        content:
+          application/json:
+            schema:
+              oneOf:
+              - $ref: '#/components/schemas/SetOfferStateRequest'
+        required: true
+      responses:
+        '200':
+          description: ''
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+        '403':
+          $ref: '#/components/responses/forbidden'
+          description: null
+        '400':
+          $ref: '#/components/responses/validation_failed'
+          description: null
+        '401':
+          $ref: '#/components/responses/requires_authentication'
+          description: null
+        '500':
+          $ref: '#/components/responses/internal_server_error'
+          description: null
+      security:
+      - OAuth2:
+        - manage:listingoffers
+  /catalog/listingoffers/bidderbalance:
+    get:
+      tags:
+      - Listing Offers
+      summary: 'Get the caller''s outstanding bidder balance — total redeemable coupon value
+
+        projected into the requested currency. This is the spendable amount used by
+
+        the matching service when gating bids; eligibility (opt-in / daily-limit /
+
+        blocks) is intentionally not applied here.'
+      operationId: ListingOffers_GetBidderBalance
+      parameters:
+      - name: currencyCode
+        in: query
+        schema:
+          type: string
+          default: USD
+      responses:
+        '200':
+          description: ''
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+        '404':
+          $ref: '#/components/responses/not_found'
+          description: null
+        '403':
+          $ref: '#/components/responses/forbidden'
+          description: null
+        '401':
+          $ref: '#/components/responses/requires_authentication'
+          description: null
+        '500':
+          $ref: '#/components/responses/internal_server_error'
+          description: null
+      security:
+      - OAuth2:
+        - manage:listingoffers
+components:
+  schemas:
+    InstantLiquidityOfferState:
+      type: integer
+      description: ''
+      x-enumNames:
+      - Active
+      - Fulfilled
+      - Deleted
+      - Paused
+      enum:
+      - 1
+      - 2
+      - 3
+      - 4
+    CreateListingOfferRequest:
+      type: object
+      additionalProperties: false
+      required:
+      - EventId
+      - Quantity
+      - TicketBidPrice
+      - BidCurrencyCode
+      properties:
+        EventId:
+          type: integer
+          format: int32
+        Quantity:
+          type: integer
+          format: int32
+          maximum: 20.0
+          minimum: 1.0
+        TicketBidPrice:
+          type: number
+          format: decimal
+          minimum: 1.0
+        BidCurrencyCode:
+          type: string
+          maxLength: 3
+          minLength: 3
+        AutoRelistEnabled:
+          type: boolean
+        RelistMarginPercentage:
+          type: number
+          format: decimal
+          minimum: 0.0
+        OfferCount:
+          type: integer
+          format: int32
+          maximum: 100.0
+          minimum: 1.0
+        SectionId:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        RowId:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        TicketClassId:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        ExpiresAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+    PatchListingOfferRequest:
+      type: object
+      additionalProperties: false
+      properties:
+        TicketBidPrice:
+          type:
+          - number
+          - 'null'
+          format: decimal
+          minimum: 1.0
+        Quantity:
+          type:
+          - integer
+          - 'null'
+          format: int32
+          maximum: 20.0
+          minimum: 1.0
+        ExpiresAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        AutoRelistEnabled:
+          type:
+          - boolean
+          - 'null'
+        RelistMarginPercentage:
+          type:
+          - number
+          - 'null'
+          format: decimal
+          minimum: 0.0
+        OfferCount:
+          type:
+          - integer
+          - 'null'
+          format: int32
+          maximum: 100.0
+          minimum: 1.0
+    SetOfferStateRequest:
+      type: object
+      additionalProperties: false
+      required:
+      - State
+      properties:
+        State:
+          description: 'Target state: Active (1) to resume, Paused (4) to pause.'
+          oneOf:
+          - $ref: '#/components/schemas/InstantLiquidityOfferState'
+    Error:
+      type: object
+      additionalProperties: false
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        errors:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+  responses:
+    internal_server_error:
+      description: Internal server error
+      content:
+        application/hal+json:
+          schema:
+            oneOf:
+            - $ref: '#/components/schemas/Error'
+    validation_failed:
+      description: The request data is not valid. errors will contain an object with a localized message that describes the validation error for each property of the data.
+      content:
+        application/hal+json:
+          schema:
+            oneOf:
+            - $ref: '#/components/schemas/Error'
+    requires_authentication:
+      description: Authentication credentials were missing or incorrect.
+      content:
+        application/hal+json:
+          schema:
+            oneOf:
+            - $ref: '#/components/schemas/Error'
+    not_found:
+      description: The URI requested is invalid or the resource requested, such as an event, does not exist.
+      content:
+        application/hal+json:
+          schema:
+            oneOf:
+            - $ref: '#/components/schemas/Error'
+    forbidden:
+      description: The request is understood, but it has been refused or access is not allowed. An accompanying error message will explain why.
+      content:
+        application/hal+json:
+          schema:
+            oneOf:
+            - $ref: '#/components/schemas/Error'
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      bearerFormat: JWT
+      flows:
+        implicit:
+          authorizationUrl: https://account.viagogo.com/authorize
+          tokenUrl: https://account.viagogo.com/oauth2/token
+          refreshUrl: https://account.viagogo.com/oauth2/token
+        clientCredentials:
+          tokenUrl: https://account.viagogo.com/oauth2/token
+        authorizationCode:
+          authorizationUrl: https://account.viagogo.com/authorize
+          tokenUrl: https://account.viagogo.com/oauth2/token
+          refreshUrl: https://account.viagogo.com/oauth2/token
+x-tagGroups:
+- name: Endpoints
+  tags:
+  - Categories
+  - Events
+  - Listing Offers
+  - Venue Configurations
+  - Venues
+- name: Basic Types
+  tags:
+  - BasicType_Money
+- name: Resources
+  tags:
+  - Resource_Event
+  - Resource_Events
+  - Resource_MapEventResponseModel
+  - Resource_Venue
+  - Resource_VenueConfigurationResource
+  - Resource_Venues

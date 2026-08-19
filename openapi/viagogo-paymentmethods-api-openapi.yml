@@ -1,0 +1,468 @@
+openapi: 3.2.0
+info:
+  title: viagogo Account Payment Methods API
+  version: 2.249.0.0
+  x-logo:
+    url: https://img.vggcdn.net/img/assets/logo/viagogo_logo_apidocs.png
+    backgroundColor: '#222222'
+servers:
+- url: https://api.viagogo.net/v2
+  description: Production
+- url: https://sandbox.api.viagogo.net/v2
+  description: Sandbox
+security:
+- OAuth2:
+  - read:user
+  - write:brokerage
+  - write:user
+tags:
+- name: PaymentMethods
+paths:
+  /listings/{listingId}/paymentmethods:
+    put:
+      tags:
+      - PaymentMethods
+      summary: List payment methods for a listing
+      operationId: PaymentMethods_GetListingPaymentMethods
+      parameters:
+      - name: listingId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: page
+        in: query
+        description: Specifies which page of data to retrieve.
+        schema:
+          type: integer
+          format: int32
+      - name: page_size
+        in: query
+        description: Set custom page sizes on response.
+        schema:
+          type: integer
+          format: int32
+      requestBody:
+        x-name: body
+        content:
+          application/json:
+            schema:
+              oneOf:
+              - $ref: '#/components/schemas/PutListingPaymentMethodsRequest'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/PaymentMethods'
+        '403':
+          $ref: '#/components/responses/forbidden'
+          description: null
+        '400':
+          $ref: '#/components/responses/validation_failed'
+          description: null
+        '401':
+          $ref: '#/components/responses/requires_authentication'
+          description: null
+        '500':
+          $ref: '#/components/responses/internal_server_error'
+          description: null
+      security:
+      - OAuth2:
+        - read:user
+components:
+  schemas:
+    PutListingPaymentMethodsRequest:
+      type: object
+      additionalProperties: false
+      properties:
+        number_of_tickets:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        delivery_address_id:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        delivery_method_id:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        coupons:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        pickup_full_name:
+          type:
+          - string
+          - 'null'
+    PaymentMethodEmbeddedResources:
+      title: PaymentMethodEmbeddedResources
+      type: object
+      properties:
+        billing_address:
+          description: The billing address for this payment method.
+          oneOf:
+          - $ref: '#/components/schemas/Address'
+        type_details:
+          type:
+          - object
+          - 'null'
+          description: The type details for this payment method.
+          additionalProperties: {}
+    PaymentMethodsLinks:
+      title: PaymentMethodsLinks
+      type: object
+      properties:
+        self:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+        first:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+        last:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+        next:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+        paymentmethod:createcreditcard:
+          description: Adds a new credit card for the current user.
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+        paymentmethod:createpaypal:
+          description: Adds a new PayPal account for the current user.
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+        prev:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+    Address:
+      type: object
+      description: An address is a delivery, pickup or billing address associated with the current user.
+      additionalProperties: false
+      properties:
+        id:
+          type:
+          - integer
+          - 'null'
+          description: The address identifier.
+          format: int32
+        full_name:
+          type:
+          - string
+          - 'null'
+          description: The full name of the recipient.
+        default:
+          type:
+          - boolean
+          - 'null'
+          description: True if the address is the user’s default address; Otherwise, false.
+        address_1:
+          type:
+          - string
+          - 'null'
+          description: The first line of the address.
+        address_2:
+          type:
+          - string
+          - 'null'
+          description: The second line of the address.
+        address_3:
+          type:
+          - string
+          - 'null'
+          description: The third line of the address.
+        city:
+          type:
+          - string
+          - 'null'
+          description: The name of the city where the address is located.
+        state_province:
+          type:
+          - string
+          - 'null'
+          description: The name of the State or Province where the address is located.
+        postal_code:
+          type:
+          - string
+          - 'null'
+          description: The postal code for the address.
+        _links:
+          oneOf:
+          - $ref: '#/components/schemas/AddressLinks'
+        _embedded:
+          oneOf:
+          - $ref: '#/components/schemas/AddressEmbeddedResources'
+    Link:
+      type: object
+      additionalProperties: false
+      properties:
+        href:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        templated:
+          type: boolean
+    CountryLinks:
+      title: CountryLinks
+      type: object
+      properties:
+        self:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+        country:events:
+          description: The events taking place in a country.
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+        country:localwebpage:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+    Country:
+      type: object
+      additionalProperties: false
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+          description: The two-letter ISO 3166 code for the country.
+        name:
+          type:
+          - string
+          - 'null'
+          description: The name of the country.
+        _links:
+          oneOf:
+          - $ref: '#/components/schemas/CountryLinks'
+    AddressEmbeddedResources:
+      title: AddressEmbeddedResources
+      type: object
+      properties:
+        country:
+          description: The Country where the address is located.
+          oneOf:
+          - $ref: '#/components/schemas/Country'
+    AddressLinks:
+      title: AddressLinks
+      type: object
+      properties:
+        self:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+        address:carrier:
+          description: The pickup windows available for Carrier collection.
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+        address:delete:
+          description: Delete the current user’s address.
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+        address:update:
+          description: Update the details of the current user’s address.
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+    PaymentMethods:
+      type: object
+      description: 'The PaymentMethods resource is a collection resource that contains zero
+
+        or more references to a set of payment methods, and links that guide you
+
+        on ways to interact with the payment methods. The collection offers a
+
+        paginated view of payment methods.'
+      additionalProperties: false
+      properties:
+        total_items:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        page:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        page_size:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        _links:
+          oneOf:
+          - $ref: '#/components/schemas/PaymentMethodsLinks'
+        _embedded:
+          oneOf:
+          - $ref: '#/components/schemas/PaymentMethodsEmbeddedResources'
+    PaymentMethodLinks:
+      title: PaymentMethodLinks
+      type: object
+      properties:
+        self:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+        paymentmethod:delete:
+          description: Delete the current user’s payment method.
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+        paymentmethod:updatecreditcard:
+          description: Update the current user’s credit card details.
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+        paymentmethod:updatedefaults:
+          description: Update the default payment methods for the current user.
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+        paymentmethod:updatepaypal:
+          description: Update the current user’s PayPal details.
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+    PaymentMethodsEmbeddedResources:
+      title: PaymentMethodsEmbeddedResources
+      type: object
+      properties:
+        items:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/PaymentMethod'
+    Error:
+      type: object
+      additionalProperties: false
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+        message:
+          type:
+          - string
+          - 'null'
+        errors:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type: array
+            items:
+              type: string
+    PaymentMethod:
+      type: object
+      description: A method to send or receive payment.
+      additionalProperties: false
+      properties:
+        id:
+          type:
+          - integer
+          - 'null'
+          description: The payment method identifier.
+          format: int32
+        details:
+          type:
+          - string
+          - 'null'
+          description: The obfuscated details of the payment method.
+        type:
+          type:
+          - string
+          - 'null'
+          description: The type of the payment method.
+        type_description:
+          type:
+          - string
+          - 'null'
+          description: A localised string describing the type of payment method.
+        buyer_method:
+          type:
+          - boolean
+          - 'null'
+          description: True if the payment method can be used for purchasing listings; otherwise, false.
+        default_buyer_method:
+          type:
+          - boolean
+          - 'null'
+          description: True if the payment method is the user’s default payment method for purchasing listings.
+        seller_method:
+          type:
+          - boolean
+          - 'null'
+          description: True if the payment method can be used for receiving payments; otherwise, false.
+        default_seller_method:
+          type:
+          - boolean
+          - 'null'
+          description: True if the payment method is the user’s default payment method for receiving payments.
+        _links:
+          oneOf:
+          - $ref: '#/components/schemas/PaymentMethodLinks'
+        _embedded:
+          oneOf:
+          - $ref: '#/components/schemas/PaymentMethodEmbeddedResources'
+  responses:
+    internal_server_error:
+      description: Internal server error
+      content:
+        application/hal+json:
+          schema:
+            oneOf:
+            - $ref: '#/components/schemas/Error'
+    validation_failed:
+      description: The request data is not valid. errors will contain an object with a localized message that describes the validation error for each property of the data.
+      content:
+        application/hal+json:
+          schema:
+            oneOf:
+            - $ref: '#/components/schemas/Error'
+    requires_authentication:
+      description: Authentication credentials were missing or incorrect.
+      content:
+        application/hal+json:
+          schema:
+            oneOf:
+            - $ref: '#/components/schemas/Error'
+    forbidden:
+      description: The request is understood, but it has been refused or access is not allowed. An accompanying error message will explain why.
+      content:
+        application/hal+json:
+          schema:
+            oneOf:
+            - $ref: '#/components/schemas/Error'
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      bearerFormat: JWT
+      flows:
+        implicit:
+          authorizationUrl: https://account.viagogo.com/authorize
+          tokenUrl: https://account.viagogo.com/oauth2/token
+          refreshUrl: https://account.viagogo.com/oauth2/token
+        clientCredentials:
+          tokenUrl: https://account.viagogo.com/oauth2/token
+        authorizationCode:
+          authorizationUrl: https://account.viagogo.com/authorize
+          tokenUrl: https://account.viagogo.com/oauth2/token
+          refreshUrl: https://account.viagogo.com/oauth2/token
+x-tagGroups:
+- name: Endpoints
+  tags:
+  - Addresses
+  - PaymentMethods
+  - User
+- name: Resources
+  tags:
+  - Resource_Address
+  - Resource_Addresss
+  - Resource_PaymentMethods
+  - Resource_User

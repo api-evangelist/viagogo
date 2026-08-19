@@ -1,0 +1,288 @@
+openapi: 3.2.0
+info:
+  title: viagogo Sales Ticket Holders API
+  version: 2.249.0.0
+  x-logo:
+    url: https://img.vggcdn.net/img/assets/logo/viagogo_logo_apidocs.png
+    backgroundColor: '#222222'
+servers:
+- url: https://api.viagogo.net/v2
+  description: Production
+- url: https://sandbox.api.viagogo.net/v2
+  description: Sandbox
+security:
+- OAuth2:
+  - read:payment
+  - read:sales
+  - read:sellerlistings
+  - read:user
+  - write:purchases
+  - write:sales
+  - write:sellerlistings
+  - write:user
+tags:
+- name: TicketHolders
+paths:
+  /sales/{saleId}/ticketholders:
+    get:
+      tags:
+      - TicketHolders
+      summary: List ticket holder details for a sale
+      operationId: TicketHolders_GetSaleTicketHolderDetails
+      parameters:
+      - name: saleId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: ''
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/TicketHolder'
+        '404':
+          $ref: '#/components/responses/not_found'
+          description: null
+        '403':
+          $ref: '#/components/responses/forbidden'
+          description: null
+        '401':
+          $ref: '#/components/responses/requires_authentication'
+          description: null
+        '500':
+          $ref: '#/components/responses/internal_server_error'
+          description: null
+      security:
+      - OAuth2:
+        - read:user
+        - read:sales
+components:
+  schemas:
+    TicketHolder:
+      type: object
+      additionalProperties: false
+      properties:
+        id:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        title:
+          type:
+          - string
+          - 'null'
+        full_name:
+          type:
+          - string
+          - 'null'
+        date_of_birth:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        city_of_birth:
+          type:
+          - string
+          - 'null'
+        province_of_birth:
+          type:
+          - string
+          - 'null'
+        city_of_residence:
+          type:
+          - string
+          - 'null'
+        province_of_residence:
+          type:
+          - string
+          - 'null'
+        club_issuer:
+          type:
+          - string
+          - 'null'
+        card_number:
+          type:
+          - string
+          - 'null'
+        document_type:
+          type:
+          - string
+          - 'null'
+        document_number:
+          type:
+          - string
+          - 'null'
+        fiscal_code:
+          type:
+          - string
+          - 'null'
+        security_code:
+          type:
+          - string
+          - 'null'
+        generic_answer:
+          type:
+          - string
+          - 'null'
+        email_address:
+          type:
+          - string
+          - 'null'
+        _links:
+          oneOf:
+          - $ref: '#/components/schemas/TicketHolderLinks'
+        _embedded:
+          oneOf:
+          - $ref: '#/components/schemas/TicketHolderEmbeddedResources'
+    Link:
+      type: object
+      additionalProperties: false
+      properties:
+        href:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        templated:
+          type: boolean
+    CountryLinks:
+      title: CountryLinks
+      type: object
+      properties:
+        self:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+        country:events:
+          description: The events taking place in a country.
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+        country:localwebpage:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+    Country:
+      type: object
+      additionalProperties: false
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+          description: The two-letter ISO 3166 code for the country.
+        name:
+          type:
+          - string
+          - 'null'
+          description: The name of the country.
+        _links:
+          oneOf:
+          - $ref: '#/components/schemas/CountryLinks'
+    TicketHolderEmbeddedResources:
+      title: TicketHolderEmbeddedResources
+      type: object
+      properties:
+        document_issuing_country:
+          oneOf:
+          - $ref: '#/components/schemas/Country'
+        nationality_country:
+          oneOf:
+          - $ref: '#/components/schemas/Country'
+    TicketHolderLinks:
+      title: TicketHolderLinks
+      type: object
+      properties:
+        self:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+    Error:
+      type: object
+      additionalProperties: false
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+        message:
+          type:
+          - string
+          - 'null'
+        errors:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type: array
+            items:
+              type: string
+  responses:
+    internal_server_error:
+      description: Internal server error
+      content:
+        application/hal+json:
+          schema:
+            oneOf:
+            - $ref: '#/components/schemas/Error'
+    requires_authentication:
+      description: Authentication credentials were missing or incorrect.
+      content:
+        application/hal+json:
+          schema:
+            oneOf:
+            - $ref: '#/components/schemas/Error'
+    not_found:
+      description: The URI requested is invalid or the resource requested, such as an event, does not exist.
+      content:
+        application/hal+json:
+          schema:
+            oneOf:
+            - $ref: '#/components/schemas/Error'
+    forbidden:
+      description: The request is understood, but it has been refused or access is not allowed. An accompanying error message will explain why.
+      content:
+        application/hal+json:
+          schema:
+            oneOf:
+            - $ref: '#/components/schemas/Error'
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      bearerFormat: JWT
+      flows:
+        implicit:
+          authorizationUrl: https://account.viagogo.com/authorize
+          tokenUrl: https://account.viagogo.com/oauth2/token
+          refreshUrl: https://account.viagogo.com/oauth2/token
+        clientCredentials:
+          tokenUrl: https://account.viagogo.com/oauth2/token
+        authorizationCode:
+          authorizationUrl: https://account.viagogo.com/authorize
+          tokenUrl: https://account.viagogo.com/oauth2/token
+          refreshUrl: https://account.viagogo.com/oauth2/token
+x-tagGroups:
+- name: Endpoints
+  tags:
+  - Sales
+  - E-Tickets
+  - Payments
+  - Shipments
+  - TicketHolders
+  - TransferStatusProof
+- name: Basic Types
+  tags:
+  - BasicType_Money
+- name: Resources
+  tags:
+  - Resource_ETickets
+  - Resource_ETicketUploads
+  - Resource_Payment
+  - Resource_Sale
+  - Resource_Sales
+  - Resource_Shipment
+  - Resource_Shipments
+  - Resource_TicketHolder
+  - Resource_TransferStatusProof

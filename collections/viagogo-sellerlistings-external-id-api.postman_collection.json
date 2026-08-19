@@ -1,0 +1,1003 @@
+{
+  "item": [
+    {
+      "id": "775ad104-6f2d-4913-9ee7-30f8004ff8ad",
+      "name": "SellerListings (External Id)",
+      "description": {
+        "content": "Manage your inventory using identifiers from an external inventory management system.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "2471211c-f31b-41e3-92c3-cab2811e82b0",
+          "name": "Get a seller listing by external ID",
+          "request": {
+            "name": "Get a seller listing by external ID",
+            "description": {
+              "content": "Get a seller listing by identifier that has been assigned to the listing in an external inventory management system.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "externalsellerlistings",
+                ":externallistingId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string,null>",
+                  "key": "externallistingId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/hal+json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "redirect_uri",
+                  "value": "https://account.viagogo.com/oauth2/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://account.viagogo.com/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "implicit"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "ccb5e63c-4bac-4d0f-b5ca-9fd793697904",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "externalsellerlistings",
+                    ":externallistingId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string,null>",
+                      "key": "externallistingId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/hal+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/hal+json"
+                }
+              ],
+              "body": "{\n  \"id\": null,\n  \"created_at\": \"2019-03-31T19:16:52.746Z\",\n  \"number_of_tickets\": null,\n  \"seating\": {\n    \"section\": null,\n    \"row\": null,\n    \"seat_from\": \"string\",\n    \"seat_to\": \"string\",\n    \"state\": {\n      \"visible_in_venue_map\": false\n    }\n  },\n  \"display_seating\": {\n    \"section\": null,\n    \"row\": \"string\",\n    \"seat_from\": \"string\",\n    \"seat_to\": \"string\",\n    \"state\": {\n      \"visible_in_venue_map\": false\n    }\n  },\n  \"ticket_price\": {\n    \"amount\": null,\n    \"currency_code\": \"string\",\n    \"display\": null\n  },\n  \"updated_at\": null,\n  \"external_id\": null,\n  \"expires_at\": \"1984-01-27T19:17:17.082Z\",\n  \"display_number_of_tickets\": null,\n  \"face_value\": {\n    \"amount\": null,\n    \"currency_code\": \"string\",\n    \"display\": \"string\"\n  },\n  \"ticket_proceeds\": {\n    \"amount\": null,\n    \"currency_code\": \"string\",\n    \"display\": \"string\"\n  },\n  \"in_hand_at\": \"1963-06-04T11:21:34.624Z\",\n  \"is_ticket_concierge\": true,\n  \"is_auto_po\": true,\n  \"barcodes\": [\n    \"\",\n    \"\"\n  ],\n  \"instant_delivery\": null,\n  \"undeliverable\": true,\n  \"purchase_price_per_ticket\": {\n    \"amount\": null,\n    \"currency_code\": null,\n    \"display\": \"string\"\n  },\n  \"total_purchase_price\": {\n    \"amount\": null,\n    \"currency_code\": null,\n    \"display\": \"string\"\n  },\n  \"sales_tax_paid\": true,\n  \"_links\": {\n    \"self\": {\n      \"href\": \"string\",\n      \"title\": null,\n      \"templated\": false\n    },\n    \"event:createsellerlisting\": {\n      \"href\": null,\n      \"title\": null,\n      \"templated\": false\n    },\n    \"sellerlisting:constraints\": {\n      \"href\": null,\n      \"title\": null,\n      \"templated\": true\n    },\n    \"sellerlisting:contactuswebpage\": {\n      \"href\": null,\n      \"title\": \"string\",\n      \"templated\": false\n    },\n    \"sellerlisting:delete\": {\n      \"href\": null,\n      \"title\": null,\n      \"templated\": false\n    },\n    \"sellerlisting:etickets\": {\n      \"href\": null,\n      \"title\": null,\n      \"templated\": true\n    },\n    \"sellerlisting:eticketuploads\": {\n      \"href\": null,\n      \"title\": \"string\",\n      \"templated\": false\n    },\n    \"sellerlisting:lmsoptin\": {\n      \"href\": \"string\",\n      \"title\": \"string\",\n      \"templated\": false\n    },\n    \"sellerlisting:lmsoptout\": {\n      \"href\": null,\n      \"title\": null,\n      \"templated\": true\n    },\n    \"sellerlisting:lmspickup\": {\n      \"href\": null,\n      \"title\": \"string\",\n      \"templated\": false\n    },\n    \"sellerlisting:optionalverificationrequests\": {\n      \"href\": null,\n      \"title\": null,\n      \"templated\": true\n    },\n    \"sellerlisting:pricing\": {\n      \"href\": \"string\",\n      \"title\": \"string\",\n      \"templated\": true\n    },\n    \"sellerlisting:publish\": {\n      \"href\": \"string\",\n      \"title\": null,\n      \"templated\": false\n    },\n    \"sellerlisting:saveetickets\": {\n      \"href\": \"string\",\n      \"title\": \"string\",\n      \"templated\": true\n    },\n    \"sellerlisting:shipments\": {\n      \"href\": null,\n      \"title\": \"string\",\n      \"templated\": false\n    },\n    \"sellerlisting:ticketlocation\": {\n      \"href\": \"string\",\n      \"title\": \"string\",\n      \"templated\": true\n    },\n    \"sellerlisting:unpublish\": {\n      \"href\": null,\n      \"title\": null,\n      \"templated\": true\n    },\n    \"sellerlisting:updatedisplaynumberoftickets\": {\n      \"href\": \"string\",\n      \"title\": \"string\",\n      \"templated\": true\n    },\n    \"sellerlisting:updatefacevalue\": {\n      \"href\": \"string\",\n      \"title\": null,\n      \"templated\": false\n    },\n    \"sellerlisting:updateinhandat\": {\n      \"href\": \"string\",\n      \"title\": null,\n      \"templated\": true\n    },\n    \"sellerlisting:updatenotes\": {\n      \"href\": null,\n      \"title\": null,\n      \"templated\": false\n    },\n    \"sellerlisting:updatenumberoftickets\": {\n      \"href\": null,\n      \"title\": \"string\",\n      \"templated\": true\n    },\n    \"sellerlisting:updatepreview\": {\n      \"href\": \"string\",\n      \"title\": null,\n      \"templated\": true\n    },\n    \"sellerlisting:updateseating\": {\n      \"href\": \"string\",\n      \"title\": \"string\",\n      \"templated\": true\n    },\n    \"sellerlisting:updatesplittype\": {\n      \"href\": \"string\",\n      \"title\": \"string\",\n      \"templated\": false\n    },\n    \"sellerlisting:updateticketlocation\": {\n      \"href\": null,\n      \"title\": null,\n      \"templated\": false\n    },\n    \"sellerlisting:updateticketprice\": {\n      \"href\": \"string\",\n      \"title\": \"string\",\n      \"templated\": false\n    },\n    \"sellerlisting:updatetickettype\": {\n      \"href\": \"string\",\n      \"title\": \"string\",\n      \"templated\": true\n    },\n    \"sellerlisting:uploadeticket\": {\n      \"href\": \"string\",\n      \"title\": null,\n      \"templated\": true\n    },\n    \"sellerlisting:verificationrequests\": {\n      \"href\": \"string\",\n      \"title\": \"string\",\n      \"templated\": false\n    },\n    \"sellerlisting:webpage\": {\n      \"href\": \"string\",\n      \"title\": \"string\",\n      \"templated\": true\n    }\n  },\n  \"_embedded\": {\n    \"constraints\": {\n      \"min_ticket_price\": {\n        \"amount\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"currency_code\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"display\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"max_ticket_price\": {\n        \"amount\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"currency_code\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"display\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"min_number_of_tickets\": null,\n      \"max_number_of_tickets\": 5268,\n      \"ticket_location_required\": null,\n      \"seats_required\": true,\n      \"sections\": null,\n      \"primary_order_id_required\": null,\n      \"home_or_away_required\": null,\n      \"_links\": {\n        \"self\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"_embedded\": {\n        \"connected_seller_listing_notes\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"currencies\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"listing_notes\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"required_unique_listing_notes\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"restricted_on_use_listing_notes\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"split_types\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"ticket_types\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    },\n    \"event\": {\n      \"id\": 507,\n      \"name\": null,\n      \"start_date\": null,\n      \"end_date\": null,\n      \"on_sale_date\": null,\n      \"date_confirmed\": null,\n      \"merged_events\": [\n        \"\",\n        \"\"\n      ],\n      \"_links\": {\n        \"self\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    },\n    \"listing_notes\": null,\n    \"relist_transaction\": {\n      \"id\": 7216\n    },\n    \"split_type\": {\n      \"type\": \"string\",\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"_links\": {\n        \"self\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    },\n    \"ticket_type\": {\n      \"type\": \"string\",\n      \"name\": null,\n      \"id\": 9341,\n      \"_links\": {\n        \"self\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    },\n    \"venue\": {\n      \"id\": null,\n      \"name\": \"string\",\n      \"city\": null,\n      \"state_province\": null,\n      \"latitude\": 3311.8793190727456,\n      \"longitude\": null,\n      \"_links\": {\n        \"self\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"_embedded\": {\n        \"country\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f0aa29e8-bcc1-4ebe-9485-6f3d360ec5ac",
+              "name": "Authentication credentials were missing or incorrect.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "externalsellerlistings",
+                    ":externallistingId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string,null>",
+                      "key": "externallistingId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/hal+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/hal+json"
+                }
+              ],
+              "body": "{\n  \"code\": null,\n  \"message\": \"string\",\n  \"errors\": null\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "846b48bb-4bcd-41f5-97d4-8189108a8b45",
+              "name": "The request is understood, but it has been refused or access is not allowed. An accompanying error message will explain why.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "externalsellerlistings",
+                    ":externallistingId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string,null>",
+                      "key": "externallistingId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/hal+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/hal+json"
+                }
+              ],
+              "body": "{\n  \"code\": null,\n  \"message\": \"string\",\n  \"errors\": null\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ddd251c2-6781-4717-8729-83a9bdd81096",
+              "name": "The URI requested is invalid or the resource requested, such as an event, does not exist.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "externalsellerlistings",
+                    ":externallistingId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string,null>",
+                      "key": "externallistingId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/hal+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/hal+json"
+                }
+              ],
+              "body": "{\n  \"code\": null,\n  \"message\": \"string\",\n  \"errors\": null\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bace540d-bbd4-4588-aa30-dad904d405a4",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "externalsellerlistings",
+                    ":externallistingId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string,null>",
+                      "key": "externallistingId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/hal+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/hal+json"
+                }
+              ],
+              "body": "{\n  \"code\": null,\n  \"message\": \"string\",\n  \"errors\": null\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fef7af4d-a21c-4bdb-a9e9-4eca4a91ccd8",
+          "name": "Update a seller listing by external ID",
+          "request": {
+            "name": "Update a seller listing by external ID",
+            "description": {
+              "content": "Update a seller listing by identifier that has been assigned to the listing in an external inventory management system.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "externalsellerlistings",
+                ":externalId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string,null>",
+                  "key": "externalId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/hal+json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "redirect_uri",
+                  "value": "https://account.viagogo.com/oauth2/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://account.viagogo.com/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "implicit"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ticket_price\": {\n    \"amount\": \"<number,null-decimal>\",\n    \"currency_code\": \"<string,null>\",\n    \"display\": \"<string,null>\"\n  },\n  \"ticket_proceeds\": {\n    \"amount\": \"<number,null-decimal>\",\n    \"currency_code\": \"<string,null>\",\n    \"display\": \"<string,null>\"\n  },\n  \"seating\": {\n    \"section\": \"<string,null>\",\n    \"row\": \"<string,null>\",\n    \"seat_from\": \"<string,null>\",\n    \"seat_to\": \"<string,null>\",\n    \"hide_seat_details\": \"<boolean,null>\"\n  },\n  \"face_value\": {\n    \"amount\": \"<number,null-decimal>\",\n    \"currency_code\": \"<string,null>\",\n    \"display\": \"<string,null>\"\n  },\n  \"ticket_type\": \"<string,null>\",\n  \"split_type\": \"<string,null>\",\n  \"number_of_tickets\": \"<integer,null-int32>\",\n  \"display_number_of_tickets\": \"<integer,null-int32>\",\n  \"ticket_location_address_id\": \"<integer,null-int32>\",\n  \"listing_note_ids\": \"<array,null>\",\n  \"in_hand_at\": \"<string,null-date-time>\",\n  \"external_id\": \"<string,null>\",\n  \"notes\": \"<string,null>\",\n  \"instant_delivery\": \"<boolean,null>\",\n  \"published\": \"<boolean,null>\",\n  \"lms_optin\": \"<boolean,null>\",\n  \"eticket_ids\": \"<array,null>\",\n  \"external_event_information\": \"<array,null>\",\n  \"purchase_price_per_ticket\": {\n    \"amount\": \"<number,null-decimal>\",\n    \"currency_code\": \"<string,null>\",\n    \"display\": \"<string,null>\"\n  },\n  \"total_purchase_price\": {\n    \"amount\": \"<number,null-decimal>\",\n    \"currency_code\": \"<string,null>\",\n    \"display\": \"<string,null>\"\n  },\n  \"sales_tax_paid\": \"<boolean,null>\",\n  \"barcodes\": \"<array,null>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8934ff97-f07a-4710-8037-cd3694843da1",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "externalsellerlistings",
+                    ":externalId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string,null>",
+                      "key": "externalId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/hal+json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ticket_price\": {\n    \"amount\": \"<number,null-decimal>\",\n    \"currency_code\": \"<string,null>\",\n    \"display\": \"<string,null>\"\n  },\n  \"ticket_proceeds\": {\n    \"amount\": \"<number,null-decimal>\",\n    \"currency_code\": \"<string,null>\",\n    \"display\": \"<string,null>\"\n  },\n  \"seating\": {\n    \"section\": \"<string,null>\",\n    \"row\": \"<string,null>\",\n    \"seat_from\": \"<string,null>\",\n    \"seat_to\": \"<string,null>\",\n    \"hide_seat_details\": \"<boolean,null>\"\n  },\n  \"face_value\": {\n    \"amount\": \"<number,null-decimal>\",\n    \"currency_code\": \"<string,null>\",\n    \"display\": \"<string,null>\"\n  },\n  \"ticket_type\": \"<string,null>\",\n  \"split_type\": \"<string,null>\",\n  \"number_of_tickets\": \"<integer,null-int32>\",\n  \"display_number_of_tickets\": \"<integer,null-int32>\",\n  \"ticket_location_address_id\": \"<integer,null-int32>\",\n  \"listing_note_ids\": \"<array,null>\",\n  \"in_hand_at\": \"<string,null-date-time>\",\n  \"external_id\": \"<string,null>\",\n  \"notes\": \"<string,null>\",\n  \"instant_delivery\": \"<boolean,null>\",\n  \"published\": \"<boolean,null>\",\n  \"lms_optin\": \"<boolean,null>\",\n  \"eticket_ids\": \"<array,null>\",\n  \"external_event_information\": \"<array,null>\",\n  \"purchase_price_per_ticket\": {\n    \"amount\": \"<number,null-decimal>\",\n    \"currency_code\": \"<string,null>\",\n    \"display\": \"<string,null>\"\n  },\n  \"total_purchase_price\": {\n    \"amount\": \"<number,null-decimal>\",\n    \"currency_code\": \"<string,null>\",\n    \"display\": \"<string,null>\"\n  },\n  \"sales_tax_paid\": \"<boolean,null>\",\n  \"barcodes\": \"<array,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/hal+json"
+                }
+              ],
+              "body": "{\n  \"id\": null,\n  \"created_at\": \"1946-12-04T00:54:21.958Z\",\n  \"number_of_tickets\": null,\n  \"seating\": {\n    \"section\": null,\n    \"row\": \"string\",\n    \"seat_from\": null,\n    \"seat_to\": \"string\",\n    \"state\": {\n      \"visible_in_venue_map\": true\n    }\n  },\n  \"display_seating\": {\n    \"section\": null,\n    \"row\": null,\n    \"seat_from\": \"string\",\n    \"seat_to\": null,\n    \"state\": {\n      \"visible_in_venue_map\": true\n    }\n  },\n  \"ticket_price\": {\n    \"amount\": \"<number,null-decimal>\",\n    \"currency_code\": \"<string,null>\",\n    \"display\": \"<string,null>\"\n  },\n  \"updated_at\": null,\n  \"external_id\": \"string\",\n  \"expires_at\": \"1997-04-22T18:32:48.461Z\",\n  \"display_number_of_tickets\": 9541,\n  \"face_value\": {\n    \"amount\": \"<number,null-decimal>\",\n    \"currency_code\": \"<string,null>\",\n    \"display\": \"<string,null>\"\n  },\n  \"ticket_proceeds\": {\n    \"amount\": \"<number,null-decimal>\",\n    \"currency_code\": \"<string,null>\",\n    \"display\": \"<string,null>\"\n  },\n  \"in_hand_at\": null,\n  \"is_ticket_concierge\": false,\n  \"is_auto_po\": true,\n  \"barcodes\": null,\n  \"instant_delivery\": null,\n  \"undeliverable\": false,\n  \"purchase_price_per_ticket\": {\n    \"amount\": \"<number,null-decimal>\",\n    \"currency_code\": \"<string,null>\",\n    \"display\": \"<string,null>\"\n  },\n  \"total_purchase_price\": {\n    \"amount\": \"<number,null-decimal>\",\n    \"currency_code\": \"<string,null>\",\n    \"display\": \"<string,null>\"\n  },\n  \"sales_tax_paid\": true,\n  \"_links\": {\n    \"self\": {\n      \"href\": null,\n      \"title\": \"string\",\n      \"templated\": true\n    },\n    \"event:createsellerlisting\": {\n      \"href\": \"string\",\n      \"title\": \"string\",\n      \"templated\": true\n    },\n    \"sellerlisting:constraints\": {\n      \"href\": \"string\",\n      \"title\": null,\n      \"templated\": true\n    },\n    \"sellerlisting:contactuswebpage\": {\n      \"href\": \"string\",\n      \"title\": null,\n      \"templated\": true\n    },\n    \"sellerlisting:delete\": {\n      \"href\": null,\n      \"title\": \"string\",\n      \"templated\": false\n    },\n    \"sellerlisting:etickets\": {\n      \"href\": null,\n      \"title\": null,\n      \"templated\": true\n    },\n    \"sellerlisting:eticketuploads\": {\n      \"href\": \"string\",\n      \"title\": \"string\",\n      \"templated\": false\n    },\n    \"sellerlisting:lmsoptin\": {\n      \"href\": null,\n      \"title\": \"string\",\n      \"templated\": false\n    },\n    \"sellerlisting:lmsoptout\": {\n      \"href\": null,\n      \"title\": \"string\",\n      \"templated\": false\n    },\n    \"sellerlisting:lmspickup\": {\n      \"href\": null,\n      \"title\": null,\n      \"templated\": true\n    },\n    \"sellerlisting:optionalverificationrequests\": {\n      \"href\": \"string\",\n      \"title\": null,\n      \"templated\": false\n    },\n    \"sellerlisting:pricing\": {\n      \"href\": \"string\",\n      \"title\": null,\n      \"templated\": true\n    },\n    \"sellerlisting:publish\": {\n      \"href\": \"string\",\n      \"title\": \"string\",\n      \"templated\": false\n    },\n    \"sellerlisting:saveetickets\": {\n      \"href\": null,\n      \"title\": null,\n      \"templated\": true\n    },\n    \"sellerlisting:shipments\": {\n      \"href\": \"string\",\n      \"title\": null,\n      \"templated\": false\n    },\n    \"sellerlisting:ticketlocation\": {\n      \"href\": null,\n      \"title\": \"string\",\n      \"templated\": true\n    },\n    \"sellerlisting:unpublish\": {\n      \"href\": \"string\",\n      \"title\": null,\n      \"templated\": true\n    },\n    \"sellerlisting:updatedisplaynumberoftickets\": {\n      \"href\": null,\n      \"title\": \"string\",\n      \"templated\": true\n    },\n    \"sellerlisting:updatefacevalue\": {\n      \"href\": \"string\",\n      \"title\": \"string\",\n      \"templated\": true\n    },\n    \"sellerlisting:updateinhandat\": {\n      \"href\": \"string\",\n      \"title\": \"string\",\n      \"templated\": true\n    },\n    \"sellerlisting:updatenotes\": {\n      \"href\": null,\n      \"title\": \"string\",\n      \"templated\": false\n    },\n    \"sellerlisting:updatenumberoftickets\": {\n      \"href\": null,\n      \"title\": null,\n      \"templated\": false\n    },\n    \"sellerlisting:updatepreview\": {\n      \"href\": \"string\",\n      \"title\": null,\n      \"templated\": true\n    },\n    \"sellerlisting:updateseating\": {\n      \"href\": null,\n      \"title\": \"string\",\n      \"templated\": true\n    },\n    \"sellerlisting:updatesplittype\": {\n      \"href\": \"string\",\n      \"title\": null,\n      \"templated\": true\n    },\n    \"sellerlisting:updateticketlocation\": {\n      \"href\": null,\n      \"title\": \"string\",\n      \"templated\": false\n    },\n    \"sellerlisting:updateticketprice\": {\n      \"href\": \"string\",\n      \"title\": \"string\",\n      \"templated\": true\n    },\n    \"sellerlisting:updatetickettype\": {\n      \"href\": \"string\",\n      \"title\": \"string\",\n      \"templated\": false\n    },\n    \"sellerlisting:uploadeticket\": {\n      \"href\": \"string\",\n      \"title\": \"string\",\n      \"templated\": false\n    },\n    \"sellerlisting:verificationrequests\": {\n      \"href\": null,\n      \"title\": \"string\",\n      \"templated\": true\n    },\n    \"sellerlisting:webpage\": {\n      \"href\": null,\n      \"title\": \"string\",\n      \"templated\": true\n    }\n  },\n  \"_embedded\": {\n    \"constraints\": {\n      \"min_ticket_price\": {\n        \"amount\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"currency_code\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"display\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"max_ticket_price\": {\n        \"amount\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"currency_code\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"display\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"min_number_of_tickets\": 101,\n      \"max_number_of_tickets\": null,\n      \"ticket_location_required\": null,\n      \"seats_required\": null,\n      \"sections\": null,\n      \"primary_order_id_required\": false,\n      \"home_or_away_required\": false,\n      \"_links\": {\n        \"self\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"_embedded\": {\n        \"connected_seller_listing_notes\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"currencies\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"listing_notes\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"required_unique_listing_notes\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"restricted_on_use_listing_notes\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"split_types\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"ticket_types\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    },\n    \"event\": {\n      \"id\": 4947,\n      \"name\": \"string\",\n      \"start_date\": null,\n      \"end_date\": null,\n      \"on_sale_date\": null,\n      \"date_confirmed\": true,\n      \"merged_events\": null,\n      \"_links\": {\n        \"self\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    },\n    \"listing_notes\": [\n      \"\",\n      \"\"\n    ],\n    \"relist_transaction\": {\n      \"id\": 1342\n    },\n    \"split_type\": {\n      \"type\": \"string\",\n      \"name\": null,\n      \"description\": null,\n      \"_links\": {\n        \"self\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    },\n    \"ticket_type\": {\n      \"type\": \"string\",\n      \"name\": null,\n      \"id\": 803,\n      \"_links\": {\n        \"self\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    },\n    \"venue\": {\n      \"id\": 4145,\n      \"name\": \"string\",\n      \"city\": \"string\",\n      \"state_province\": \"string\",\n      \"latitude\": 9179.442116674154,\n      \"longitude\": null,\n      \"_links\": {\n        \"self\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"_embedded\": {\n        \"country\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "29db77ce-9dc8-4625-a75e-0180df705226",
+              "name": "The request data is not valid. errors will contain an object with a localized message that describes the validation error for each property of the data.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "externalsellerlistings",
+                    ":externalId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string,null>",
+                      "key": "externalId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/hal+json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ticket_price\": {\n    \"amount\": \"<number,null-decimal>\",\n    \"currency_code\": \"<string,null>\",\n    \"display\": \"<string,null>\"\n  },\n  \"ticket_proceeds\": {\n    \"amount\": \"<number,null-decimal>\",\n    \"currency_code\": \"<string,null>\",\n    \"display\": \"<string,null>\"\n  },\n  \"seating\": {\n    \"section\": \"<string,null>\",\n    \"row\": \"<string,null>\",\n    \"seat_from\": \"<string,null>\",\n    \"seat_to\": \"<string,null>\",\n    \"hide_seat_details\": \"<boolean,null>\"\n  },\n  \"face_value\": {\n    \"amount\": \"<number,null-decimal>\",\n    \"currency_code\": \"<string,null>\",\n    \"display\": \"<string,null>\"\n  },\n  \"ticket_type\": \"<string,null>\",\n  \"split_type\": \"<string,null>\",\n  \"number_of_tickets\": \"<integer,null-int32>\",\n  \"display_number_of_tickets\": \"<integer,null-int32>\",\n  \"ticket_location_address_id\": \"<integer,null-int32>\",\n  \"listing_note_ids\": \"<array,null>\",\n  \"in_hand_at\": \"<string,null-date-time>\",\n  \"external_id\": \"<string,null>\",\n  \"notes\": \"<string,null>\",\n  \"instant_delivery\": \"<boolean,null>\",\n  \"published\": \"<boolean,null>\",\n  \"lms_optin\": \"<boolean,null>\",\n  \"eticket_ids\": \"<array,null>\",\n  \"external_event_information\": \"<array,null>\",\n  \"purchase_price_per_ticket\": {\n    \"amount\": \"<number,null-decimal>\",\n    \"currency_code\": \"<string,null>\",\n    \"display\": \"<string,null>\"\n  },\n  \"total_purchase_price\": {\n    \"amount\": \"<number,null-decimal>\",\n    \"currency_code\": \"<string,null>\",\n    \"display\": \"<string,null>\"\n  },\n  \"sales_tax_paid\": \"<boolean,null>\",\n  \"barcodes\": \"<array,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/hal+json"
+                }
+              ],
+              "body": "{\n  \"code\": null,\n  \"message\": \"string\",\n  \"errors\": null\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "845f230b-293b-4567-970d-fd616354d224",
+              "name": "Authentication credentials were missing or incorrect.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "externalsellerlistings",
+                    ":externalId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string,null>",
+                      "key": "externalId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/hal+json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ticket_price\": {\n    \"amount\": \"<number,null-decimal>\",\n    \"currency_code\": \"<string,null>\",\n    \"display\": \"<string,null>\"\n  },\n  \"ticket_proceeds\": {\n    \"amount\": \"<number,null-decimal>\",\n    \"currency_code\": \"<string,null>\",\n    \"display\": \"<string,null>\"\n  },\n  \"seating\": {\n    \"section\": \"<string,null>\",\n    \"row\": \"<string,null>\",\n    \"seat_from\": \"<string,null>\",\n    \"seat_to\": \"<string,null>\",\n    \"hide_seat_details\": \"<boolean,null>\"\n  },\n  \"face_value\": {\n    \"amount\": \"<number,null-decimal>\",\n    \"currency_code\": \"<string,null>\",\n    \"display\": \"<string,null>\"\n  },\n  \"ticket_type\": \"<string,null>\",\n  \"split_type\": \"<string,null>\",\n  \"number_of_tickets\": \"<integer,null-int32>\",\n  \"display_number_of_tickets\": \"<integer,null-int32>\",\n  \"ticket_location_address_id\": \"<integer,null-int32>\",\n  \"listing_note_ids\": \"<array,null>\",\n  \"in_hand_at\": \"<string,null-date-time>\",\n  \"external_id\": \"<string,null>\",\n  \"notes\": \"<string,null>\",\n  \"instant_delivery\": \"<boolean,null>\",\n  \"published\": \"<boolean,null>\",\n  \"lms_optin\": \"<boolean,null>\",\n  \"eticket_ids\": \"<array,null>\",\n  \"external_event_information\": \"<array,null>\",\n  \"purchase_price_per_ticket\": {\n    \"amount\": \"<number,null-decimal>\",\n    \"currency_code\": \"<string,null>\",\n    \"display\": \"<string,null>\"\n  },\n  \"total_purchase_price\": {\n    \"amount\": \"<number,null-decimal>\",\n    \"currency_code\": \"<string,null>\",\n    \"display\": \"<string,null>\"\n  },\n  \"sales_tax_paid\": \"<boolean,null>\",\n  \"barcodes\": \"<array,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/hal+json"
+                }
+              ],
+              "body": "{\n  \"code\": null,\n  \"message\": \"string\",\n  \"errors\": null\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bcf75c49-4d71-43f4-8191-64121c73ddbc",
+              "name": "The request is understood, but it has been refused or access is not allowed. An accompanying error message will explain why.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "externalsellerlistings",
+                    ":externalId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string,null>",
+                      "key": "externalId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/hal+json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ticket_price\": {\n    \"amount\": \"<number,null-decimal>\",\n    \"currency_code\": \"<string,null>\",\n    \"display\": \"<string,null>\"\n  },\n  \"ticket_proceeds\": {\n    \"amount\": \"<number,null-decimal>\",\n    \"currency_code\": \"<string,null>\",\n    \"display\": \"<string,null>\"\n  },\n  \"seating\": {\n    \"section\": \"<string,null>\",\n    \"row\": \"<string,null>\",\n    \"seat_from\": \"<string,null>\",\n    \"seat_to\": \"<string,null>\",\n    \"hide_seat_details\": \"<boolean,null>\"\n  },\n  \"face_value\": {\n    \"amount\": \"<number,null-decimal>\",\n    \"currency_code\": \"<string,null>\",\n    \"display\": \"<string,null>\"\n  },\n  \"ticket_type\": \"<string,null>\",\n  \"split_type\": \"<string,null>\",\n  \"number_of_tickets\": \"<integer,null-int32>\",\n  \"display_number_of_tickets\": \"<integer,null-int32>\",\n  \"ticket_location_address_id\": \"<integer,null-int32>\",\n  \"listing_note_ids\": \"<array,null>\",\n  \"in_hand_at\": \"<string,null-date-time>\",\n  \"external_id\": \"<string,null>\",\n  \"notes\": \"<string,null>\",\n  \"instant_delivery\": \"<boolean,null>\",\n  \"published\": \"<boolean,null>\",\n  \"lms_optin\": \"<boolean,null>\",\n  \"eticket_ids\": \"<array,null>\",\n  \"external_event_information\": \"<array,null>\",\n  \"purchase_price_per_ticket\": {\n    \"amount\": \"<number,null-decimal>\",\n    \"currency_code\": \"<string,null>\",\n    \"display\": \"<string,null>\"\n  },\n  \"total_purchase_price\": {\n    \"amount\": \"<number,null-decimal>\",\n    \"currency_code\": \"<string,null>\",\n    \"display\": \"<string,null>\"\n  },\n  \"sales_tax_paid\": \"<boolean,null>\",\n  \"barcodes\": \"<array,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/hal+json"
+                }
+              ],
+              "body": "{\n  \"code\": null,\n  \"message\": \"string\",\n  \"errors\": null\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "32eebd2b-140a-436d-b23f-7fce68e962ba",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "externalsellerlistings",
+                    ":externalId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string,null>",
+                      "key": "externalId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/hal+json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ticket_price\": {\n    \"amount\": \"<number,null-decimal>\",\n    \"currency_code\": \"<string,null>\",\n    \"display\": \"<string,null>\"\n  },\n  \"ticket_proceeds\": {\n    \"amount\": \"<number,null-decimal>\",\n    \"currency_code\": \"<string,null>\",\n    \"display\": \"<string,null>\"\n  },\n  \"seating\": {\n    \"section\": \"<string,null>\",\n    \"row\": \"<string,null>\",\n    \"seat_from\": \"<string,null>\",\n    \"seat_to\": \"<string,null>\",\n    \"hide_seat_details\": \"<boolean,null>\"\n  },\n  \"face_value\": {\n    \"amount\": \"<number,null-decimal>\",\n    \"currency_code\": \"<string,null>\",\n    \"display\": \"<string,null>\"\n  },\n  \"ticket_type\": \"<string,null>\",\n  \"split_type\": \"<string,null>\",\n  \"number_of_tickets\": \"<integer,null-int32>\",\n  \"display_number_of_tickets\": \"<integer,null-int32>\",\n  \"ticket_location_address_id\": \"<integer,null-int32>\",\n  \"listing_note_ids\": \"<array,null>\",\n  \"in_hand_at\": \"<string,null-date-time>\",\n  \"external_id\": \"<string,null>\",\n  \"notes\": \"<string,null>\",\n  \"instant_delivery\": \"<boolean,null>\",\n  \"published\": \"<boolean,null>\",\n  \"lms_optin\": \"<boolean,null>\",\n  \"eticket_ids\": \"<array,null>\",\n  \"external_event_information\": \"<array,null>\",\n  \"purchase_price_per_ticket\": {\n    \"amount\": \"<number,null-decimal>\",\n    \"currency_code\": \"<string,null>\",\n    \"display\": \"<string,null>\"\n  },\n  \"total_purchase_price\": {\n    \"amount\": \"<number,null-decimal>\",\n    \"currency_code\": \"<string,null>\",\n    \"display\": \"<string,null>\"\n  },\n  \"sales_tax_paid\": \"<boolean,null>\",\n  \"barcodes\": \"<array,null>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/hal+json"
+                }
+              ],
+              "body": "{\n  \"code\": null,\n  \"message\": \"string\",\n  \"errors\": null\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c4434afe-16c6-4275-a0b6-778bde8fd652",
+          "name": "Delete a seller listing by external ID",
+          "request": {
+            "name": "Delete a seller listing by external ID",
+            "description": {
+              "content": "Delete a seller listing by identifier that has been assigned to the listing in an external inventory management system.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "externalsellerlistings",
+                ":externalId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string,null>",
+                  "key": "externalId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/hal+json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "redirect_uri",
+                  "value": "https://account.viagogo.com/oauth2/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://account.viagogo.com/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "implicit"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "712ab24f-4f56-4226-9e8e-a59c23b0cdc0",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "externalsellerlistings",
+                    ":externalId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string,null>",
+                      "key": "externalId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e293cd48-93e5-4cb0-8198-de50109c79df",
+              "name": "Authentication credentials were missing or incorrect.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "externalsellerlistings",
+                    ":externalId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string,null>",
+                      "key": "externalId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/hal+json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/hal+json"
+                }
+              ],
+              "body": "{\n  \"code\": null,\n  \"message\": \"string\",\n  \"errors\": null\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "def67f4c-1880-42ed-b9d5-7f605e92bd4c",
+              "name": "The request is understood, but it has been refused or access is not allowed. An accompanying error message will explain why.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "externalsellerlistings",
+                    ":externalId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string,null>",
+                      "key": "externalId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/hal+json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/hal+json"
+                }
+              ],
+              "body": "{\n  \"code\": null,\n  \"message\": \"string\",\n  \"errors\": null\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "75246060-0351-4b4d-b666-2259c0596d65",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "externalsellerlistings",
+                    ":externalId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string,null>",
+                      "key": "externalId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/hal+json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/hal+json"
+                }
+              ],
+              "body": "{\n  \"code\": null,\n  \"message\": \"string\",\n  \"errors\": null\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.viagogo.net/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "redirect_uri",
+        "value": "https://account.viagogo.com/oauth2/token"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://account.viagogo.com/authorize"
+      },
+      {
+        "key": "grant_type",
+        "value": "implicit"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "6f07f1da-58b0-4d55-b7c9-c03e2e0636c2",
+    "name": "viagogo Inventory SellerListings (External Id) API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Manage your inventory using identifiers from an external inventory management system.",
+      "type": "text/plain"
+    }
+  }
+}

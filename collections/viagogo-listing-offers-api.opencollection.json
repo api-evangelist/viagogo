@@ -1,0 +1,280 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "viagogo Catalog Listing Offers API",
+    "version": "1.0.0.49"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "https://account.viagogo.com/oauth2/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Listing Offers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a new instant liquidity offer (buyer bid) for a specific event.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.viagogo.net/catalog/listingoffers",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://account.viagogo.com/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Create a new instant liquidity offer (buyer bid) for a specific event."
+        },
+        {
+          "info": {
+            "name": "List caller's live offers (Active + Paused) for a specific event.\nRequires exactly one seating dimension: sectionId (+ optional rowId) OR ticketClassId.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.viagogo.net/catalog/listingoffers/event/:eventId",
+            "params": [
+              {
+                "name": "eventId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "sectionId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "rowId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "ticketClassId",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://account.viagogo.com/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "List caller's live offers (Active + Paused) for a specific event.\nRequires exactly one seating dimension: sectionId (+ optional rowId) OR ticketClassId."
+        },
+        {
+          "info": {
+            "name": "All offers (non-deleted) for a specific event — active, paused, fulfilled and expired.\nRequires exactly one seating dimension: sectionId (+ optional rowId) OR ticketClassId.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.viagogo.net/catalog/listingoffers/event/:eventId/all",
+            "params": [
+              {
+                "name": "eventId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "sectionId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "rowId",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "ticketClassId",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://account.viagogo.com/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "All offers (non-deleted) for a specific event — active, paused, fulfilled and expired.\nRequires exactly one seating dimension: sectionId (+ optional rowId) OR ticketClassId."
+        },
+        {
+          "info": {
+            "name": "Get a single offer by ID.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.viagogo.net/catalog/listingoffers/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://account.viagogo.com/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get a single offer by ID."
+        },
+        {
+          "info": {
+            "name": "Update mutable fields on an Active or Paused offer.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.viagogo.net/catalog/listingoffers/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://account.viagogo.com/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Update mutable fields on an Active or Paused offer."
+        },
+        {
+          "info": {
+            "name": "Soft-delete an offer.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.viagogo.net/catalog/listingoffers/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://account.viagogo.com/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Soft-delete an offer."
+        },
+        {
+          "info": {
+            "name": "Transition offer state: Active (1) to resume, Paused (4) to pause.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.viagogo.net/catalog/listingoffers/:id/state",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://account.viagogo.com/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Transition offer state: Active (1) to resume, Paused (4) to pause."
+        },
+        {
+          "info": {
+            "name": "Get the caller's outstanding bidder balance — total redeemable coupon value\nprojected into the requested currency. This is the spendable amount used by\nthe matching service when gating bids; eligibility (opt-in / daily-limit /\nblocks) is intentionally not applied here.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.viagogo.net/catalog/listingoffers/bidderbalance",
+            "params": [
+              {
+                "name": "currencyCode",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://account.viagogo.com/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get the caller's outstanding bidder balance — total redeemable coupon value\nprojected into the requested currency. This is the spendable amount used by\nthe matching service when gating bids; eligibility (opt-in / daily-limit /\nblocks) is intentionally not applied here."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

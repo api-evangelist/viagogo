@@ -1,0 +1,66 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "viagogo Sales Transfer Status Proof API",
+    "version": "2.249.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "https://account.viagogo.com/oauth2/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "TransferStatusProof",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Upload transfer status proof for a sale",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.viagogo.net/v2/sales/:saleId/transferstatusproof",
+            "params": [
+              {
+                "name": "saleId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "fulfillmentEvent",
+                "value": "",
+                "type": "query",
+                "description": "The fulfillment event type. One of: TransferCreated, TransferActive, TransferAccepted, TransferCancelled"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://account.viagogo.com/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Transfer status proof can be either json or html, and supported fulfillmentEvents are one of TransferCreated, TransferActive, TransferAccepted, TransferCancelled"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

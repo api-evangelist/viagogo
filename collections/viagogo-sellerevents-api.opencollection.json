@@ -1,0 +1,126 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "viagogo Inventory Seller Events API",
+    "version": "2.249.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "https://account.viagogo.com/oauth2/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "SellerEvents",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List seller events",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.viagogo.net/v2/sellerevents",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Specifies which page of data to retrieve."
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Set custom page sizes on response."
+              },
+              {
+                "name": "updated_since",
+                "value": "",
+                "type": "query",
+                "description": "Filters the response to only return items that have been updated since the given timestamp"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Determines the ordering of items. A comma-separated string containing `id`, `number_of_tickets`, or`resource_version`."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://account.viagogo.com/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "List events with listings that belong to the authenticated user."
+        },
+        {
+          "info": {
+            "name": "Create a seller event",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.viagogo.net/v2/sellerevents",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://account.viagogo.com/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Request for an event to be created on the viagogo marketplace."
+        },
+        {
+          "info": {
+            "name": "Get a seller event",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.viagogo.net/v2/sellerevents/:eventIdOrRequestedEventId",
+            "params": [
+              {
+                "name": "eventIdOrRequestedEventId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "https://account.viagogo.com/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get an event with listings belonging to the current user"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

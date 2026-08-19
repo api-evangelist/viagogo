@@ -1,0 +1,1675 @@
+{
+  "item": [
+    {
+      "id": "30d36e10-80aa-405f-9085-cb9151fe08d9",
+      "name": "Sales",
+      "description": {
+        "content": "View your sales details and fulfill your sales.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a1f0944c-8cc1-4ad9-8bf7-aa39aaff697d",
+          "name": "List sales (recent updates)",
+          "request": {
+            "name": "List sales (recent updates)",
+            "description": {
+              "content": "List sales for the authenticated user that have been created or updated over a certain period of time.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sales",
+                "recentupdates"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "updated_since",
+                  "value": "<dateTime>",
+                  "description": "Filters the response to only return items that have been updated since the given timestamp"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/hal+json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "redirect_uri",
+                  "value": "https://account.viagogo.com/oauth2/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://account.viagogo.com/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "implicit"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "4c7f5939-8c1e-4c3f-a173-0259eba4367e",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sales",
+                    "recentupdates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "updated_since",
+                      "value": "<dateTime>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/hal+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/hal+json"
+                }
+              ],
+              "body": "{\n  \"total_items\": null,\n  \"page\": null,\n  \"page_size\": 8011,\n  \"_links\": {\n    \"self\": {\n      \"href\": \"string\",\n      \"title\": \"string\",\n      \"templated\": false\n    },\n    \"first\": {\n      \"href\": \"string\",\n      \"title\": null,\n      \"templated\": false\n    },\n    \"last\": {\n      \"href\": null,\n      \"title\": null,\n      \"templated\": false\n    },\n    \"next\": {\n      \"href\": \"string\",\n      \"title\": \"string\",\n      \"templated\": true\n    },\n    \"prev\": {\n      \"href\": null,\n      \"title\": \"string\",\n      \"templated\": false\n    }\n  },\n  \"_embedded\": {\n    \"items\": [\n      \"\",\n      \"\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fd619113-77ab-45fd-b8b1-43d73808de47",
+              "name": "Authentication credentials were missing or incorrect.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sales",
+                    "recentupdates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "updated_since",
+                      "value": "<dateTime>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/hal+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/hal+json"
+                }
+              ],
+              "body": "{\n  \"code\": null,\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_1\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_2\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_3\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2c2dcaee-1f05-4802-9ddf-d52edf367299",
+              "name": "The request is understood, but it has been refused or access is not allowed. An accompanying error message will explain why.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sales",
+                    "recentupdates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "updated_since",
+                      "value": "<dateTime>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/hal+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/hal+json"
+                }
+              ],
+              "body": "{\n  \"code\": null,\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_1\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_2\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_3\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "29fb143a-517c-4656-a719-45f80452abf7",
+              "name": "The URI requested is invalid or the resource requested, such as an event, does not exist.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sales",
+                    "recentupdates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "updated_since",
+                      "value": "<dateTime>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/hal+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/hal+json"
+                }
+              ],
+              "body": "{\n  \"code\": null,\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_1\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_2\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_3\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8efa73cc-f61f-4a85-8c70-d35aa64d054b",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sales",
+                    "recentupdates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "updated_since",
+                      "value": "<dateTime>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/hal+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/hal+json"
+                }
+              ],
+              "body": "{\n  \"code\": null,\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_1\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_2\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_3\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7898a80e-3f46-4ade-b918-f835d7044c4c",
+          "name": "List sales",
+          "request": {
+            "name": "List sales",
+            "description": {
+              "content": "List sales for the authenticated user.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sales"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "Specifies which page of data to retrieve."
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "<integer>",
+                  "description": "Set custom page sizes on response."
+                },
+                {
+                  "disabled": false,
+                  "key": "updated_since",
+                  "value": "<dateTime>",
+                  "description": "Filters the response to only return items that have been updated since the given timestamp"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "Determines the ordering of items. A comma-separated string containing `created_at`, `event_date`, `inhand_at`, `payment_amount`, `quantity`, or`resource_version`."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/hal+json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "redirect_uri",
+                  "value": "https://account.viagogo.com/oauth2/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://account.viagogo.com/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "implicit"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "2ab6463a-7ef8-49af-9130-402c12936462",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sales"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "updated_since",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/hal+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/hal+json"
+                }
+              ],
+              "body": "{\n  \"total_items\": null,\n  \"page\": null,\n  \"page_size\": 8011,\n  \"_links\": {\n    \"self\": {\n      \"href\": \"string\",\n      \"title\": \"string\",\n      \"templated\": false\n    },\n    \"first\": {\n      \"href\": \"string\",\n      \"title\": null,\n      \"templated\": false\n    },\n    \"last\": {\n      \"href\": null,\n      \"title\": null,\n      \"templated\": false\n    },\n    \"next\": {\n      \"href\": \"string\",\n      \"title\": \"string\",\n      \"templated\": true\n    },\n    \"prev\": {\n      \"href\": null,\n      \"title\": \"string\",\n      \"templated\": false\n    }\n  },\n  \"_embedded\": {\n    \"items\": [\n      \"\",\n      \"\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5d763481-276f-4718-ade5-8606458ac2dc",
+              "name": "Authentication credentials were missing or incorrect.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sales"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "updated_since",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/hal+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/hal+json"
+                }
+              ],
+              "body": "{\n  \"code\": null,\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_1\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_2\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_3\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c0ec38cf-2631-4c38-979f-15b33dc18a26",
+              "name": "The request is understood, but it has been refused or access is not allowed. An accompanying error message will explain why.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sales"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "updated_since",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/hal+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/hal+json"
+                }
+              ],
+              "body": "{\n  \"code\": null,\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_1\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_2\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_3\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "66aff0b6-b414-49f8-8517-be8975933bf4",
+              "name": "The URI requested is invalid or the resource requested, such as an event, does not exist.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sales"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "updated_since",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/hal+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/hal+json"
+                }
+              ],
+              "body": "{\n  \"code\": null,\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_1\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_2\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_3\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b13d4b4a-f0c9-4aea-8112-9a61dab2d8ee",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sales"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "updated_since",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/hal+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/hal+json"
+                }
+              ],
+              "body": "{\n  \"code\": null,\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_1\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_2\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_3\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4c827a42-188f-4a9f-bcd9-2310863901da",
+          "name": "Get a sale",
+          "request": {
+            "name": "Get a sale",
+            "description": {},
+            "url": {
+              "path": [
+                "sales",
+                ":saleId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "saleId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/hal+json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "redirect_uri",
+                  "value": "https://account.viagogo.com/oauth2/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://account.viagogo.com/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "implicit"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "7df72bd1-4095-4826-a195-597acb543101",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sales",
+                    ":saleId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "saleId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/hal+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/hal+json"
+                }
+              ],
+              "body": "{\n  \"id\": null,\n  \"created_at\": \"2024-08-30T08:06:42.374Z\",\n  \"seating\": {\n    \"section\": \"string\",\n    \"row\": null,\n    \"seat_from\": \"string\",\n    \"seat_to\": \"string\"\n  },\n  \"proceeds\": {\n    \"amount\": null,\n    \"currency_code\": null,\n    \"display\": \"string\"\n  },\n  \"number_of_tickets\": 3498,\n  \"status\": null,\n  \"status_description\": \"string\",\n  \"display_proceeds\": {\n    \"amount\": 4143.900581101364,\n    \"currency_code\": \"string\",\n    \"display\": null\n  },\n  \"confirm_by\": \"1983-08-19T21:30:32.987Z\",\n  \"ship_by\": null,\n  \"external_listing_id\": null,\n  \"is_legacy_stubhub_order\": true,\n  \"barcodes\": null,\n  \"in_hand_at\": \"2013-06-05T20:33:28.709Z\",\n  \"_links\": {\n    \"self\": {\n      \"href\": \"string\",\n      \"title\": \"string\",\n      \"templated\": false\n    },\n    \"sale:accounttransfer\": {\n      \"href\": \"string\",\n      \"title\": \"string\",\n      \"templated\": false\n    },\n    \"sale:autotrackshipment\": {\n      \"href\": \"string\",\n      \"title\": null,\n      \"templated\": true\n    },\n    \"sale:changepapertickettoeticket\": {\n      \"href\": null,\n      \"title\": null,\n      \"templated\": true\n    },\n    \"sale:confirm\": {\n      \"href\": null,\n      \"title\": null,\n      \"templated\": false\n    },\n    \"sale:confirmaccounttransferpassword\": {\n      \"href\": null,\n      \"title\": null,\n      \"templated\": false\n    },\n    \"sale:contactuswebpage\": {\n      \"href\": null,\n      \"title\": \"string\",\n      \"templated\": true\n    },\n    \"sale:etickets\": {\n      \"href\": null,\n      \"title\": null,\n      \"templated\": true\n    },\n    \"sale:eticketuploads\": {\n      \"href\": \"string\",\n      \"title\": null,\n      \"templated\": false\n    },\n    \"sale:listing\": {\n      \"href\": null,\n      \"title\": null,\n      \"templated\": false\n    },\n    \"sale:recordretransferfailurereason\": {\n      \"href\": \"string\",\n      \"title\": null,\n      \"templated\": false\n    },\n    \"sale:regenerateaccounttransferpassword\": {\n      \"href\": \"string\",\n      \"title\": \"string\",\n      \"templated\": false\n    },\n    \"sale:reject\": {\n      \"href\": \"string\",\n      \"title\": \"string\",\n      \"templated\": true\n    },\n    \"sale:retransferfailurereasons\": {\n      \"href\": \"string\",\n      \"title\": \"string\",\n      \"templated\": false\n    },\n    \"sale:saveetickets\": {\n      \"href\": null,\n      \"title\": null,\n      \"templated\": true\n    },\n    \"sale:savetransferreceipts\": {\n      \"href\": null,\n      \"title\": null,\n      \"templated\": false\n    },\n    \"sale:shipments\": {\n      \"href\": \"string\",\n      \"title\": null,\n      \"templated\": true\n    },\n    \"sale:ticketholders\": {\n      \"href\": null,\n      \"title\": null,\n      \"templated\": false\n    },\n    \"sale:trackshipment\": {\n      \"href\": null,\n      \"title\": \"string\",\n      \"templated\": true\n    },\n    \"sale:transferreceiptuploads\": {\n      \"href\": null,\n      \"title\": \"string\",\n      \"templated\": false\n    },\n    \"sale:uploadetickets\": {\n      \"href\": \"string\",\n      \"title\": \"string\",\n      \"templated\": false\n    },\n    \"sale:uploadeticketurls\": {\n      \"href\": \"string\",\n      \"title\": \"string\",\n      \"templated\": true\n    },\n    \"sale:uploadtransferreceipts\": {\n      \"href\": \"string\",\n      \"title\": null,\n      \"templated\": true\n    },\n    \"sale:webpage\": {\n      \"href\": null,\n      \"title\": null,\n      \"templated\": true\n    }\n  },\n  \"_embedded\": {\n    \"delivery_method\": {\n      \"id\": 8364,\n      \"type\": 0,\n      \"name\": \"string\",\n      \"description\": null,\n      \"_links\": {\n        \"self\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"deliverymethod:logo\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    },\n    \"event\": {\n      \"id\": 676,\n      \"name\": \"string\",\n      \"start_date\": null,\n      \"end_date\": \"2004-12-10T13:56:19.572Z\",\n      \"on_sale_date\": \"1981-04-25T23:05:19.352Z\",\n      \"date_confirmed\": true,\n      \"merged_events\": null,\n      \"_links\": {\n        \"self\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    },\n    \"ticket_type\": {\n      \"type\": null,\n      \"name\": \"string\",\n      \"id\": 445,\n      \"_links\": {\n        \"self\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    },\n    \"ticketholders\": [\n      \"\",\n      \"\"\n    ],\n    \"venue\": {\n      \"id\": 3112,\n      \"name\": \"string\",\n      \"city\": null,\n      \"state_province\": null,\n      \"latitude\": 4390.982771717473,\n      \"longitude\": 6090.01943676455,\n      \"_links\": {\n        \"self\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"_embedded\": {\n        \"country\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "aa1818aa-ddc0-4bec-ae4a-613f69e25dd0",
+              "name": "Authentication credentials were missing or incorrect.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sales",
+                    ":saleId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "saleId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/hal+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/hal+json"
+                }
+              ],
+              "body": "{\n  \"code\": null,\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_1\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_2\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_3\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "466fd81e-9916-4e01-a5d2-0661225e30fe",
+              "name": "The request is understood, but it has been refused or access is not allowed. An accompanying error message will explain why.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sales",
+                    ":saleId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "saleId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/hal+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/hal+json"
+                }
+              ],
+              "body": "{\n  \"code\": null,\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_1\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_2\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_3\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "97507185-2451-44ba-9a20-19056a0c4c2a",
+              "name": "The URI requested is invalid or the resource requested, such as an event, does not exist.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sales",
+                    ":saleId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "saleId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/hal+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/hal+json"
+                }
+              ],
+              "body": "{\n  \"code\": null,\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_1\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_2\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_3\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1f40122d-04f9-4304-bb84-37bc2cfc8f90",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sales",
+                    ":saleId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "saleId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/hal+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/hal+json"
+                }
+              ],
+              "body": "{\n  \"code\": null,\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_1\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_2\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_3\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ded1c013-c4e0-4e96-a822-b4f2b6463a74",
+          "name": "Update a sale",
+          "request": {
+            "name": "Update a sale",
+            "description": {},
+            "url": {
+              "path": [
+                "sales",
+                ":saleId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "saleId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/hal+json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "redirect_uri",
+                  "value": "https://account.viagogo.com/oauth2/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://account.viagogo.com/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "implicit"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"confirmed\": \"<boolean,null>\",\n  \"eticket_ids\": \"<array,null>\",\n  \"transfer_confirmation_number\": \"<string,null>\",\n  \"eticket_urls\": \"<array,null>\",\n  \"change_paper_ticket_to_eticket\": \"<boolean,null>\",\n  \"confirm_same_day_shipment\": \"<boolean,null>\",\n  \"in_hand_at\": \"<string,null-date-time>\",\n  \"eticket_type\": \"<string,null>\",\n  \"tracking_number\": \"<string,null>\",\n  \"seating\": {\n    \"section\": \"<string,null>\",\n    \"row\": \"<string,null>\",\n    \"seat_from\": \"<string,null>\",\n    \"seat_to\": \"<string,null>\"\n  },\n  \"barcodes\": \"<array,null>\",\n  \"mobile_provider\": \"<string,null>\",\n  \"retransfer_failure_reason_record\": {\n    \"reason_id\": \"<integer>\",\n    \"other_reason_text\": \"<string,null>\"\n  },\n  \"account_transfer\": {\n    \"login_url\": \"<string,null>\",\n    \"username\": \"<string,null>\",\n    \"password\": \"<string,null>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "aea0d7f8-00f1-49fa-ae49-5ab9ec503337",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sales",
+                    ":saleId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "saleId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/hal+json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"confirmed\": \"<boolean,null>\",\n  \"eticket_ids\": \"<array,null>\",\n  \"transfer_confirmation_number\": \"<string,null>\",\n  \"eticket_urls\": \"<array,null>\",\n  \"change_paper_ticket_to_eticket\": \"<boolean,null>\",\n  \"confirm_same_day_shipment\": \"<boolean,null>\",\n  \"in_hand_at\": \"<string,null-date-time>\",\n  \"eticket_type\": \"<string,null>\",\n  \"tracking_number\": \"<string,null>\",\n  \"seating\": {\n    \"section\": \"<string,null>\",\n    \"row\": \"<string,null>\",\n    \"seat_from\": \"<string,null>\",\n    \"seat_to\": \"<string,null>\"\n  },\n  \"barcodes\": \"<array,null>\",\n  \"mobile_provider\": \"<string,null>\",\n  \"retransfer_failure_reason_record\": {\n    \"reason_id\": \"<integer>\",\n    \"other_reason_text\": \"<string,null>\"\n  },\n  \"account_transfer\": {\n    \"login_url\": \"<string,null>\",\n    \"username\": \"<string,null>\",\n    \"password\": \"<string,null>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/hal+json"
+                }
+              ],
+              "body": "{\n  \"id\": null,\n  \"created_at\": null,\n  \"seating\": {\n    \"section\": \"<string,null>\",\n    \"row\": \"<string,null>\",\n    \"seat_from\": \"<string,null>\",\n    \"seat_to\": \"<string,null>\"\n  },\n  \"proceeds\": {\n    \"amount\": null,\n    \"currency_code\": \"string\",\n    \"display\": null\n  },\n  \"number_of_tickets\": null,\n  \"status\": null,\n  \"status_description\": \"string\",\n  \"display_proceeds\": {\n    \"amount\": null,\n    \"currency_code\": \"string\",\n    \"display\": null\n  },\n  \"confirm_by\": null,\n  \"ship_by\": null,\n  \"external_listing_id\": null,\n  \"is_legacy_stubhub_order\": false,\n  \"barcodes\": null,\n  \"in_hand_at\": \"1965-05-24T15:35:28.648Z\",\n  \"_links\": {\n    \"self\": {\n      \"href\": \"string\",\n      \"title\": \"string\",\n      \"templated\": false\n    },\n    \"sale:accounttransfer\": {\n      \"href\": \"string\",\n      \"title\": \"string\",\n      \"templated\": true\n    },\n    \"sale:autotrackshipment\": {\n      \"href\": null,\n      \"title\": \"string\",\n      \"templated\": false\n    },\n    \"sale:changepapertickettoeticket\": {\n      \"href\": \"string\",\n      \"title\": null,\n      \"templated\": false\n    },\n    \"sale:confirm\": {\n      \"href\": null,\n      \"title\": null,\n      \"templated\": true\n    },\n    \"sale:confirmaccounttransferpassword\": {\n      \"href\": \"string\",\n      \"title\": \"string\",\n      \"templated\": true\n    },\n    \"sale:contactuswebpage\": {\n      \"href\": null,\n      \"title\": \"string\",\n      \"templated\": false\n    },\n    \"sale:etickets\": {\n      \"href\": null,\n      \"title\": null,\n      \"templated\": true\n    },\n    \"sale:eticketuploads\": {\n      \"href\": null,\n      \"title\": null,\n      \"templated\": true\n    },\n    \"sale:listing\": {\n      \"href\": null,\n      \"title\": \"string\",\n      \"templated\": true\n    },\n    \"sale:recordretransferfailurereason\": {\n      \"href\": \"string\",\n      \"title\": \"string\",\n      \"templated\": false\n    },\n    \"sale:regenerateaccounttransferpassword\": {\n      \"href\": \"string\",\n      \"title\": \"string\",\n      \"templated\": false\n    },\n    \"sale:reject\": {\n      \"href\": \"string\",\n      \"title\": \"string\",\n      \"templated\": true\n    },\n    \"sale:retransferfailurereasons\": {\n      \"href\": null,\n      \"title\": \"string\",\n      \"templated\": true\n    },\n    \"sale:saveetickets\": {\n      \"href\": null,\n      \"title\": \"string\",\n      \"templated\": false\n    },\n    \"sale:savetransferreceipts\": {\n      \"href\": \"string\",\n      \"title\": null,\n      \"templated\": true\n    },\n    \"sale:shipments\": {\n      \"href\": \"string\",\n      \"title\": \"string\",\n      \"templated\": true\n    },\n    \"sale:ticketholders\": {\n      \"href\": \"string\",\n      \"title\": null,\n      \"templated\": false\n    },\n    \"sale:trackshipment\": {\n      \"href\": null,\n      \"title\": \"string\",\n      \"templated\": true\n    },\n    \"sale:transferreceiptuploads\": {\n      \"href\": \"string\",\n      \"title\": null,\n      \"templated\": false\n    },\n    \"sale:uploadetickets\": {\n      \"href\": null,\n      \"title\": null,\n      \"templated\": false\n    },\n    \"sale:uploadeticketurls\": {\n      \"href\": null,\n      \"title\": \"string\",\n      \"templated\": false\n    },\n    \"sale:uploadtransferreceipts\": {\n      \"href\": null,\n      \"title\": \"string\",\n      \"templated\": true\n    },\n    \"sale:webpage\": {\n      \"href\": null,\n      \"title\": \"string\",\n      \"templated\": false\n    }\n  },\n  \"_embedded\": {\n    \"delivery_method\": {\n      \"id\": 2724,\n      \"type\": 0,\n      \"name\": null,\n      \"description\": \"string\",\n      \"_links\": {\n        \"self\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"deliverymethod:logo\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    },\n    \"event\": {\n      \"id\": 9936,\n      \"name\": null,\n      \"start_date\": null,\n      \"end_date\": \"1980-06-08T05:06:47.290Z\",\n      \"on_sale_date\": null,\n      \"date_confirmed\": null,\n      \"merged_events\": null,\n      \"_links\": {\n        \"self\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    },\n    \"ticket_type\": {\n      \"type\": \"string\",\n      \"name\": \"string\",\n      \"id\": 9650,\n      \"_links\": {\n        \"self\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    },\n    \"ticketholders\": [\n      \"\",\n      \"\"\n    ],\n    \"venue\": {\n      \"id\": null,\n      \"name\": \"string\",\n      \"city\": null,\n      \"state_province\": \"string\",\n      \"latitude\": null,\n      \"longitude\": 6157.990080510725,\n      \"_links\": {\n        \"self\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"_embedded\": {\n        \"country\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "40c92f54-07b4-4842-b8cb-3b35c90a5a2a",
+              "name": "The request data is not valid. errors will contain an object with a localized message that describes the validation error for each property of the data.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sales",
+                    ":saleId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "saleId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/hal+json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"confirmed\": \"<boolean,null>\",\n  \"eticket_ids\": \"<array,null>\",\n  \"transfer_confirmation_number\": \"<string,null>\",\n  \"eticket_urls\": \"<array,null>\",\n  \"change_paper_ticket_to_eticket\": \"<boolean,null>\",\n  \"confirm_same_day_shipment\": \"<boolean,null>\",\n  \"in_hand_at\": \"<string,null-date-time>\",\n  \"eticket_type\": \"<string,null>\",\n  \"tracking_number\": \"<string,null>\",\n  \"seating\": {\n    \"section\": \"<string,null>\",\n    \"row\": \"<string,null>\",\n    \"seat_from\": \"<string,null>\",\n    \"seat_to\": \"<string,null>\"\n  },\n  \"barcodes\": \"<array,null>\",\n  \"mobile_provider\": \"<string,null>\",\n  \"retransfer_failure_reason_record\": {\n    \"reason_id\": \"<integer>\",\n    \"other_reason_text\": \"<string,null>\"\n  },\n  \"account_transfer\": {\n    \"login_url\": \"<string,null>\",\n    \"username\": \"<string,null>\",\n    \"password\": \"<string,null>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/hal+json"
+                }
+              ],
+              "body": "{\n  \"code\": null,\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_1\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_2\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_3\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d0f932e1-ea70-46ab-bdd5-bb2add18868a",
+              "name": "Authentication credentials were missing or incorrect.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sales",
+                    ":saleId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "saleId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/hal+json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"confirmed\": \"<boolean,null>\",\n  \"eticket_ids\": \"<array,null>\",\n  \"transfer_confirmation_number\": \"<string,null>\",\n  \"eticket_urls\": \"<array,null>\",\n  \"change_paper_ticket_to_eticket\": \"<boolean,null>\",\n  \"confirm_same_day_shipment\": \"<boolean,null>\",\n  \"in_hand_at\": \"<string,null-date-time>\",\n  \"eticket_type\": \"<string,null>\",\n  \"tracking_number\": \"<string,null>\",\n  \"seating\": {\n    \"section\": \"<string,null>\",\n    \"row\": \"<string,null>\",\n    \"seat_from\": \"<string,null>\",\n    \"seat_to\": \"<string,null>\"\n  },\n  \"barcodes\": \"<array,null>\",\n  \"mobile_provider\": \"<string,null>\",\n  \"retransfer_failure_reason_record\": {\n    \"reason_id\": \"<integer>\",\n    \"other_reason_text\": \"<string,null>\"\n  },\n  \"account_transfer\": {\n    \"login_url\": \"<string,null>\",\n    \"username\": \"<string,null>\",\n    \"password\": \"<string,null>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/hal+json"
+                }
+              ],
+              "body": "{\n  \"code\": null,\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_1\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_2\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_3\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "64b71f8c-3074-4e6f-af7e-f8b7851bc415",
+              "name": "The request is understood, but it has been refused or access is not allowed. An accompanying error message will explain why.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sales",
+                    ":saleId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "saleId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/hal+json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"confirmed\": \"<boolean,null>\",\n  \"eticket_ids\": \"<array,null>\",\n  \"transfer_confirmation_number\": \"<string,null>\",\n  \"eticket_urls\": \"<array,null>\",\n  \"change_paper_ticket_to_eticket\": \"<boolean,null>\",\n  \"confirm_same_day_shipment\": \"<boolean,null>\",\n  \"in_hand_at\": \"<string,null-date-time>\",\n  \"eticket_type\": \"<string,null>\",\n  \"tracking_number\": \"<string,null>\",\n  \"seating\": {\n    \"section\": \"<string,null>\",\n    \"row\": \"<string,null>\",\n    \"seat_from\": \"<string,null>\",\n    \"seat_to\": \"<string,null>\"\n  },\n  \"barcodes\": \"<array,null>\",\n  \"mobile_provider\": \"<string,null>\",\n  \"retransfer_failure_reason_record\": {\n    \"reason_id\": \"<integer>\",\n    \"other_reason_text\": \"<string,null>\"\n  },\n  \"account_transfer\": {\n    \"login_url\": \"<string,null>\",\n    \"username\": \"<string,null>\",\n    \"password\": \"<string,null>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/hal+json"
+                }
+              ],
+              "body": "{\n  \"code\": null,\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_1\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_2\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_3\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2b8709ff-8429-4023-bbad-782dc0286073",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sales",
+                    ":saleId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "saleId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/hal+json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"confirmed\": \"<boolean,null>\",\n  \"eticket_ids\": \"<array,null>\",\n  \"transfer_confirmation_number\": \"<string,null>\",\n  \"eticket_urls\": \"<array,null>\",\n  \"change_paper_ticket_to_eticket\": \"<boolean,null>\",\n  \"confirm_same_day_shipment\": \"<boolean,null>\",\n  \"in_hand_at\": \"<string,null-date-time>\",\n  \"eticket_type\": \"<string,null>\",\n  \"tracking_number\": \"<string,null>\",\n  \"seating\": {\n    \"section\": \"<string,null>\",\n    \"row\": \"<string,null>\",\n    \"seat_from\": \"<string,null>\",\n    \"seat_to\": \"<string,null>\"\n  },\n  \"barcodes\": \"<array,null>\",\n  \"mobile_provider\": \"<string,null>\",\n  \"retransfer_failure_reason_record\": {\n    \"reason_id\": \"<integer>\",\n    \"other_reason_text\": \"<string,null>\"\n  },\n  \"account_transfer\": {\n    \"login_url\": \"<string,null>\",\n    \"username\": \"<string,null>\",\n    \"password\": \"<string,null>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/hal+json"
+                }
+              ],
+              "body": "{\n  \"code\": null,\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_1\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_2\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_3\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0571dc8a-a164-4293-b46e-b54ee86091e2",
+          "name": "Reject a sale",
+          "request": {
+            "name": "Reject a sale",
+            "description": {
+              "content": "Report a problem with a sale of tickets.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sales",
+                ":saleId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "saleId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/hal+json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "redirect_uri",
+                  "value": "https://account.viagogo.com/oauth2/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://account.viagogo.com/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "implicit"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "6fbe4118-fda0-42fb-8cf2-0784967fb05d",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sales",
+                    ":saleId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "saleId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e7ee43c8-549c-4a9a-8a07-9c15a2d69408",
+              "name": "Authentication credentials were missing or incorrect.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sales",
+                    ":saleId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "saleId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/hal+json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/hal+json"
+                }
+              ],
+              "body": "{\n  \"code\": null,\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_1\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_2\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_3\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "375ca6d8-234d-471e-8aa9-0fb0fad7ac69",
+              "name": "The request is understood, but it has been refused or access is not allowed. An accompanying error message will explain why.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sales",
+                    ":saleId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "saleId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/hal+json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/hal+json"
+                }
+              ],
+              "body": "{\n  \"code\": null,\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_1\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_2\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_3\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3b14c98e-0458-4237-bf20-57fb45002432",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sales",
+                    ":saleId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "saleId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/hal+json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/hal+json"
+                }
+              ],
+              "body": "{\n  \"code\": null,\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_1\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_2\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_3\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.viagogo.net/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "redirect_uri",
+        "value": "https://account.viagogo.com/oauth2/token"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://account.viagogo.com/authorize"
+      },
+      {
+        "key": "grant_type",
+        "value": "implicit"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "557766d4-be24-4839-b7de-ce9a8fb81b96",
+    "name": "viagogo Sales API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "View your sales details and fulfill your sales.",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,194 @@
+openapi: 3.2.0
+info:
+  title: viagogo Sales Transfer Status Proof API
+  version: 2.249.0.0
+  x-logo:
+    url: https://img.vggcdn.net/img/assets/logo/viagogo_logo_apidocs.png
+    backgroundColor: '#222222'
+servers:
+- url: https://api.viagogo.net/v2
+  description: Production
+- url: https://sandbox.api.viagogo.net/v2
+  description: Sandbox
+security:
+- OAuth2:
+  - read:payment
+  - read:sales
+  - read:sellerlistings
+  - read:user
+  - write:purchases
+  - write:sales
+  - write:sellerlistings
+  - write:user
+tags:
+- name: TransferStatusProof
+paths:
+  /sales/{saleId}/transferstatusproof:
+    post:
+      tags:
+      - TransferStatusProof
+      summary: Upload transfer status proof for a sale
+      description: Transfer status proof can be either json or html, and supported fulfillmentEvents are one of TransferCreated, TransferActive, TransferAccepted, TransferCancelled
+      operationId: Sales_UploadTransferStatusProof
+      parameters:
+      - name: saleId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: fulfillmentEvent
+        in: query
+        description: 'The fulfillment event type. One of: TransferCreated, TransferActive, TransferAccepted, TransferCancelled'
+        required: true
+        schema:
+          type: string
+          enum:
+          - TransferCreated
+          - TransferActive
+          - TransferAccepted
+          - TransferCancelled
+      requestBody:
+        description: The transfer status proof file (json or html)
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+          text/html:
+            schema:
+              type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/TransferStatusProof'
+        '400':
+          $ref: '#/components/responses/validation_failed'
+          description: null
+        '401':
+          $ref: '#/components/responses/requires_authentication'
+          description: null
+        '403':
+          $ref: '#/components/responses/forbidden'
+          description: null
+        '404':
+          $ref: '#/components/responses/not_found'
+          description: null
+        '500':
+          $ref: '#/components/responses/internal_server_error'
+          description: null
+      security:
+      - OAuth2:
+        - write:user
+        - write:sales
+components:
+  schemas:
+    TransferStatusProof:
+      type: object
+      description: Represents a simple resource that contains upload file guid.
+      properties:
+        document_id:
+          type: string
+          format: uuid
+          description: The identifier of the upload.
+        _links:
+          type:
+          - object
+          - 'null'
+    Error:
+      type: object
+      additionalProperties: false
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+        message:
+          type:
+          - string
+          - 'null'
+        errors:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type: array
+            items:
+              type: string
+  responses:
+    internal_server_error:
+      description: Internal server error
+      content:
+        application/hal+json:
+          schema:
+            oneOf:
+            - $ref: '#/components/schemas/Error'
+    validation_failed:
+      description: The request data is not valid. errors will contain an object with a localized message that describes the validation error for each property of the data.
+      content:
+        application/hal+json:
+          schema:
+            oneOf:
+            - $ref: '#/components/schemas/Error'
+    requires_authentication:
+      description: Authentication credentials were missing or incorrect.
+      content:
+        application/hal+json:
+          schema:
+            oneOf:
+            - $ref: '#/components/schemas/Error'
+    not_found:
+      description: The URI requested is invalid or the resource requested, such as an event, does not exist.
+      content:
+        application/hal+json:
+          schema:
+            oneOf:
+            - $ref: '#/components/schemas/Error'
+    forbidden:
+      description: The request is understood, but it has been refused or access is not allowed. An accompanying error message will explain why.
+      content:
+        application/hal+json:
+          schema:
+            oneOf:
+            - $ref: '#/components/schemas/Error'
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      bearerFormat: JWT
+      flows:
+        implicit:
+          authorizationUrl: https://account.viagogo.com/authorize
+          tokenUrl: https://account.viagogo.com/oauth2/token
+          refreshUrl: https://account.viagogo.com/oauth2/token
+        clientCredentials:
+          tokenUrl: https://account.viagogo.com/oauth2/token
+        authorizationCode:
+          authorizationUrl: https://account.viagogo.com/authorize
+          tokenUrl: https://account.viagogo.com/oauth2/token
+          refreshUrl: https://account.viagogo.com/oauth2/token
+x-tagGroups:
+- name: Endpoints
+  tags:
+  - Sales
+  - E-Tickets
+  - Payments
+  - Shipments
+  - TicketHolders
+  - TransferStatusProof
+- name: Basic Types
+  tags:
+  - BasicType_Money
+- name: Resources
+  tags:
+  - Resource_ETickets
+  - Resource_ETicketUploads
+  - Resource_Payment
+  - Resource_Sale
+  - Resource_Sales
+  - Resource_Shipment
+  - Resource_Shipments
+  - Resource_TicketHolder
+  - Resource_TransferStatusProof

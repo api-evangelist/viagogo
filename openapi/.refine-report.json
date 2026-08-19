@@ -1,0 +1,53 @@
+{
+  "provider": "viagogo",
+  "sources": [
+    "viagogo-account.json",
+    "viagogo-catalog.json",
+    "viagogo-inventory.json",
+    "viagogo-sales.json",
+    "viagogo-webhooks.json"
+  ],
+  "outputs": [
+    "viagogo-addresses-api-openapi.yml",
+    "viagogo-paymentmethods-api-openapi.yml",
+    "viagogo-user-api-openapi.yml",
+    "viagogo-categories-api-openapi.yml",
+    "viagogo-events-api-openapi.yml",
+    "viagogo-listing-offers-api-openapi.yml",
+    "viagogo-venue-configurations-api-openapi.yml",
+    "viagogo-venues-api-openapi.yml",
+    "viagogo-e-tickets-api-openapi.yml",
+    "viagogo-listingconstraints-api-openapi.yml",
+    "viagogo-sellerevents-api-openapi.yml",
+    "viagogo-sellerlistings-api-openapi.yml",
+    "viagogo-sellerlistings-external-id-api-openapi.yml",
+    "viagogo-sellerlistings-preview-api-openapi.yml",
+    "viagogo-shipments-api-openapi.yml",
+    "viagogo-payments-api-openapi.yml",
+    "viagogo-sales-api-openapi.yml",
+    "viagogo-ticketholders-api-openapi.yml",
+    "viagogo-transferstatusproof-api-openapi.yml",
+    "viagogo-topics-api-openapi.yml",
+    "viagogo-webhooks-api-openapi.yml"
+  ],
+  "archived": [
+    "archived openapi/viagogo-account.json",
+    "archived openapi/viagogo-catalog.json",
+    "archived openapi/viagogo-inventory.json",
+    "archived openapi/viagogo-sales.json",
+    "archived openapi/viagogo-webhooks.json"
+  ],
+  "errors": [],
+  "warnings": [],
+  "notes": [
+    "viagogo-account.json: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
+    "viagogo-catalog.json: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
+    "viagogo-inventory.json: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
+    "viagogo-sales.json: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
+    "viagogo-webhooks.json: upgraded openapi 3.0.0 -> OpenAPI 3.2.0; promoted x-webhooks (7) to the standard `webhooks` key",
+    "tag 'E-Tickets' spans 2 source specs (viagogo-inventory.json, viagogo-sales.json): per-path servers applied",
+    "tag 'Shipments' spans 2 source specs (viagogo-inventory.json, viagogo-sales.json): per-path servers applied",
+    "apis.yml register: written (+1 apis, 21 total)"
+  ],
+  "skipped": []
+}

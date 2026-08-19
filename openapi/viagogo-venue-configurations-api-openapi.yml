@@ -1,0 +1,181 @@
+openapi: 3.2.0
+info:
+  title: viagogo Catalog Venue Configurations API
+  version: 1.0.0.49
+  x-logo:
+    url: https://img.vggcdn.net/img/assets/logo/viagogo_logo_apidocs.png
+    backgroundColor: '#222222'
+  description: View venue configurations on the viagogo platform
+servers:
+- url: https://api.viagogo.net
+  description: Production
+- url: https://sandbox.api.viagogo.net
+  description: Sandbox
+security:
+- OAuth2:
+  - manage:listingoffers
+  - read:categories
+  - read:events
+  - read:venue_configurations
+  - read:venues
+tags:
+- name: Venue Configurations
+  description: View venue configurations on the viagogo platform
+paths:
+  /catalog/venues/configurations/{configId}:
+    get:
+      tags:
+      - Venue Configurations
+      summary: Get a venue configuration
+      operationId: VenueConfigurations_GetVenueConfiguration
+      parameters:
+      - name: configId
+        in: path
+        required: true
+        description: The venue configuration identifier
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: ''
+          content:
+            application/hal+json:
+              schema:
+                $ref: '#/components/schemas/VenueConfigurationResource'
+        '404':
+          $ref: '#/components/responses/not_found'
+          description: null
+        '403':
+          $ref: '#/components/responses/forbidden'
+          description: null
+        '401':
+          $ref: '#/components/responses/requires_authentication'
+          description: null
+        '500':
+          $ref: '#/components/responses/internal_server_error'
+          description: null
+      security:
+      - OAuth2:
+        - read:venue_configurations
+components:
+  responses:
+    internal_server_error:
+      description: Internal server error
+      content:
+        application/hal+json:
+          schema:
+            oneOf:
+            - $ref: '#/components/schemas/Error'
+    requires_authentication:
+      description: Authentication credentials were missing or incorrect.
+      content:
+        application/hal+json:
+          schema:
+            oneOf:
+            - $ref: '#/components/schemas/Error'
+    not_found:
+      description: The URI requested is invalid or the resource requested, such as an event, does not exist.
+      content:
+        application/hal+json:
+          schema:
+            oneOf:
+            - $ref: '#/components/schemas/Error'
+    forbidden:
+      description: The request is understood, but it has been refused or access is not allowed. An accompanying error message will explain why.
+      content:
+        application/hal+json:
+          schema:
+            oneOf:
+            - $ref: '#/components/schemas/Error'
+  schemas:
+    VenueConfigurationResource:
+      type: object
+      additionalProperties: false
+      properties:
+        config_id:
+          type: integer
+          format: int32
+        sections:
+          type: array
+          items:
+            $ref: '#/components/schemas/VenueConfigSectionResource'
+    VenueConfigSectionRowResource:
+      type: object
+      additionalProperties: false
+      properties:
+        row_id:
+          type: integer
+          format: int32
+        row_name:
+          type: string
+        ticket_class_id:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        ticket_class_name:
+          type:
+          - string
+          - 'null'
+    Error:
+      type: object
+      additionalProperties: false
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        errors:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+    VenueConfigSectionResource:
+      type: object
+      additionalProperties: false
+      properties:
+        section_id:
+          type: integer
+          format: int32
+        section_name:
+          type: string
+        rows:
+          type: array
+          items:
+            $ref: '#/components/schemas/VenueConfigSectionRowResource'
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      bearerFormat: JWT
+      flows:
+        implicit:
+          authorizationUrl: https://account.viagogo.com/authorize
+          tokenUrl: https://account.viagogo.com/oauth2/token
+          refreshUrl: https://account.viagogo.com/oauth2/token
+        clientCredentials:
+          tokenUrl: https://account.viagogo.com/oauth2/token
+        authorizationCode:
+          authorizationUrl: https://account.viagogo.com/authorize
+          tokenUrl: https://account.viagogo.com/oauth2/token
+          refreshUrl: https://account.viagogo.com/oauth2/token
+x-tagGroups:
+- name: Endpoints
+  tags:
+  - Categories
+  - Events
+  - Listing Offers
+  - Venue Configurations
+  - Venues
+- name: Basic Types
+  tags:
+  - BasicType_Money
+- name: Resources
+  tags:
+  - Resource_Event
+  - Resource_Events
+  - Resource_MapEventResponseModel
+  - Resource_Venue
+  - Resource_VenueConfigurationResource
+  - Resource_Venues
