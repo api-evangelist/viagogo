@@ -23,6 +23,15 @@ image: https://img.vggcdn.net/img/assets/logo/viagogo_logo_apidocs.png
 tags:
 - Company
 - Ticketing
+- Event
+- Marketplace
+- Entertainment
+- Secondary Market
+- Commerce
+- Travel And Leisure
+tags_raw:
+- Company
+- Ticketing
 - Events
 - Marketplace
 - Entertainment
@@ -167,6 +176,8 @@ apis:
   humanURL: https://developer.viagogo.net/api-reference/catalog
   baseURL: https://api.viagogo.net
   tags:
+  - Event
+  tags_raw:
   - Events
   properties:
   - type: OpenAPI
@@ -293,6 +304,8 @@ apis:
   humanURL: https://developer.viagogo.net/api-reference/catalog
   baseURL: https://api.viagogo.net
   tags:
+  - Payment Methods
+  tags_raw:
   - PaymentMethods
   properties:
   - type: OpenAPI
@@ -839,6 +852,8 @@ apis:
   humanURL: https://developer.viagogo.net/api-reference/catalog
   baseURL: https://api.viagogo.net
   tags:
+  - Webhook
+  tags_raw:
   - Webhooks
   properties:
   - type: OpenAPI
