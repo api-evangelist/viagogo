@@ -1,0 +1,36 @@
+slug: viagogo
+provider: viagogo
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Media, Entertainment & Telecom Content
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 2
+edges:
+- tag: Shipments
+  spec_file: viagogo-shipments-api-openapi.yml
+  capability_id: BC-520.50
+  capability_id_l1: BC-520
+  capability_name: Logistics Operations Management
+  confidence: 0.75
+  evidence: '"Print a shipping label for a sale", "List shipments for a seller listing", schemas Carrier,
+    DeliveryMethodType, Address, Pickup'
+  reason: Operations create and track physical shipments and carrier labels for sold tickets — transport/delivery
+    execution, i.e. logistics operations. Not a media-frame capability.
+- tag: Webhooks
+  spec_file: viagogo-webhooks-api-openapi.yml
+  capability_id: BC-4270.80
+  capability_id_l1: BC-4270
+  capability_name: Webhook & Event Subscription Management
+  confidence: 0.72
+  evidence: '"Create a webhook", "List webhooks", "Delete a webhook", "Ping a webhook"; schemas PostWebhookRequest,
+    PatchWebhookRequest'
+  reason: CRUD plus test-ping over outbound webhook subscriptions on the vendor's public developer program
+    — exactly Webhook & Event Subscription Management as a developer-platform capability, not a business
+    event of the ticketing domain.

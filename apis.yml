@@ -916,6 +916,9 @@ apis:
   - type: OpenAPI
     url: openapi/viagogo-topics-api-openapi.yml
 common:
+- type: CapabilityMap
+  url: capabilities/viagogo-capability-edges.yml
+  name: viagogo Business Capability Map
 - type: MCPServer
   url: mcp/viagogo-mcp.yml
 - type: Overlay
