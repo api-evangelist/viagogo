@@ -40,7 +40,7 @@ tags:
 - Entertainment
 - Secondary Market
 - Commerce
-- Travel and Leisure
+- Travel And Leisure
 tags_raw:
 - Company
 - Ticketing
@@ -316,7 +316,7 @@ apis:
   humanURL: https://developer.viagogo.net/api-reference/catalog
   baseURL: https://api.viagogo.net
   tags:
-  - PaymentMethods
+  - Payment Methods
   tags_raw:
   - PaymentMethods
   properties:
