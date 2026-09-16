@@ -325,50 +325,6 @@ apis:
     url: https://api.viagogo.net/v2/openapi/webhooks.json
   - type: Webhooks
     url: asyncapi/viagogo-webhooks.yml
-- aid: viagogo:viagogo-paymentmethods-api
-  name: viagogo Payment Methods API
-  description: The PaymentMethods API from viagogo — 1 operation(s) for paymentmethods.
-  humanURL: https://developer.viagogo.net/api-reference/catalog
-  baseURL: https://api.viagogo.net
-  tags:
-  - Payment Methods
-  tags_raw:
-  - PaymentMethods
-  properties:
-  - type: OpenAPI
-    url: openapi/viagogo-paymentmethods-api-openapi.yml
-  - type: Documentation
-    url: https://developer.viagogo.net/api-reference/catalog
-  - type: APIReference
-    url: https://developer.viagogo.net/api-reference/catalog
-  - type: OpenAPI Source
-    url: https://api.viagogo.net/catalog/openapi/openapi.json
-  - type: Documentation
-    url: https://developer.viagogo.net/api-reference/account
-  - type: APIReference
-    url: https://developer.viagogo.net/api-reference/account
-  - type: OpenAPI Source
-    url: https://api.viagogo.net/v2/openapi/account.json
-  - type: Documentation
-    url: https://developer.viagogo.net/api-reference/inventory
-  - type: APIReference
-    url: https://developer.viagogo.net/api-reference/inventory
-  - type: OpenAPI Source
-    url: https://api.viagogo.net/v2/openapi/inventory.json
-  - type: Documentation
-    url: https://developer.viagogo.net/api-reference/sales
-  - type: APIReference
-    url: https://developer.viagogo.net/api-reference/sales
-  - type: OpenAPI Source
-    url: https://api.viagogo.net/v2/openapi/sales.json
-  - type: Documentation
-    url: https://developer.viagogo.net/api-reference/webhooks
-  - type: APIReference
-    url: https://developer.viagogo.net/api-reference/webhooks
-  - type: OpenAPI Source
-    url: https://api.viagogo.net/v2/openapi/webhooks.json
-  - type: Webhooks
-    url: asyncapi/viagogo-webhooks.yml
 - aid: viagogo:viagogo-payments-api
   name: viagogo Payments API
   description: The Payments API from viagogo — 3 operation(s) for payments.
@@ -930,6 +886,48 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/viagogo-topics-api-openapi.yml
+- aid: viagogo:viagogo-payment-methods-api
+  name: viagogo Payment Methods API
+  description: The Payment Methods API from viagogo — 1 operation(s) for payment methods.
+  humanURL: https://developer.viagogo.net/api-reference/catalog
+  baseURL: https://api.viagogo.net
+  tags:
+  - Payment Methods
+  properties:
+  - type: OpenAPI
+    url: openapi/viagogo-payment-methods-api-openapi.yml
+  - type: Documentation
+    url: https://developer.viagogo.net/api-reference/catalog
+  - type: APIReference
+    url: https://developer.viagogo.net/api-reference/catalog
+  - type: OpenAPI Source
+    url: https://api.viagogo.net/catalog/openapi/openapi.json
+  - type: Documentation
+    url: https://developer.viagogo.net/api-reference/account
+  - type: APIReference
+    url: https://developer.viagogo.net/api-reference/account
+  - type: OpenAPI Source
+    url: https://api.viagogo.net/v2/openapi/account.json
+  - type: Documentation
+    url: https://developer.viagogo.net/api-reference/inventory
+  - type: APIReference
+    url: https://developer.viagogo.net/api-reference/inventory
+  - type: OpenAPI Source
+    url: https://api.viagogo.net/v2/openapi/inventory.json
+  - type: Documentation
+    url: https://developer.viagogo.net/api-reference/sales
+  - type: APIReference
+    url: https://developer.viagogo.net/api-reference/sales
+  - type: OpenAPI Source
+    url: https://api.viagogo.net/v2/openapi/sales.json
+  - type: Documentation
+    url: https://developer.viagogo.net/api-reference/webhooks
+  - type: APIReference
+    url: https://developer.viagogo.net/api-reference/webhooks
+  - type: OpenAPI Source
+    url: https://api.viagogo.net/v2/openapi/webhooks.json
+  - type: Webhooks
+    url: asyncapi/viagogo-webhooks.yml
 common:
 - type: CapabilityMap
   url: capabilities/viagogo-capability-edges.yml
