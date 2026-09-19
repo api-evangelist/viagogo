@@ -882,6 +882,8 @@ apis:
   humanURL: https://developer.viagogo.net/api-reference/catalog
   baseURL: https://api.viagogo.net
   tags:
+  - Topic
+  tags_raw:
   - Topics
   properties:
   - type: OpenAPI
