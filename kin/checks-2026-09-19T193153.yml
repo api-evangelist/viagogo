@@ -2,15 +2,15 @@
 kin_checks:
   slug: viagogo
   schema_version: 0.22.0
-  scored_at: '2026-09-18'
-  run_ts: 2026-09-18T231945
+  scored_at: '2026-09-19'
+  run_ts: 2026-09-19T193153
   note: Actionable checks (missed + partial) in `checks`, plus the ids that did not
     apply in `na`. Everything else in rubric/scoring-0.22.0.yml was earned; counts
     below let you verify that.
   counts:
     total: 136
-    earned: 39
-    partial: 18
+    earned: 40
+    partial: 17
     missed: 54
     na: 25
   checks:
@@ -179,8 +179,8 @@ kin_checks:
     detail: 'grade: documented'
   - id: auth_clarity
     status: partial
-    earned: 7.5
-    detail: 'grade: negotiable'
+    earned: 9.0
+    detail: 'grade: served'
   - id: error_semantics
     status: partial
     earned: 4.0
@@ -193,10 +193,6 @@ kin_checks:
     status: partial
     earned: 1.25
     detail: 'authorship: derived'
-  - id: delegated_identity
-    status: partial
-    earned: 3.0
-    detail: 'grade: documented'
   na:
   - asyncapi_3_x
   - channels_defined
