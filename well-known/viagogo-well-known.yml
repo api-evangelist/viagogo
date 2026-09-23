@@ -1,15 +1,12 @@
 generated: '2026-08-05'
 method: probed
-source: live GET probes of /.well-known/* on every viagogo host in apis.yml and the
-  OpenAPI servers[] blocks
-notes: >-
-  Five hosts were probed for eight well-known paths each. Only the identity hosts
-  answer: account.viagogo.com and sandbox.account.viagogo.com both serve a full
-  OpenID Connect / OAuth 2.0 Authorization Server Metadata document at both the
-  openid-configuration and oauth-authorization-server paths (identical bodies). No
-  security.txt (RFC 9116), no api-catalog (RFC 9727), no ai-plugin.json and no A2A
-  agent card were found on any host — those are recorded as real 404s, not gaps in
-  the probe.
+source: live GET probes of /.well-known/* on every viagogo host in apis.yml and the OpenAPI servers[]
+  blocks
+notes: 'Five hosts were probed for eight well-known paths each. Only the identity hosts answer: account.viagogo.com
+  and sandbox.account.viagogo.com both serve a full OpenID Connect / OAuth 2.0 Authorization Server Metadata
+  document at both the openid-configuration and oauth-authorization-server paths (identical bodies). No
+  security.txt (RFC 9116), no api-catalog (RFC 9727), no ai-plugin.json and no A2A agent card were found
+  on any host — those are recorded as real 404s, not gaps in the probe.'
 hosts_probed:
 - https://www.viagogo.com
 - https://developer.viagogo.net
@@ -58,7 +55,7 @@ probes:
   status: 404
 - host: api.viagogo.net
   path: /.well-known/oauth-authorization-server
-  status: 000
+  status: 0
   note: Connection failed rather than returning a status.
 - host: www.viagogo.com
   path: /.well-known/api-catalog
@@ -119,3 +116,26 @@ found:
   ai_plugin: false
   agent_card: false
   llms_txt: false
+hosts:
+- host: ''
+  documents:
+  - path: /.well-known/openid-configuration
+    status: 200
+    file: viagogo-openid-configuration.json
+    content_type: application/json;charset=UTF-8
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    file: viagogo-openid-configuration.json
+    content_type: application/json;charset=UTF-8
+    note: Identical body to the openid-configuration document.
+  - path: /.well-known/openid-configuration
+    status: 200
+    file: viagogo-sandbox-openid-configuration.json
+    content_type: application/json;charset=UTF-8
+x-shape-fix:
+  converted: '2026-08-20'
+  from: probes
+  note: Rewritten into hosts[] -> documents[], the only shape well_known_docs() in score.rb reads. A served
+    .well-known surface recorded in any other shape scores as absent. Promoted ONLY the 2xx rows out of
+    the probe log; non-2xx probes are real negative results and were left in place, not converted into
+    documents.

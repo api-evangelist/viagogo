@@ -26,7 +26,7 @@ paths:
     post:
       tags:
       - Listing Offers
-      summary: Create a new instant liquidity offer (buyer bid) for a specific event.
+      summary: Create a new instant liquidity offer (buyer bid) for a specific event
       operationId: ListingOffers_CreateOffer
       requestBody:
         x-name: body
@@ -63,9 +63,7 @@ paths:
     get:
       tags:
       - Listing Offers
-      summary: 'List caller''s live offers (Active + Paused) for a specific event.
-
-        Requires exactly one seating dimension: sectionId (+ optional rowId) OR ticketClassId.'
+      summary: List caller's live offers (Active + Paused) for a specific event.
       operationId: ListingOffers_ListOffers
       parameters:
       - name: eventId
@@ -122,9 +120,7 @@ paths:
     get:
       tags:
       - Listing Offers
-      summary: 'All offers (non-deleted) for a specific event — active, paused, fulfilled and expired.
-
-        Requires exactly one seating dimension: sectionId (+ optional rowId) OR ticketClassId.'
+      summary: All offers (non-deleted) for a specific event — active, paused, fulfilled and…
       operationId: ListingOffers_GetAllOffers
       parameters:
       - name: eventId
@@ -181,7 +177,7 @@ paths:
     get:
       tags:
       - Listing Offers
-      summary: Get a single offer by ID.
+      summary: Get a single offer by ID
       operationId: ListingOffers_GetOffer
       parameters:
       - name: id
@@ -216,7 +212,7 @@ paths:
     delete:
       tags:
       - Listing Offers
-      summary: Soft-delete an offer.
+      summary: Soft-delete an offer
       operationId: ListingOffers_DeleteOffer
       parameters:
       - name: id
@@ -243,7 +239,7 @@ paths:
     patch:
       tags:
       - Listing Offers
-      summary: Update mutable fields on an Active or Paused offer.
+      summary: Update mutable fields on an Active or Paused offer
       operationId: ListingOffers_UpdateOffer
       parameters:
       - name: id
@@ -287,7 +283,7 @@ paths:
     patch:
       tags:
       - Listing Offers
-      summary: 'Transition offer state: Active (1) to resume, Paused (4) to pause.'
+      summary: 'Transition offer state: Active (1) to resume, Paused (4) to pause'
       operationId: ListingOffers_SetOfferState
       parameters:
       - name: id
@@ -331,13 +327,7 @@ paths:
     get:
       tags:
       - Listing Offers
-      summary: 'Get the caller''s outstanding bidder balance — total redeemable coupon value
-
-        projected into the requested currency. This is the spendable amount used by
-
-        the matching service when gating bids; eligibility (opt-in / daily-limit /
-
-        blocks) is intentionally not applied here.'
+      summary: Get the caller's outstanding bidder balance — total redeemable coupon value…
       operationId: ListingOffers_GetBidderBalance
       parameters:
       - name: currencyCode
@@ -369,7 +359,53 @@ paths:
       - OAuth2:
         - manage:listingoffers
 components:
+  responses:
+    requires_authentication:
+      description: Authentication credentials were missing or incorrect.
+      content:
+        application/hal+json:
+          schema:
+            oneOf:
+            - $ref: '#/components/schemas/Error'
+    forbidden:
+      description: The request is understood, but it has been refused or access is not allowed. An accompanying error message will explain why.
+      content:
+        application/hal+json:
+          schema:
+            oneOf:
+            - $ref: '#/components/schemas/Error'
+    not_found:
+      description: The URI requested is invalid or the resource requested, such as an event, does not exist.
+      content:
+        application/hal+json:
+          schema:
+            oneOf:
+            - $ref: '#/components/schemas/Error'
+    validation_failed:
+      description: The request data is not valid. errors will contain an object with a localized message that describes the validation error for each property of the data.
+      content:
+        application/hal+json:
+          schema:
+            oneOf:
+            - $ref: '#/components/schemas/Error'
+    internal_server_error:
+      description: Internal server error
+      content:
+        application/hal+json:
+          schema:
+            oneOf:
+            - $ref: '#/components/schemas/Error'
   schemas:
+    SetOfferStateRequest:
+      type: object
+      additionalProperties: false
+      required:
+      - State
+      properties:
+        State:
+          description: 'Target state: Active (1) to resume, Paused (4) to pause.'
+          oneOf:
+          - $ref: '#/components/schemas/InstantLiquidityOfferState'
     InstantLiquidityOfferState:
       type: integer
       description: ''
@@ -478,16 +514,6 @@ components:
           format: int32
           maximum: 100.0
           minimum: 1.0
-    SetOfferStateRequest:
-      type: object
-      additionalProperties: false
-      required:
-      - State
-      properties:
-        State:
-          description: 'Target state: Active (1) to resume, Paused (4) to pause.'
-          oneOf:
-          - $ref: '#/components/schemas/InstantLiquidityOfferState'
     Error:
       type: object
       additionalProperties: false
@@ -502,42 +528,6 @@ components:
             type: array
             items:
               type: string
-  responses:
-    internal_server_error:
-      description: Internal server error
-      content:
-        application/hal+json:
-          schema:
-            oneOf:
-            - $ref: '#/components/schemas/Error'
-    validation_failed:
-      description: The request data is not valid. errors will contain an object with a localized message that describes the validation error for each property of the data.
-      content:
-        application/hal+json:
-          schema:
-            oneOf:
-            - $ref: '#/components/schemas/Error'
-    requires_authentication:
-      description: Authentication credentials were missing or incorrect.
-      content:
-        application/hal+json:
-          schema:
-            oneOf:
-            - $ref: '#/components/schemas/Error'
-    not_found:
-      description: The URI requested is invalid or the resource requested, such as an event, does not exist.
-      content:
-        application/hal+json:
-          schema:
-            oneOf:
-            - $ref: '#/components/schemas/Error'
-    forbidden:
-      description: The request is understood, but it has been refused or access is not allowed. An accompanying error message will explain why.
-      content:
-        application/hal+json:
-          schema:
-            oneOf:
-            - $ref: '#/components/schemas/Error'
   securitySchemes:
     OAuth2:
       type: oauth2

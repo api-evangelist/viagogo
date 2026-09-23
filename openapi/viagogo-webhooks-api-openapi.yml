@@ -239,32 +239,26 @@ paths:
         - write:webhooks
 components:
   schemas:
-    Webhooks:
+    WebhooksLinks:
+      title: WebhooksLinks
       type: object
-      additionalProperties: false
       properties:
-        total_items:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        page:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        page_size:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        _links:
+        self:
           oneOf:
-          - $ref: '#/components/schemas/WebhooksLinks'
-        _embedded:
+          - $ref: '#/components/schemas/Link'
+        first:
           oneOf:
-          - $ref: '#/components/schemas/WebhooksEmbeddedResources'
-    PatchWebhookRequest:
+          - $ref: '#/components/schemas/Link'
+        last:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+        next:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+        prev:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+    PostWebhookRequest:
       type: object
       additionalProperties: false
       properties:
@@ -304,25 +298,16 @@ components:
           - 'null'
         templated:
           type: boolean
-    WebhooksLinks:
-      title: WebhooksLinks
+    WebhooksEmbeddedResources:
+      title: WebhooksEmbeddedResources
       type: object
       properties:
-        self:
-          oneOf:
-          - $ref: '#/components/schemas/Link'
-        first:
-          oneOf:
-          - $ref: '#/components/schemas/Link'
-        last:
-          oneOf:
-          - $ref: '#/components/schemas/Link'
-        next:
-          oneOf:
-          - $ref: '#/components/schemas/Link'
-        prev:
-          oneOf:
-          - $ref: '#/components/schemas/Link'
+        items:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Webhook'
     WebhookLinks:
       title: WebhookLinks
       type: object
@@ -342,17 +327,7 @@ components:
           description: Update the details of a webhook.
           oneOf:
           - $ref: '#/components/schemas/Link'
-    WebhooksEmbeddedResources:
-      title: WebhooksEmbeddedResources
-      type: object
-      properties:
-        items:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Webhook'
-    PostWebhookRequest:
+    PatchWebhookRequest:
       type: object
       additionalProperties: false
       properties:
@@ -378,26 +353,6 @@ components:
           description: An array of the topics the webhook is trigger for.
           items:
             type: string
-    Error:
-      type: object
-      additionalProperties: false
-      properties:
-        code:
-          type:
-          - string
-          - 'null'
-        message:
-          type:
-          - string
-          - 'null'
-        errors:
-          type:
-          - object
-          - 'null'
-          additionalProperties:
-            type: array
-            items:
-              type: string
     Webhook:
       type: object
       description: 'A webhook is a subscription from a server application to certain topics
@@ -442,23 +397,61 @@ components:
         _links:
           oneOf:
           - $ref: '#/components/schemas/WebhookLinks'
+    Error:
+      type: object
+      additionalProperties: false
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+        message:
+          type:
+          - string
+          - 'null'
+        errors:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type: array
+            items:
+              type: string
+    Webhooks:
+      type: object
+      additionalProperties: false
+      properties:
+        total_items:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        page:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        page_size:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        _links:
+          oneOf:
+          - $ref: '#/components/schemas/WebhooksLinks'
+        _embedded:
+          oneOf:
+          - $ref: '#/components/schemas/WebhooksEmbeddedResources'
   responses:
-    internal_server_error:
-      description: Internal server error
-      content:
-        application/hal+json:
-          schema:
-            oneOf:
-            - $ref: '#/components/schemas/Error'
-    validation_failed:
-      description: The request data is not valid. errors will contain an object with a localized message that describes the validation error for each property of the data.
-      content:
-        application/hal+json:
-          schema:
-            oneOf:
-            - $ref: '#/components/schemas/Error'
     requires_authentication:
       description: Authentication credentials were missing or incorrect.
+      content:
+        application/hal+json:
+          schema:
+            oneOf:
+            - $ref: '#/components/schemas/Error'
+    forbidden:
+      description: The request is understood, but it has been refused or access is not allowed. An accompanying error message will explain why.
       content:
         application/hal+json:
           schema:
@@ -471,8 +464,15 @@ components:
           schema:
             oneOf:
             - $ref: '#/components/schemas/Error'
-    forbidden:
-      description: The request is understood, but it has been refused or access is not allowed. An accompanying error message will explain why.
+    validation_failed:
+      description: The request data is not valid. errors will contain an object with a localized message that describes the validation error for each property of the data.
+      content:
+        application/hal+json:
+          schema:
+            oneOf:
+            - $ref: '#/components/schemas/Error'
+    internal_server_error:
+      description: Internal server error
       content:
         application/hal+json:
           schema:

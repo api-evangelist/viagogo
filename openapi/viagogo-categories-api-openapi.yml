@@ -60,15 +60,15 @@ paths:
         - read:categories
 components:
   responses:
-    internal_server_error:
-      description: Internal server error
+    requires_authentication:
+      description: Authentication credentials were missing or incorrect.
       content:
         application/hal+json:
           schema:
             oneOf:
             - $ref: '#/components/schemas/Error'
-    requires_authentication:
-      description: Authentication credentials were missing or incorrect.
+    forbidden:
+      description: The request is understood, but it has been refused or access is not allowed. An accompanying error message will explain why.
       content:
         application/hal+json:
           schema:
@@ -81,8 +81,8 @@ components:
           schema:
             oneOf:
             - $ref: '#/components/schemas/Error'
-    forbidden:
-      description: The request is understood, but it has been refused or access is not allowed. An accompanying error message will explain why.
+    internal_server_error:
+      description: Internal server error
       content:
         application/hal+json:
           schema:

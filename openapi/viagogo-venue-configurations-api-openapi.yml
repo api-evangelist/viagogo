@@ -60,15 +60,15 @@ paths:
         - read:venue_configurations
 components:
   responses:
-    internal_server_error:
-      description: Internal server error
+    requires_authentication:
+      description: Authentication credentials were missing or incorrect.
       content:
         application/hal+json:
           schema:
             oneOf:
             - $ref: '#/components/schemas/Error'
-    requires_authentication:
-      description: Authentication credentials were missing or incorrect.
+    forbidden:
+      description: The request is understood, but it has been refused or access is not allowed. An accompanying error message will explain why.
       content:
         application/hal+json:
           schema:
@@ -81,8 +81,8 @@ components:
           schema:
             oneOf:
             - $ref: '#/components/schemas/Error'
-    forbidden:
-      description: The request is understood, but it has been refused or access is not allowed. An accompanying error message will explain why.
+    internal_server_error:
+      description: Internal server error
       content:
         application/hal+json:
           schema:
@@ -118,6 +118,19 @@ components:
           type:
           - string
           - 'null'
+    VenueConfigSectionResource:
+      type: object
+      additionalProperties: false
+      properties:
+        section_id:
+          type: integer
+          format: int32
+        section_name:
+          type: string
+        rows:
+          type: array
+          items:
+            $ref: '#/components/schemas/VenueConfigSectionRowResource'
     Error:
       type: object
       additionalProperties: false
@@ -132,19 +145,6 @@ components:
             type: array
             items:
               type: string
-    VenueConfigSectionResource:
-      type: object
-      additionalProperties: false
-      properties:
-        section_id:
-          type: integer
-          format: int32
-        section_name:
-          type: string
-        rows:
-          type: array
-          items:
-            $ref: '#/components/schemas/VenueConfigSectionRowResource'
   securitySchemes:
     OAuth2:
       type: oauth2

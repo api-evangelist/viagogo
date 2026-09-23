@@ -1,11 +1,12 @@
 {
   "provider": "viagogo",
   "sources": [
-    "viagogo-account.json",
-    "viagogo-catalog.json",
-    "viagogo-inventory.json",
-    "viagogo-sales.json",
-    "viagogo-webhooks.json"
+    "_original/viagogo-account.json",
+    "_original/viagogo-catalog.json",
+    "_original/viagogo-inventory.json",
+    "_original/viagogo-sales.json",
+    "_original/viagogo-webhooks.json",
+    "viagogo-topics-api-openapi.yml"
   ],
   "outputs": [
     "viagogo-addresses-api-openapi.yml",
@@ -31,15 +32,14 @@
     "viagogo-webhooks-api-openapi.yml"
   ],
   "archived": [
-    "archived openapi/viagogo-account.json",
-    "archived openapi/viagogo-catalog.json",
-    "archived openapi/viagogo-inventory.json",
-    "archived openapi/viagogo-sales.json",
-    "archived openapi/viagogo-webhooks.json"
+    "deleted 1 superseded output(s) from the previous generation"
   ],
   "errors": [],
-  "warnings": [],
+  "warnings": [
+    "viagogo-topics-api-openapi.yml: previously refined output kept for 7 operation(s) no archived document covers (e.g. webhook:cancel-provisional-sale post, webhook:ping post, webhook:provisional-sale post); its other 0 operation(s) came from the archive and were dropped from it. The archive is incomplete for this provider \u2014 re-harvest to restore _original/ as the full source of truth."
+  ],
   "notes": [
+    "sourced from openapi/_original/ (5 archived document(s)); previously refined output at the top level was skipped rather than re-split",
     "viagogo-account.json: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
     "viagogo-catalog.json: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
     "viagogo-inventory.json: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
@@ -47,7 +47,30 @@
     "viagogo-webhooks.json: upgraded openapi 3.0.0 -> OpenAPI 3.2.0; promoted x-webhooks (7) to the standard `webhooks` key",
     "tag 'E-Tickets' spans 2 source specs (viagogo-inventory.json, viagogo-sales.json): per-path servers applied",
     "tag 'Shipments' spans 2 source specs (viagogo-inventory.json, viagogo-sales.json): per-path servers applied",
+    "tag 'Topics' spans 2 source specs (viagogo-webhooks.json, viagogo-topics-api-openapi.yml): per-path servers applied",
+    "superseded outputs removed: viagogo-payment-methods-api-openapi.yml",
     "apis.yml register: written (+1 apis, 21 total)"
   ],
-  "skipped": []
+  "skipped": [
+    "viagogo-addresses-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "viagogo-categories-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "viagogo-e-tickets-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "viagogo-events-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "viagogo-listing-offers-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "viagogo-listingconstraints-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "viagogo-payment-methods-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "viagogo-payments-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "viagogo-sales-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "viagogo-sellerevents-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "viagogo-sellerlistings-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "viagogo-sellerlistings-external-id-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "viagogo-sellerlistings-preview-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "viagogo-shipments-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "viagogo-ticketholders-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "viagogo-transferstatusproof-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "viagogo-user-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "viagogo-venue-configurations-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "viagogo-venues-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "viagogo-webhooks-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
