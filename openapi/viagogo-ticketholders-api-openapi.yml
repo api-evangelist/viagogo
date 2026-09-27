@@ -60,50 +60,24 @@ paths:
         - read:user
         - read:sales
 components:
-  responses:
-    requires_authentication:
-      description: Authentication credentials were missing or incorrect.
-      content:
-        application/hal+json:
-          schema:
-            oneOf:
-            - $ref: '#/components/schemas/Error'
-    forbidden:
-      description: The request is understood, but it has been refused or access is not allowed. An accompanying error message will explain why.
-      content:
-        application/hal+json:
-          schema:
-            oneOf:
-            - $ref: '#/components/schemas/Error'
-    not_found:
-      description: The URI requested is invalid or the resource requested, such as an event, does not exist.
-      content:
-        application/hal+json:
-          schema:
-            oneOf:
-            - $ref: '#/components/schemas/Error'
-    internal_server_error:
-      description: Internal server error
-      content:
-        application/hal+json:
-          schema:
-            oneOf:
-            - $ref: '#/components/schemas/Error'
   schemas:
-    Link:
+    Country:
       type: object
       additionalProperties: false
       properties:
-        href:
+        code:
           type:
           - string
           - 'null'
-        title:
+          description: The two-letter ISO 3166 code for the country.
+        name:
           type:
           - string
           - 'null'
-        templated:
-          type: boolean
+          description: The name of the country.
+        _links:
+          oneOf:
+          - $ref: '#/components/schemas/CountryLinks'
     TicketHolderEmbeddedResources:
       title: TicketHolderEmbeddedResources
       type: object
@@ -114,6 +88,13 @@ components:
         nationality_country:
           oneOf:
           - $ref: '#/components/schemas/Country'
+    TicketHolderLinks:
+      title: TicketHolderLinks
+      type: object
+      properties:
+        self:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
     TicketHolder:
       type: object
       additionalProperties: false
@@ -190,13 +171,6 @@ components:
         _embedded:
           oneOf:
           - $ref: '#/components/schemas/TicketHolderEmbeddedResources'
-    TicketHolderLinks:
-      title: TicketHolderLinks
-      type: object
-      properties:
-        self:
-          oneOf:
-          - $ref: '#/components/schemas/Link'
     CountryLinks:
       title: CountryLinks
       type: object
@@ -231,23 +205,49 @@ components:
             type: array
             items:
               type: string
-    Country:
+    Link:
       type: object
       additionalProperties: false
       properties:
-        code:
+        href:
           type:
           - string
           - 'null'
-          description: The two-letter ISO 3166 code for the country.
-        name:
+        title:
           type:
           - string
           - 'null'
-          description: The name of the country.
-        _links:
-          oneOf:
-          - $ref: '#/components/schemas/CountryLinks'
+        templated:
+          type: boolean
+  responses:
+    internal_server_error:
+      description: Internal server error
+      content:
+        application/hal+json:
+          schema:
+            oneOf:
+            - $ref: '#/components/schemas/Error'
+    requires_authentication:
+      description: Authentication credentials were missing or incorrect.
+      content:
+        application/hal+json:
+          schema:
+            oneOf:
+            - $ref: '#/components/schemas/Error'
+    not_found:
+      description: The URI requested is invalid or the resource requested, such as an event, does not exist.
+      content:
+        application/hal+json:
+          schema:
+            oneOf:
+            - $ref: '#/components/schemas/Error'
+    forbidden:
+      description: The request is understood, but it has been refused or access is not allowed. An accompanying error message will explain why.
+      content:
+        application/hal+json:
+          schema:
+            oneOf:
+            - $ref: '#/components/schemas/Error'
   securitySchemes:
     OAuth2:
       type: oauth2

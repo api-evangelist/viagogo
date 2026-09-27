@@ -147,30 +147,259 @@ paths:
         - read:sellerlistings
 components:
   schemas:
-    Money:
+    SalesAggregateLinks:
+      title: SalesAggregateLinks
       type: object
-      description: Returned for monetary values, such as ticket prices, fees charged and tax amounts.
+      properties:
+        self:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+        salesaggregate:sales:
+          description: The sales aggregated in this resource.
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+    PutRequestedEventRequest:
+      type: object
+      description: A requested event.
+      additionalProperties: false
+      properties:
+        event:
+          description: The event information.
+          oneOf:
+          - $ref: '#/components/schemas/EventRequest'
+        venue:
+          description: The venue where the event will take place.
+          oneOf:
+          - $ref: '#/components/schemas/VenueRequest'
+        country:
+          description: The country where the event will take place.
+          oneOf:
+          - $ref: '#/components/schemas/CountryRequest'
+    MergedEntity:
+      type: object
+      description: An entity that has been merged into another entity.
+      additionalProperties: false
+      properties:
+        id:
+          type: integer
+          description: The identifier for this entity.
+          format: int32
+    EmbeddedExternalMappingLinks:
+      title: EmbeddedExternalMappingLinks
+      type: object
+      properties:
+        self:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+    SellerEventsLinks:
+      title: SellerEventsLinks
+      type: object
+      properties:
+        self:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+        first:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+        last:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+        next:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+        prev:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+    EmbeddedVenueLinks:
+      title: EmbeddedVenueLinks
+      type: object
+      properties:
+        self:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+    Link:
+      type: object
+      additionalProperties: false
+      properties:
+        href:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        templated:
+          type: boolean
+    SellerEvents:
+      type: object
+      additionalProperties: false
+      properties:
+        total_items:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        page:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        page_size:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        _links:
+          oneOf:
+          - $ref: '#/components/schemas/SellerEventsLinks'
+        _embedded:
+          oneOf:
+          - $ref: '#/components/schemas/SellerEventsEmbeddedResources'
+    SellerEventsEmbeddedResources:
+      title: SellerEventsEmbeddedResources
+      type: object
+      properties:
+        items:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/SellerEvent'
+    SellerEventEmbeddedResources:
+      title: SellerEventEmbeddedResources
+      type: object
+      properties:
+        external_mappings:
+          type:
+          - array
+          - 'null'
+          description: The external mappings for this event
+          items:
+            $ref: '#/components/schemas/EmbeddedExternalMapping'
+        sales_aggregates:
+          type:
+          - array
+          - 'null'
+          description: The currently authenticated user's aggregated sales data for this event.
+          items:
+            $ref: '#/components/schemas/SalesAggregate'
+        venue:
+          description: Event venue.
+          oneOf:
+          - $ref: '#/components/schemas/EmbeddedVenue'
+    EmbeddedExternalMapping:
+      type: object
+      description: 'An external mapping between a resource on the viagogo platform and the same resource on another platforms. '
+      additionalProperties: false
+      properties:
+        id:
+          type:
+          - string
+          - 'null'
+          description: The identifier of the resource in the external platform
+        platform_name:
+          type:
+          - string
+          - 'null'
+          description: The name of the external platform. Can be `legacy_stubhub`
+        _links:
+          oneOf:
+          - $ref: '#/components/schemas/EmbeddedExternalMappingLinks'
+    SellerEventLinks:
+      title: SellerEventLinks
+      type: object
+      properties:
+        self:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+        sellerevent:createsellerlisting:
+          description: Create listing for the currently authenticated user.
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+        sellerevent:sellerlistings:
+          description: Event listings that belong to the currently authenticated user.
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+    Error:
+      type: object
+      additionalProperties: false
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+        message:
+          type:
+          - string
+          - 'null'
+        errors:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type: array
+            items:
+              type: string
+    EmbeddedVenueEmbeddedResources:
+      title: EmbeddedVenueEmbeddedResources
+      type: object
+      properties:
+        country:
+          description: The Country where the venue is located.
+          oneOf:
+          - $ref: '#/components/schemas/Country'
+    VenueRequest:
+      type: object
+      description: A venue is a location where an event takes place.
       additionalProperties: false
       required:
-      - amount
-      - currency_code
+      - name
+      - city
       properties:
-        amount:
-          type:
-          - number
-          - 'null'
-          description: The decimal amount of the money.
-          format: decimal
-        currency_code:
+        name:
           type:
           - string
           - 'null'
-          description: The ISO 4217 currency code that the monetary value is represented in.
-        display:
+          description: The name of the venue.
+        city:
           type:
           - string
           - 'null'
-          description: A user-friendly string representing the monetary value.
+          description: The name of the city where the venue is located.
+        state_province:
+          type:
+          - string
+          - 'null'
+          description: The name of the State or Province where the venue is located.
+    EventRequest:
+      type: object
+      additionalProperties: false
+      required:
+      - name
+      - start_date
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+          description: The name of the event.
+        start_date:
+          type:
+          - string
+          - 'null'
+          description: The date when the event starts.
+          format: date-time
+        date_confirmed:
+          type:
+          - boolean
+          - 'null'
+          description: True if the event start and end date have been confirmed; Otherwise, false.
+        note:
+          type:
+          - string
+          - 'null'
+          description: Additional notes on the event.
     EmbeddedVenue:
       type: object
       description: A venue is a location where an event takes place.
@@ -215,17 +444,6 @@ components:
         _embedded:
           oneOf:
           - $ref: '#/components/schemas/EmbeddedVenueEmbeddedResources'
-    SalesAggregateLinks:
-      title: SalesAggregateLinks
-      type: object
-      properties:
-        self:
-          oneOf:
-          - $ref: '#/components/schemas/Link'
-        salesaggregate:sales:
-          description: The sales aggregated in this resource.
-          oneOf:
-          - $ref: '#/components/schemas/Link'
     SellerEvent:
       type: object
       description: An event on the viagogo marketplace with listings that belong to the currently authenticated user.
@@ -283,29 +501,17 @@ components:
         _embedded:
           oneOf:
           - $ref: '#/components/schemas/SellerEventEmbeddedResources'
-    VenueRequest:
+    CountryRequest:
       type: object
-      description: A venue is a location where an event takes place.
       additionalProperties: false
       required:
-      - name
-      - city
+      - code
       properties:
-        name:
+        code:
           type:
           - string
           - 'null'
-          description: The name of the venue.
-        city:
-          type:
-          - string
-          - 'null'
-          description: The name of the city where the venue is located.
-        state_province:
-          type:
-          - string
-          - 'null'
-          description: The name of the State or Province where the venue is located.
+          description: The two-letter ISO 3166 code for the country.
     CountryLinks:
       title: CountryLinks
       type: object
@@ -318,21 +524,6 @@ components:
           oneOf:
           - $ref: '#/components/schemas/Link'
         country:localwebpage:
-          oneOf:
-          - $ref: '#/components/schemas/Link'
-    SellerEventLinks:
-      title: SellerEventLinks
-      type: object
-      properties:
-        self:
-          oneOf:
-          - $ref: '#/components/schemas/Link'
-        sellerevent:createsellerlisting:
-          description: Create listing for the currently authenticated user.
-          oneOf:
-          - $ref: '#/components/schemas/Link'
-        sellerevent:sellerlistings:
-          description: Event listings that belong to the currently authenticated user.
           oneOf:
           - $ref: '#/components/schemas/Link'
     SalesAggregate:
@@ -360,221 +551,30 @@ components:
         _links:
           oneOf:
           - $ref: '#/components/schemas/SalesAggregateLinks'
-    PutRequestedEventRequest:
+    Money:
       type: object
-      description: A requested event.
-      additionalProperties: false
-      properties:
-        event:
-          description: The event information.
-          oneOf:
-          - $ref: '#/components/schemas/EventRequest'
-        venue:
-          description: The venue where the event will take place.
-          oneOf:
-          - $ref: '#/components/schemas/VenueRequest'
-        country:
-          description: The country where the event will take place.
-          oneOf:
-          - $ref: '#/components/schemas/CountryRequest'
-    SellerEventsEmbeddedResources:
-      title: SellerEventsEmbeddedResources
-      type: object
-      properties:
-        items:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/SellerEvent'
-    CountryRequest:
-      type: object
+      description: Returned for monetary values, such as ticket prices, fees charged and tax amounts.
       additionalProperties: false
       required:
-      - code
+      - amount
+      - currency_code
       properties:
-        code:
+        amount:
+          type:
+          - number
+          - 'null'
+          description: The decimal amount of the money.
+          format: decimal
+        currency_code:
           type:
           - string
           - 'null'
-          description: The two-letter ISO 3166 code for the country.
-    EventRequest:
-      type: object
-      additionalProperties: false
-      required:
-      - name
-      - start_date
-      properties:
-        name:
+          description: The ISO 4217 currency code that the monetary value is represented in.
+        display:
           type:
           - string
           - 'null'
-          description: The name of the event.
-        start_date:
-          type:
-          - string
-          - 'null'
-          description: The date when the event starts.
-          format: date-time
-        date_confirmed:
-          type:
-          - boolean
-          - 'null'
-          description: True if the event start and end date have been confirmed; Otherwise, false.
-        note:
-          type:
-          - string
-          - 'null'
-          description: Additional notes on the event.
-    SellerEvents:
-      type: object
-      additionalProperties: false
-      properties:
-        total_items:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        page:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        page_size:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        _links:
-          oneOf:
-          - $ref: '#/components/schemas/SellerEventsLinks'
-        _embedded:
-          oneOf:
-          - $ref: '#/components/schemas/SellerEventsEmbeddedResources'
-    EmbeddedVenueLinks:
-      title: EmbeddedVenueLinks
-      type: object
-      properties:
-        self:
-          oneOf:
-          - $ref: '#/components/schemas/Link'
-    MergedEntity:
-      type: object
-      description: An entity that has been merged into another entity.
-      additionalProperties: false
-      properties:
-        id:
-          type: integer
-          description: The identifier for this entity.
-          format: int32
-    SellerEventsLinks:
-      title: SellerEventsLinks
-      type: object
-      properties:
-        self:
-          oneOf:
-          - $ref: '#/components/schemas/Link'
-        first:
-          oneOf:
-          - $ref: '#/components/schemas/Link'
-        last:
-          oneOf:
-          - $ref: '#/components/schemas/Link'
-        next:
-          oneOf:
-          - $ref: '#/components/schemas/Link'
-        prev:
-          oneOf:
-          - $ref: '#/components/schemas/Link'
-    EmbeddedExternalMappingLinks:
-      title: EmbeddedExternalMappingLinks
-      type: object
-      properties:
-        self:
-          oneOf:
-          - $ref: '#/components/schemas/Link'
-    EmbeddedExternalMapping:
-      type: object
-      description: 'An external mapping between a resource on the viagogo platform and the same resource on another platforms. '
-      additionalProperties: false
-      properties:
-        id:
-          type:
-          - string
-          - 'null'
-          description: The identifier of the resource in the external platform
-        platform_name:
-          type:
-          - string
-          - 'null'
-          description: The name of the external platform. Can be `legacy_stubhub`
-        _links:
-          oneOf:
-          - $ref: '#/components/schemas/EmbeddedExternalMappingLinks'
-    Link:
-      type: object
-      additionalProperties: false
-      properties:
-        href:
-          type:
-          - string
-          - 'null'
-        title:
-          type:
-          - string
-          - 'null'
-        templated:
-          type: boolean
-    EmbeddedVenueEmbeddedResources:
-      title: EmbeddedVenueEmbeddedResources
-      type: object
-      properties:
-        country:
-          description: The Country where the venue is located.
-          oneOf:
-          - $ref: '#/components/schemas/Country'
-    SellerEventEmbeddedResources:
-      title: SellerEventEmbeddedResources
-      type: object
-      properties:
-        external_mappings:
-          type:
-          - array
-          - 'null'
-          description: The external mappings for this event
-          items:
-            $ref: '#/components/schemas/EmbeddedExternalMapping'
-        sales_aggregates:
-          type:
-          - array
-          - 'null'
-          description: The currently authenticated user's aggregated sales data for this event.
-          items:
-            $ref: '#/components/schemas/SalesAggregate'
-        venue:
-          description: Event venue.
-          oneOf:
-          - $ref: '#/components/schemas/EmbeddedVenue'
-    Error:
-      type: object
-      additionalProperties: false
-      properties:
-        code:
-          type:
-          - string
-          - 'null'
-        message:
-          type:
-          - string
-          - 'null'
-        errors:
-          type:
-          - object
-          - 'null'
-          additionalProperties:
-            type: array
-            items:
-              type: string
+          description: A user-friendly string representing the monetary value.
     Country:
       type: object
       additionalProperties: false
@@ -593,8 +593,8 @@ components:
           oneOf:
           - $ref: '#/components/schemas/CountryLinks'
   responses:
-    not_found:
-      description: The URI requested is invalid or the resource requested, such as an event, does not exist.
+    requires_authentication:
+      description: Authentication credentials were missing or incorrect.
       content:
         application/hal+json:
           schema:
@@ -614,8 +614,8 @@ components:
           schema:
             oneOf:
             - $ref: '#/components/schemas/Error'
-    requires_authentication:
-      description: Authentication credentials were missing or incorrect.
+    not_found:
+      description: The URI requested is invalid or the resource requested, such as an event, does not exist.
       content:
         application/hal+json:
           schema:

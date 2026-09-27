@@ -239,34 +239,37 @@ paths:
         - write:webhooks
 components:
   schemas:
-    WebhooksLinks:
-      title: WebhooksLinks
+    Webhook:
       type: object
-      properties:
-        self:
-          oneOf:
-          - $ref: '#/components/schemas/Link'
-        first:
-          oneOf:
-          - $ref: '#/components/schemas/Link'
-        last:
-          oneOf:
-          - $ref: '#/components/schemas/Link'
-        next:
-          oneOf:
-          - $ref: '#/components/schemas/Link'
-        prev:
-          oneOf:
-          - $ref: '#/components/schemas/Link'
-    PostWebhookRequest:
-      type: object
+      description: 'A webhook is a subscription from a server application to certain topics
+
+        on the viagogo platform. When an occurrence of a topic is triggered,
+
+        we’ll POST a payload to the webhook’s configured url.'
       additionalProperties: false
       properties:
+        id:
+          type:
+          - integer
+          - 'null'
+          description: The webhook identifier.
+          format: int32
         name:
           type:
           - string
           - 'null'
           description: The name of the webhook.
+        created_at:
+          type: string
+          description: The date when the webhook was created.
+          format: date-time
+        topics:
+          type:
+          - array
+          - 'null'
+          description: An array of the topics the webhook is trigger for.
+          items:
+            type: string
         url:
           type:
           - string
@@ -277,37 +280,9 @@ components:
           - string
           - 'null'
           description: The Authorization header value that should be included in requests to the webhook.
-        topics:
-          type:
-          - array
-          - 'null'
-          description: An array of the topics the webhook is trigger for.
-          items:
-            type: string
-    Link:
-      type: object
-      additionalProperties: false
-      properties:
-        href:
-          type:
-          - string
-          - 'null'
-        title:
-          type:
-          - string
-          - 'null'
-        templated:
-          type: boolean
-    WebhooksEmbeddedResources:
-      title: WebhooksEmbeddedResources
-      type: object
-      properties:
-        items:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Webhook'
+        _links:
+          oneOf:
+          - $ref: '#/components/schemas/WebhookLinks'
     WebhookLinks:
       title: WebhookLinks
       type: object
@@ -353,37 +328,15 @@ components:
           description: An array of the topics the webhook is trigger for.
           items:
             type: string
-    Webhook:
+    PostWebhookRequest:
       type: object
-      description: 'A webhook is a subscription from a server application to certain topics
-
-        on the viagogo platform. When an occurrence of a topic is triggered,
-
-        we’ll POST a payload to the webhook’s configured url.'
       additionalProperties: false
       properties:
-        id:
-          type:
-          - integer
-          - 'null'
-          description: The webhook identifier.
-          format: int32
         name:
           type:
           - string
           - 'null'
           description: The name of the webhook.
-        created_at:
-          type: string
-          description: The date when the webhook was created.
-          format: date-time
-        topics:
-          type:
-          - array
-          - 'null'
-          description: An array of the topics the webhook is trigger for.
-          items:
-            type: string
         url:
           type:
           - string
@@ -394,29 +347,13 @@ components:
           - string
           - 'null'
           description: The Authorization header value that should be included in requests to the webhook.
-        _links:
-          oneOf:
-          - $ref: '#/components/schemas/WebhookLinks'
-    Error:
-      type: object
-      additionalProperties: false
-      properties:
-        code:
+        topics:
           type:
-          - string
+          - array
           - 'null'
-        message:
-          type:
-          - string
-          - 'null'
-        errors:
-          type:
-          - object
-          - 'null'
-          additionalProperties:
-            type: array
-            items:
-              type: string
+          description: An array of the topics the webhook is trigger for.
+          items:
+            type: string
     Webhooks:
       type: object
       additionalProperties: false
@@ -442,16 +379,79 @@ components:
         _embedded:
           oneOf:
           - $ref: '#/components/schemas/WebhooksEmbeddedResources'
+    WebhooksEmbeddedResources:
+      title: WebhooksEmbeddedResources
+      type: object
+      properties:
+        items:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Webhook'
+    WebhooksLinks:
+      title: WebhooksLinks
+      type: object
+      properties:
+        self:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+        first:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+        last:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+        next:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+        prev:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+    Error:
+      type: object
+      additionalProperties: false
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+        message:
+          type:
+          - string
+          - 'null'
+        errors:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type: array
+            items:
+              type: string
+    Link:
+      type: object
+      additionalProperties: false
+      properties:
+        href:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        templated:
+          type: boolean
   responses:
-    requires_authentication:
-      description: Authentication credentials were missing or incorrect.
+    internal_server_error:
+      description: Internal server error
       content:
         application/hal+json:
           schema:
             oneOf:
             - $ref: '#/components/schemas/Error'
-    forbidden:
-      description: The request is understood, but it has been refused or access is not allowed. An accompanying error message will explain why.
+    requires_authentication:
+      description: Authentication credentials were missing or incorrect.
       content:
         application/hal+json:
           schema:
@@ -464,15 +464,15 @@ components:
           schema:
             oneOf:
             - $ref: '#/components/schemas/Error'
-    validation_failed:
-      description: The request data is not valid. errors will contain an object with a localized message that describes the validation error for each property of the data.
+    forbidden:
+      description: The request is understood, but it has been refused or access is not allowed. An accompanying error message will explain why.
       content:
         application/hal+json:
           schema:
             oneOf:
             - $ref: '#/components/schemas/Error'
-    internal_server_error:
-      description: Internal server error
+    validation_failed:
+      description: The request data is not valid. errors will contain an object with a localized message that describes the validation error for each property of the data.
       content:
         application/hal+json:
           schema:

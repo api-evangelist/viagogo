@@ -203,195 +203,7 @@ paths:
       - OAuth2:
         - write:user
 components:
-  responses:
-    requires_authentication:
-      description: Authentication credentials were missing or incorrect.
-      content:
-        application/hal+json:
-          schema:
-            oneOf:
-            - $ref: '#/components/schemas/Error'
-    forbidden:
-      description: The request is understood, but it has been refused or access is not allowed. An accompanying error message will explain why.
-      content:
-        application/hal+json:
-          schema:
-            oneOf:
-            - $ref: '#/components/schemas/Error'
-    internal_server_error:
-      description: Internal server error
-      content:
-        application/hal+json:
-          schema:
-            oneOf:
-            - $ref: '#/components/schemas/Error'
-    not_found:
-      description: The URI requested is invalid or the resource requested, such as an event, does not exist.
-      content:
-        application/hal+json:
-          schema:
-            oneOf:
-            - $ref: '#/components/schemas/Error'
-    validation_failed:
-      description: The request data is not valid. errors will contain an object with a localized message that describes the validation error for each property of the data.
-      content:
-        application/hal+json:
-          schema:
-            oneOf:
-            - $ref: '#/components/schemas/Error'
   schemas:
-    Error:
-      type: object
-      additionalProperties: false
-      properties:
-        code:
-          type:
-          - string
-          - 'null'
-        message:
-          type:
-          - string
-          - 'null'
-        errors:
-          type:
-          - object
-          - 'null'
-          additionalProperties:
-            type: array
-            items:
-              type: string
-    Link:
-      type: object
-      additionalProperties: false
-      properties:
-        href:
-          type:
-          - string
-          - 'null'
-        title:
-          type:
-          - string
-          - 'null'
-        templated:
-          type: boolean
-    PostAddressRequest:
-      type: object
-      description: An address is a delivery, pickup or billing address associated with the current user.
-      additionalProperties: false
-      properties:
-        full_name:
-          type:
-          - string
-          - 'null'
-          description: The full name of the recipient.
-        default:
-          type:
-          - boolean
-          - 'null'
-          description: True if the address is the current user's default address; Otherwise, false.
-        address_1:
-          type:
-          - string
-          - 'null'
-          description: The first line of the address.
-        address_2:
-          type:
-          - string
-          - 'null'
-          description: The second line of the address.
-        address_3:
-          type:
-          - string
-          - 'null'
-          description: The third line of the address.
-        city:
-          type:
-          - string
-          - 'null'
-          description: The name of the city where the address is located.
-        state_province:
-          type:
-          - string
-          - 'null'
-          description: The name of the State or Province where the address is located.
-        postal_code:
-          type:
-          - string
-          - 'null'
-          description: The postal code for the address.
-        country_code:
-          type:
-          - string
-          - 'null'
-          description: The 2 character ISO code that identifies the country in which the address is located.
-    AddressEmbeddedResources:
-      title: AddressEmbeddedResources
-      type: object
-      properties:
-        country:
-          description: The Country where the address is located.
-          oneOf:
-          - $ref: '#/components/schemas/Country'
-    PatchAddressRequest:
-      type: object
-      description: An address is a delivery, pickup or billing address associated with the current user.
-      additionalProperties: false
-      properties:
-        full_name:
-          type:
-          - string
-          - 'null'
-          description: The full name of the recipient.
-        default:
-          type:
-          - boolean
-          - 'null'
-          description: True if the address is the current user's default address; Otherwise, false.
-        address_1:
-          type:
-          - string
-          - 'null'
-          description: The first line of the address.
-        address_2:
-          type:
-          - string
-          - 'null'
-          description: The second line of the address.
-        address_3:
-          type:
-          - string
-          - 'null'
-          description: The third line of the address.
-        city:
-          type:
-          - string
-          - 'null'
-          description: The name of the city where the address is located.
-        state_province:
-          type:
-          - string
-          - 'null'
-          description: The name of the State or Province where the address is located.
-        postal_code:
-          type:
-          - string
-          - 'null'
-          description: The postal code for the address.
-        country_code:
-          type:
-          - string
-          - 'null'
-          description: The 2 character ISO code that identifies the country in which the address is located.
-    AddresssEmbeddedResources:
-      title: AddresssEmbeddedResources
-      type: object
-      properties:
-        items:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Address'
     Address:
       type: object
       description: An address is a delivery, pickup or billing address associated with the current user.
@@ -449,25 +261,6 @@ components:
         _embedded:
           oneOf:
           - $ref: '#/components/schemas/AddressEmbeddedResources'
-    AddresssLinks:
-      title: AddresssLinks
-      type: object
-      properties:
-        self:
-          oneOf:
-          - $ref: '#/components/schemas/Link'
-        first:
-          oneOf:
-          - $ref: '#/components/schemas/Link'
-        last:
-          oneOf:
-          - $ref: '#/components/schemas/Link'
-        next:
-          oneOf:
-          - $ref: '#/components/schemas/Link'
-        prev:
-          oneOf:
-          - $ref: '#/components/schemas/Link'
     AddressLinks:
       title: AddressLinks
       type: object
@@ -487,20 +280,70 @@ components:
           description: Update the details of the current user’s address.
           oneOf:
           - $ref: '#/components/schemas/Link'
-    CountryLinks:
-      title: CountryLinks
+    PatchAddressRequest:
       type: object
+      description: An address is a delivery, pickup or billing address associated with the current user.
+      additionalProperties: false
       properties:
-        self:
-          oneOf:
-          - $ref: '#/components/schemas/Link'
-        country:events:
-          description: The events taking place in a country.
-          oneOf:
-          - $ref: '#/components/schemas/Link'
-        country:localwebpage:
-          oneOf:
-          - $ref: '#/components/schemas/Link'
+        full_name:
+          type:
+          - string
+          - 'null'
+          description: The full name of the recipient.
+        default:
+          type:
+          - boolean
+          - 'null'
+          description: True if the address is the current user's default address; Otherwise, false.
+        address_1:
+          type:
+          - string
+          - 'null'
+          description: The first line of the address.
+        address_2:
+          type:
+          - string
+          - 'null'
+          description: The second line of the address.
+        address_3:
+          type:
+          - string
+          - 'null'
+          description: The third line of the address.
+        city:
+          type:
+          - string
+          - 'null'
+          description: The name of the city where the address is located.
+        state_province:
+          type:
+          - string
+          - 'null'
+          description: The name of the State or Province where the address is located.
+        postal_code:
+          type:
+          - string
+          - 'null'
+          description: The postal code for the address.
+        country_code:
+          type:
+          - string
+          - 'null'
+          description: The 2 character ISO code that identifies the country in which the address is located.
+    Link:
+      type: object
+      additionalProperties: false
+      properties:
+        href:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        templated:
+          type: boolean
     Addresss:
       type: object
       additionalProperties: false
@@ -526,6 +369,127 @@ components:
         _embedded:
           oneOf:
           - $ref: '#/components/schemas/AddresssEmbeddedResources'
+    AddressEmbeddedResources:
+      title: AddressEmbeddedResources
+      type: object
+      properties:
+        country:
+          description: The Country where the address is located.
+          oneOf:
+          - $ref: '#/components/schemas/Country'
+    AddresssEmbeddedResources:
+      title: AddresssEmbeddedResources
+      type: object
+      properties:
+        items:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Address'
+    CountryLinks:
+      title: CountryLinks
+      type: object
+      properties:
+        self:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+        country:events:
+          description: The events taking place in a country.
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+        country:localwebpage:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+    AddresssLinks:
+      title: AddresssLinks
+      type: object
+      properties:
+        self:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+        first:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+        last:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+        next:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+        prev:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+    PostAddressRequest:
+      type: object
+      description: An address is a delivery, pickup or billing address associated with the current user.
+      additionalProperties: false
+      properties:
+        full_name:
+          type:
+          - string
+          - 'null'
+          description: The full name of the recipient.
+        default:
+          type:
+          - boolean
+          - 'null'
+          description: True if the address is the current user's default address; Otherwise, false.
+        address_1:
+          type:
+          - string
+          - 'null'
+          description: The first line of the address.
+        address_2:
+          type:
+          - string
+          - 'null'
+          description: The second line of the address.
+        address_3:
+          type:
+          - string
+          - 'null'
+          description: The third line of the address.
+        city:
+          type:
+          - string
+          - 'null'
+          description: The name of the city where the address is located.
+        state_province:
+          type:
+          - string
+          - 'null'
+          description: The name of the State or Province where the address is located.
+        postal_code:
+          type:
+          - string
+          - 'null'
+          description: The postal code for the address.
+        country_code:
+          type:
+          - string
+          - 'null'
+          description: The 2 character ISO code that identifies the country in which the address is located.
+    Error:
+      type: object
+      additionalProperties: false
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+        message:
+          type:
+          - string
+          - 'null'
+        errors:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type: array
+            items:
+              type: string
     Country:
       type: object
       additionalProperties: false
@@ -543,6 +507,42 @@ components:
         _links:
           oneOf:
           - $ref: '#/components/schemas/CountryLinks'
+  responses:
+    validation_failed:
+      description: The request data is not valid. errors will contain an object with a localized message that describes the validation error for each property of the data.
+      content:
+        application/hal+json:
+          schema:
+            oneOf:
+            - $ref: '#/components/schemas/Error'
+    internal_server_error:
+      description: Internal server error
+      content:
+        application/hal+json:
+          schema:
+            oneOf:
+            - $ref: '#/components/schemas/Error'
+    requires_authentication:
+      description: Authentication credentials were missing or incorrect.
+      content:
+        application/hal+json:
+          schema:
+            oneOf:
+            - $ref: '#/components/schemas/Error'
+    not_found:
+      description: The URI requested is invalid or the resource requested, such as an event, does not exist.
+      content:
+        application/hal+json:
+          schema:
+            oneOf:
+            - $ref: '#/components/schemas/Error'
+    forbidden:
+      description: The request is understood, but it has been refused or access is not allowed. An accompanying error message will explain why.
+      content:
+        application/hal+json:
+          schema:
+            oneOf:
+            - $ref: '#/components/schemas/Error'
   securitySchemes:
     OAuth2:
       type: oauth2
