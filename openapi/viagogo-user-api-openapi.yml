@@ -82,7 +82,69 @@ paths:
       - OAuth2:
         - write:user
 components:
+  responses:
+    internal_server_error:
+      description: Internal server error
+      content:
+        application/hal+json:
+          schema:
+            oneOf:
+            - $ref: '#/components/schemas/Error'
+    not_found:
+      description: The URI requested is invalid or the resource requested, such as an event, does not exist.
+      content:
+        application/hal+json:
+          schema:
+            oneOf:
+            - $ref: '#/components/schemas/Error'
+    requires_authentication:
+      description: Authentication credentials were missing or incorrect.
+      content:
+        application/hal+json:
+          schema:
+            oneOf:
+            - $ref: '#/components/schemas/Error'
+    forbidden:
+      description: The request is understood, but it has been refused or access is not allowed. An accompanying error message will explain why.
+      content:
+        application/hal+json:
+          schema:
+            oneOf:
+            - $ref: '#/components/schemas/Error'
+    validation_failed:
+      description: The request data is not valid. errors will contain an object with a localized message that describes the validation error for each property of the data.
+      content:
+        application/hal+json:
+          schema:
+            oneOf:
+            - $ref: '#/components/schemas/Error'
   schemas:
+    User:
+      type: object
+      description: An authenticated user.
+      additionalProperties: false
+      properties:
+        full_name:
+          type:
+          - string
+          - 'null'
+          description: The full name of the user.
+        email:
+          type:
+          - string
+          - 'null'
+          description: The email address of the user.
+        primary_phone:
+          type:
+          - string
+          - 'null'
+          description: The primary phone number of the user.
+        email_optin:
+          type: boolean
+          description: True if the user is signed up for the viagogo email newsletter; otherwise, false.
+        _links:
+          oneOf:
+          - $ref: '#/components/schemas/UserLinks'
     UserLinks:
       title: UserLinks
       type: object
@@ -118,47 +180,6 @@ components:
           description: The collection of Webhooks associated with this user.
           oneOf:
           - $ref: '#/components/schemas/Link'
-    PatchUserRequest:
-      type: object
-      description: An authenticated user.
-      additionalProperties: false
-      properties:
-        full_name:
-          type:
-          - string
-          - 'null'
-          description: The full name of the user.
-        email_optin:
-          type:
-          - boolean
-          - 'null'
-          description: True if the user is signed up for the viagogo email newsletter; otherwise, false.
-    User:
-      type: object
-      description: An authenticated user.
-      additionalProperties: false
-      properties:
-        full_name:
-          type:
-          - string
-          - 'null'
-          description: The full name of the user.
-        email:
-          type:
-          - string
-          - 'null'
-          description: The email address of the user.
-        primary_phone:
-          type:
-          - string
-          - 'null'
-          description: The primary phone number of the user.
-        email_optin:
-          type: boolean
-          description: True if the user is signed up for the viagogo email newsletter; otherwise, false.
-        _links:
-          oneOf:
-          - $ref: '#/components/schemas/UserLinks'
     Error:
       type: object
       additionalProperties: false
@@ -193,42 +214,21 @@ components:
           - 'null'
         templated:
           type: boolean
-  responses:
-    internal_server_error:
-      description: Internal server error
-      content:
-        application/hal+json:
-          schema:
-            oneOf:
-            - $ref: '#/components/schemas/Error'
-    requires_authentication:
-      description: Authentication credentials were missing or incorrect.
-      content:
-        application/hal+json:
-          schema:
-            oneOf:
-            - $ref: '#/components/schemas/Error'
-    not_found:
-      description: The URI requested is invalid or the resource requested, such as an event, does not exist.
-      content:
-        application/hal+json:
-          schema:
-            oneOf:
-            - $ref: '#/components/schemas/Error'
-    forbidden:
-      description: The request is understood, but it has been refused or access is not allowed. An accompanying error message will explain why.
-      content:
-        application/hal+json:
-          schema:
-            oneOf:
-            - $ref: '#/components/schemas/Error'
-    validation_failed:
-      description: The request data is not valid. errors will contain an object with a localized message that describes the validation error for each property of the data.
-      content:
-        application/hal+json:
-          schema:
-            oneOf:
-            - $ref: '#/components/schemas/Error'
+    PatchUserRequest:
+      type: object
+      description: An authenticated user.
+      additionalProperties: false
+      properties:
+        full_name:
+          type:
+          - string
+          - 'null'
+          description: The full name of the user.
+        email_optin:
+          type:
+          - boolean
+          - 'null'
+          description: True if the user is signed up for the viagogo email newsletter; otherwise, false.
   securitySchemes:
     OAuth2:
       type: oauth2

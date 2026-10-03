@@ -59,18 +59,36 @@ paths:
       - OAuth2:
         - read:venue_configurations
 components:
+  responses:
+    internal_server_error:
+      description: Internal server error
+      content:
+        application/hal+json:
+          schema:
+            oneOf:
+            - $ref: '#/components/schemas/Error'
+    not_found:
+      description: The URI requested is invalid or the resource requested, such as an event, does not exist.
+      content:
+        application/hal+json:
+          schema:
+            oneOf:
+            - $ref: '#/components/schemas/Error'
+    requires_authentication:
+      description: Authentication credentials were missing or incorrect.
+      content:
+        application/hal+json:
+          schema:
+            oneOf:
+            - $ref: '#/components/schemas/Error'
+    forbidden:
+      description: The request is understood, but it has been refused or access is not allowed. An accompanying error message will explain why.
+      content:
+        application/hal+json:
+          schema:
+            oneOf:
+            - $ref: '#/components/schemas/Error'
   schemas:
-    VenueConfigurationResource:
-      type: object
-      additionalProperties: false
-      properties:
-        config_id:
-          type: integer
-          format: int32
-        sections:
-          type: array
-          items:
-            $ref: '#/components/schemas/VenueConfigSectionResource'
     VenueConfigSectionRowResource:
       type: object
       additionalProperties: false
@@ -89,19 +107,6 @@ components:
           type:
           - string
           - 'null'
-    VenueConfigSectionResource:
-      type: object
-      additionalProperties: false
-      properties:
-        section_id:
-          type: integer
-          format: int32
-        section_name:
-          type: string
-        rows:
-          type: array
-          items:
-            $ref: '#/components/schemas/VenueConfigSectionRowResource'
     Error:
       type: object
       additionalProperties: false
@@ -116,35 +121,30 @@ components:
             type: array
             items:
               type: string
-  responses:
-    internal_server_error:
-      description: Internal server error
-      content:
-        application/hal+json:
-          schema:
-            oneOf:
-            - $ref: '#/components/schemas/Error'
-    requires_authentication:
-      description: Authentication credentials were missing or incorrect.
-      content:
-        application/hal+json:
-          schema:
-            oneOf:
-            - $ref: '#/components/schemas/Error'
-    not_found:
-      description: The URI requested is invalid or the resource requested, such as an event, does not exist.
-      content:
-        application/hal+json:
-          schema:
-            oneOf:
-            - $ref: '#/components/schemas/Error'
-    forbidden:
-      description: The request is understood, but it has been refused or access is not allowed. An accompanying error message will explain why.
-      content:
-        application/hal+json:
-          schema:
-            oneOf:
-            - $ref: '#/components/schemas/Error'
+    VenueConfigSectionResource:
+      type: object
+      additionalProperties: false
+      properties:
+        section_id:
+          type: integer
+          format: int32
+        section_name:
+          type: string
+        rows:
+          type: array
+          items:
+            $ref: '#/components/schemas/VenueConfigSectionRowResource'
+    VenueConfigurationResource:
+      type: object
+      additionalProperties: false
+      properties:
+        config_id:
+          type: integer
+          format: int32
+        sections:
+          type: array
+          items:
+            $ref: '#/components/schemas/VenueConfigSectionResource'
   securitySchemes:
     OAuth2:
       type: oauth2

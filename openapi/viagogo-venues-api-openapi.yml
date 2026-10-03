@@ -115,93 +115,6 @@ paths:
         - read:venues
 components:
   schemas:
-    Venues:
-      type: object
-      additionalProperties: false
-      properties:
-        total_items:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        page:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        page_size:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        _links:
-          oneOf:
-          - $ref: '#/components/schemas/VenuesLinks'
-        _embedded:
-          oneOf:
-          - $ref: '#/components/schemas/VenuesEmbeddedResources'
-    Country:
-      type: object
-      additionalProperties: false
-      properties:
-        code:
-          type: string
-          description: The two-letter ISO 3166 code for the country.
-        name:
-          type: string
-          description: The name of the country.
-        _links:
-          oneOf:
-          - $ref: '#/components/schemas/CountryLinks'
-    VenuesLinks:
-      title: VenuesLinks
-      type: object
-      properties:
-        self:
-          oneOf:
-          - $ref: '#/components/schemas/Link'
-        first:
-          oneOf:
-          - $ref: '#/components/schemas/Link'
-        last:
-          oneOf:
-          - $ref: '#/components/schemas/Link'
-        next:
-          oneOf:
-          - $ref: '#/components/schemas/Link'
-        prev:
-          oneOf:
-          - $ref: '#/components/schemas/Link'
-    EmbeddedExternalMappingLinks:
-      title: EmbeddedExternalMappingLinks
-      type: object
-      properties:
-        self:
-          oneOf:
-          - $ref: '#/components/schemas/Link'
-    VenuesEmbeddedResources:
-      title: VenuesEmbeddedResources
-      type: object
-      properties:
-        deleted_items:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Venue'
-        items:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Venue'
-    CountryLinks:
-      title: CountryLinks
-      type: object
-      properties:
-        self:
-          oneOf:
-          - $ref: '#/components/schemas/Link'
     EmbeddedExternalMapping:
       type: object
       description: 'An external mapping between a resource on the viagogo platform and the same resource on another platforms. '
@@ -223,6 +136,20 @@ components:
         self:
           oneOf:
           - $ref: '#/components/schemas/Link'
+    Error:
+      type: object
+      additionalProperties: false
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        errors:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
     VenueEmbeddedResources:
       title: VenueEmbeddedResources
       type: object
@@ -238,20 +165,19 @@ components:
           description: The external mappings for this venue
           items:
             $ref: '#/components/schemas/EmbeddedExternalMapping'
-    Error:
+    Country:
       type: object
       additionalProperties: false
       properties:
         code:
           type: string
-        message:
+          description: The two-letter ISO 3166 code for the country.
+        name:
           type: string
-        errors:
-          type: object
-          additionalProperties:
-            type: array
-            items:
-              type: string
+          description: The name of the country.
+        _links:
+          oneOf:
+          - $ref: '#/components/schemas/CountryLinks'
     Venue:
       type: object
       description: An venue on the viagogo platform.
@@ -305,16 +231,83 @@ components:
           - 'null'
         templated:
           type: boolean
+    CountryLinks:
+      title: CountryLinks
+      type: object
+      properties:
+        self:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+    VenuesEmbeddedResources:
+      title: VenuesEmbeddedResources
+      type: object
+      properties:
+        deleted_items:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Venue'
+        items:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Venue'
+    Venues:
+      type: object
+      additionalProperties: false
+      properties:
+        total_items:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        page:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        page_size:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        _links:
+          oneOf:
+          - $ref: '#/components/schemas/VenuesLinks'
+        _embedded:
+          oneOf:
+          - $ref: '#/components/schemas/VenuesEmbeddedResources'
+    EmbeddedExternalMappingLinks:
+      title: EmbeddedExternalMappingLinks
+      type: object
+      properties:
+        self:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+    VenuesLinks:
+      title: VenuesLinks
+      type: object
+      properties:
+        self:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+        first:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+        last:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+        next:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+        prev:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
   responses:
     internal_server_error:
       description: Internal server error
-      content:
-        application/hal+json:
-          schema:
-            oneOf:
-            - $ref: '#/components/schemas/Error'
-    requires_authentication:
-      description: Authentication credentials were missing or incorrect.
       content:
         application/hal+json:
           schema:
@@ -329,6 +322,13 @@ components:
             - $ref: '#/components/schemas/Error'
     forbidden:
       description: The request is understood, but it has been refused or access is not allowed. An accompanying error message will explain why.
+      content:
+        application/hal+json:
+          schema:
+            oneOf:
+            - $ref: '#/components/schemas/Error'
+    requires_authentication:
+      description: Authentication credentials were missing or incorrect.
       content:
         application/hal+json:
           schema:
