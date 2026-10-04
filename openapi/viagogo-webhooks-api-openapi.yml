@@ -246,13 +246,6 @@ components:
           schema:
             oneOf:
             - $ref: '#/components/schemas/Error'
-    not_found:
-      description: The URI requested is invalid or the resource requested, such as an event, does not exist.
-      content:
-        application/hal+json:
-          schema:
-            oneOf:
-            - $ref: '#/components/schemas/Error'
     forbidden:
       description: The request is understood, but it has been refused or access is not allowed. An accompanying error message will explain why.
       content:
@@ -267,6 +260,13 @@ components:
           schema:
             oneOf:
             - $ref: '#/components/schemas/Error'
+    not_found:
+      description: The URI requested is invalid or the resource requested, such as an event, does not exist.
+      content:
+        application/hal+json:
+          schema:
+            oneOf:
+            - $ref: '#/components/schemas/Error'
     validation_failed:
       description: The request data is not valid. errors will contain an object with a localized message that describes the validation error for each property of the data.
       content:
@@ -275,6 +275,81 @@ components:
             oneOf:
             - $ref: '#/components/schemas/Error'
   schemas:
+    Webhooks:
+      type: object
+      additionalProperties: false
+      properties:
+        total_items:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        page:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        page_size:
+          type:
+          - integer
+          - 'null'
+          format: int32
+        _links:
+          oneOf:
+          - $ref: '#/components/schemas/WebhooksLinks'
+        _embedded:
+          oneOf:
+          - $ref: '#/components/schemas/WebhooksEmbeddedResources'
+    PostWebhookRequest:
+      type: object
+      additionalProperties: false
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+          description: The name of the webhook.
+        url:
+          type:
+          - string
+          - 'null'
+          description: The server endpoint that will receive the webhook payload.
+        authorization_header:
+          type:
+          - string
+          - 'null'
+          description: The Authorization header value that should be included in requests to the webhook.
+        topics:
+          type:
+          - array
+          - 'null'
+          description: An array of the topics the webhook is trigger for.
+          items:
+            type: string
+    Link:
+      type: object
+      additionalProperties: false
+      properties:
+        href:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        templated:
+          type: boolean
+    WebhooksEmbeddedResources:
+      title: WebhooksEmbeddedResources
+      type: object
+      properties:
+        items:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Webhook'
     WebhooksLinks:
       title: WebhooksLinks
       type: object
@@ -294,6 +369,51 @@ components:
         prev:
           oneOf:
           - $ref: '#/components/schemas/Link'
+    WebhookLinks:
+      title: WebhookLinks
+      type: object
+      properties:
+        self:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+        webhook:delete:
+          description: Delete a webhook.
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+        webhook:ping:
+          description: Ping a webhook.
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+        webhook:update:
+          description: Update the details of a webhook.
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+    PatchWebhookRequest:
+      type: object
+      additionalProperties: false
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+          description: The name of the webhook.
+        url:
+          type:
+          - string
+          - 'null'
+          description: The server endpoint that will receive the webhook payload.
+        authorization_header:
+          type:
+          - string
+          - 'null'
+          description: The Authorization header value that should be included in requests to the webhook.
+        topics:
+          type:
+          - array
+          - 'null'
+          description: An array of the topics the webhook is trigger for.
+          items:
+            type: string
     Error:
       type: object
       additionalProperties: false
@@ -358,126 +478,6 @@ components:
         _links:
           oneOf:
           - $ref: '#/components/schemas/WebhookLinks'
-    WebhooksEmbeddedResources:
-      title: WebhooksEmbeddedResources
-      type: object
-      properties:
-        items:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Webhook'
-    Webhooks:
-      type: object
-      additionalProperties: false
-      properties:
-        total_items:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        page:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        page_size:
-          type:
-          - integer
-          - 'null'
-          format: int32
-        _links:
-          oneOf:
-          - $ref: '#/components/schemas/WebhooksLinks'
-        _embedded:
-          oneOf:
-          - $ref: '#/components/schemas/WebhooksEmbeddedResources'
-    Link:
-      type: object
-      additionalProperties: false
-      properties:
-        href:
-          type:
-          - string
-          - 'null'
-        title:
-          type:
-          - string
-          - 'null'
-        templated:
-          type: boolean
-    PatchWebhookRequest:
-      type: object
-      additionalProperties: false
-      properties:
-        name:
-          type:
-          - string
-          - 'null'
-          description: The name of the webhook.
-        url:
-          type:
-          - string
-          - 'null'
-          description: The server endpoint that will receive the webhook payload.
-        authorization_header:
-          type:
-          - string
-          - 'null'
-          description: The Authorization header value that should be included in requests to the webhook.
-        topics:
-          type:
-          - array
-          - 'null'
-          description: An array of the topics the webhook is trigger for.
-          items:
-            type: string
-    WebhookLinks:
-      title: WebhookLinks
-      type: object
-      properties:
-        self:
-          oneOf:
-          - $ref: '#/components/schemas/Link'
-        webhook:delete:
-          description: Delete a webhook.
-          oneOf:
-          - $ref: '#/components/schemas/Link'
-        webhook:ping:
-          description: Ping a webhook.
-          oneOf:
-          - $ref: '#/components/schemas/Link'
-        webhook:update:
-          description: Update the details of a webhook.
-          oneOf:
-          - $ref: '#/components/schemas/Link'
-    PostWebhookRequest:
-      type: object
-      additionalProperties: false
-      properties:
-        name:
-          type:
-          - string
-          - 'null'
-          description: The name of the webhook.
-        url:
-          type:
-          - string
-          - 'null'
-          description: The server endpoint that will receive the webhook payload.
-        authorization_header:
-          type:
-          - string
-          - 'null'
-          description: The Authorization header value that should be included in requests to the webhook.
-        topics:
-          type:
-          - array
-          - 'null'
-          description: An array of the topics the webhook is trigger for.
-          items:
-            type: string
   securitySchemes:
     OAuth2:
       type: oauth2

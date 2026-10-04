@@ -367,8 +367,8 @@ components:
           schema:
             oneOf:
             - $ref: '#/components/schemas/Error'
-    not_found:
-      description: The URI requested is invalid or the resource requested, such as an event, does not exist.
+    forbidden:
+      description: The request is understood, but it has been refused or access is not allowed. An accompanying error message will explain why.
       content:
         application/hal+json:
           schema:
@@ -381,8 +381,8 @@ components:
           schema:
             oneOf:
             - $ref: '#/components/schemas/Error'
-    forbidden:
-      description: The request is understood, but it has been refused or access is not allowed. An accompanying error message will explain why.
+    not_found:
+      description: The URI requested is invalid or the resource requested, such as an event, does not exist.
       content:
         application/hal+json:
           schema:
@@ -396,45 +396,6 @@ components:
             oneOf:
             - $ref: '#/components/schemas/Error'
   schemas:
-    PatchListingOfferRequest:
-      type: object
-      additionalProperties: false
-      properties:
-        TicketBidPrice:
-          type:
-          - number
-          - 'null'
-          format: decimal
-          minimum: 1.0
-        Quantity:
-          type:
-          - integer
-          - 'null'
-          format: int32
-          maximum: 20.0
-          minimum: 1.0
-        ExpiresAt:
-          type:
-          - string
-          - 'null'
-          format: date-time
-        AutoRelistEnabled:
-          type:
-          - boolean
-          - 'null'
-        RelistMarginPercentage:
-          type:
-          - number
-          - 'null'
-          format: decimal
-          minimum: 0.0
-        OfferCount:
-          type:
-          - integer
-          - 'null'
-          format: int32
-          maximum: 100.0
-          minimum: 1.0
     InstantLiquidityOfferState:
       type: integer
       description: ''
@@ -504,6 +465,45 @@ components:
           - string
           - 'null'
           format: date-time
+    PatchListingOfferRequest:
+      type: object
+      additionalProperties: false
+      properties:
+        TicketBidPrice:
+          type:
+          - number
+          - 'null'
+          format: decimal
+          minimum: 1.0
+        Quantity:
+          type:
+          - integer
+          - 'null'
+          format: int32
+          maximum: 20.0
+          minimum: 1.0
+        ExpiresAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+        AutoRelistEnabled:
+          type:
+          - boolean
+          - 'null'
+        RelistMarginPercentage:
+          type:
+          - number
+          - 'null'
+          format: decimal
+          minimum: 0.0
+        OfferCount:
+          type:
+          - integer
+          - 'null'
+          format: int32
+          maximum: 100.0
+          minimum: 1.0
     Error:
       type: object
       additionalProperties: false

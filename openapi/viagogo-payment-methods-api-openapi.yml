@@ -73,36 +73,110 @@ paths:
       - OAuth2:
         - read:user
 components:
-  responses:
-    internal_server_error:
-      description: Internal server error
-      content:
-        application/hal+json:
-          schema:
-            oneOf:
-            - $ref: '#/components/schemas/Error'
-    requires_authentication:
-      description: Authentication credentials were missing or incorrect.
-      content:
-        application/hal+json:
-          schema:
-            oneOf:
-            - $ref: '#/components/schemas/Error'
-    forbidden:
-      description: The request is understood, but it has been refused or access is not allowed. An accompanying error message will explain why.
-      content:
-        application/hal+json:
-          schema:
-            oneOf:
-            - $ref: '#/components/schemas/Error'
-    validation_failed:
-      description: The request data is not valid. errors will contain an object with a localized message that describes the validation error for each property of the data.
-      content:
-        application/hal+json:
-          schema:
-            oneOf:
-            - $ref: '#/components/schemas/Error'
   schemas:
+    Country:
+      type: object
+      additionalProperties: false
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+          description: The two-letter ISO 3166 code for the country.
+        name:
+          type:
+          - string
+          - 'null'
+          description: The name of the country.
+        _links:
+          oneOf:
+          - $ref: '#/components/schemas/CountryLinks'
+    Link:
+      type: object
+      additionalProperties: false
+      properties:
+        href:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        templated:
+          type: boolean
+    AddressEmbeddedResources:
+      title: AddressEmbeddedResources
+      type: object
+      properties:
+        country:
+          description: The Country where the address is located.
+          oneOf:
+          - $ref: '#/components/schemas/Country'
+    PaymentMethodsLinks:
+      title: PaymentMethodsLinks
+      type: object
+      properties:
+        self:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+        first:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+        last:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+        next:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+        paymentmethod:createcreditcard:
+          description: Adds a new credit card for the current user.
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+        paymentmethod:createpaypal:
+          description: Adds a new PayPal account for the current user.
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+        prev:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+    CountryLinks:
+      title: CountryLinks
+      type: object
+      properties:
+        self:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+        country:events:
+          description: The events taking place in a country.
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+        country:localwebpage:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+    PaymentMethodLinks:
+      title: PaymentMethodLinks
+      type: object
+      properties:
+        self:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+        paymentmethod:delete:
+          description: Delete the current user’s payment method.
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+        paymentmethod:updatecreditcard:
+          description: Update the current user’s credit card details.
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+        paymentmethod:updatedefaults:
+          description: Update the default payment methods for the current user.
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+        paymentmethod:updatepaypal:
+          description: Update the current user’s PayPal details.
+          oneOf:
+          - $ref: '#/components/schemas/Link'
     PaymentMethod:
       type: object
       description: A method to send or receive payment.
@@ -155,88 +229,59 @@ components:
         _embedded:
           oneOf:
           - $ref: '#/components/schemas/PaymentMethodEmbeddedResources'
-    PaymentMethods:
+    PaymentMethodEmbeddedResources:
+      title: PaymentMethodEmbeddedResources
       type: object
-      description: 'The PaymentMethods resource is a collection resource that contains zero
-
-        or more references to a set of payment methods, and links that guide you
-
-        on ways to interact with the payment methods. The collection offers a
-
-        paginated view of payment methods.'
+      properties:
+        billing_address:
+          description: The billing address for this payment method.
+          oneOf:
+          - $ref: '#/components/schemas/Address'
+        type_details:
+          type:
+          - object
+          - 'null'
+          description: The type details for this payment method.
+          additionalProperties: {}
+    PutListingPaymentMethodsRequest:
+      type: object
       additionalProperties: false
       properties:
-        total_items:
+        number_of_tickets:
           type:
           - integer
           - 'null'
           format: int32
-        page:
+        delivery_address_id:
           type:
           - integer
           - 'null'
           format: int32
-        page_size:
+        delivery_method_id:
           type:
           - integer
           - 'null'
           format: int32
-        _links:
-          oneOf:
-          - $ref: '#/components/schemas/PaymentMethodsLinks'
-        _embedded:
-          oneOf:
-          - $ref: '#/components/schemas/PaymentMethodsEmbeddedResources'
-    PaymentMethodsLinks:
-      title: PaymentMethodsLinks
+        coupons:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        pickup_full_name:
+          type:
+          - string
+          - 'null'
+    PaymentMethodsEmbeddedResources:
+      title: PaymentMethodsEmbeddedResources
       type: object
       properties:
-        self:
-          oneOf:
-          - $ref: '#/components/schemas/Link'
-        first:
-          oneOf:
-          - $ref: '#/components/schemas/Link'
-        last:
-          oneOf:
-          - $ref: '#/components/schemas/Link'
-        next:
-          oneOf:
-          - $ref: '#/components/schemas/Link'
-        paymentmethod:createcreditcard:
-          description: Adds a new credit card for the current user.
-          oneOf:
-          - $ref: '#/components/schemas/Link'
-        paymentmethod:createpaypal:
-          description: Adds a new PayPal account for the current user.
-          oneOf:
-          - $ref: '#/components/schemas/Link'
-        prev:
-          oneOf:
-          - $ref: '#/components/schemas/Link'
-    PaymentMethodLinks:
-      title: PaymentMethodLinks
-      type: object
-      properties:
-        self:
-          oneOf:
-          - $ref: '#/components/schemas/Link'
-        paymentmethod:delete:
-          description: Delete the current user’s payment method.
-          oneOf:
-          - $ref: '#/components/schemas/Link'
-        paymentmethod:updatecreditcard:
-          description: Update the current user’s credit card details.
-          oneOf:
-          - $ref: '#/components/schemas/Link'
-        paymentmethod:updatedefaults:
-          description: Update the default payment methods for the current user.
-          oneOf:
-          - $ref: '#/components/schemas/Link'
-        paymentmethod:updatepaypal:
-          description: Update the current user’s PayPal details.
-          oneOf:
-          - $ref: '#/components/schemas/Link'
+        items:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/PaymentMethod'
     Address:
       type: object
       description: An address is a delivery, pickup or billing address associated with the current user.
@@ -314,57 +359,38 @@ components:
             type: array
             items:
               type: string
-    PutListingPaymentMethodsRequest:
+    PaymentMethods:
       type: object
+      description: 'The PaymentMethods resource is a collection resource that contains zero
+
+        or more references to a set of payment methods, and links that guide you
+
+        on ways to interact with the payment methods. The collection offers a
+
+        paginated view of payment methods.'
       additionalProperties: false
       properties:
-        number_of_tickets:
+        total_items:
           type:
           - integer
           - 'null'
           format: int32
-        delivery_address_id:
+        page:
           type:
           - integer
           - 'null'
           format: int32
-        delivery_method_id:
+        page_size:
           type:
           - integer
           - 'null'
           format: int32
-        coupons:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        pickup_full_name:
-          type:
-          - string
-          - 'null'
-    Link:
-      type: object
-      additionalProperties: false
-      properties:
-        href:
-          type:
-          - string
-          - 'null'
-        title:
-          type:
-          - string
-          - 'null'
-        templated:
-          type: boolean
-    AddressEmbeddedResources:
-      title: AddressEmbeddedResources
-      type: object
-      properties:
-        country:
-          description: The Country where the address is located.
+        _links:
           oneOf:
-          - $ref: '#/components/schemas/Country'
+          - $ref: '#/components/schemas/PaymentMethodsLinks'
+        _embedded:
+          oneOf:
+          - $ref: '#/components/schemas/PaymentMethodsEmbeddedResources'
     AddressLinks:
       title: AddressLinks
       type: object
@@ -384,61 +410,35 @@ components:
           description: Update the details of the current user’s address.
           oneOf:
           - $ref: '#/components/schemas/Link'
-    PaymentMethodEmbeddedResources:
-      title: PaymentMethodEmbeddedResources
-      type: object
-      properties:
-        billing_address:
-          description: The billing address for this payment method.
-          oneOf:
-          - $ref: '#/components/schemas/Address'
-        type_details:
-          type:
-          - object
-          - 'null'
-          description: The type details for this payment method.
-          additionalProperties: {}
-    CountryLinks:
-      title: CountryLinks
-      type: object
-      properties:
-        self:
-          oneOf:
-          - $ref: '#/components/schemas/Link'
-        country:events:
-          description: The events taking place in a country.
-          oneOf:
-          - $ref: '#/components/schemas/Link'
-        country:localwebpage:
-          oneOf:
-          - $ref: '#/components/schemas/Link'
-    PaymentMethodsEmbeddedResources:
-      title: PaymentMethodsEmbeddedResources
-      type: object
-      properties:
-        items:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/PaymentMethod'
-    Country:
-      type: object
-      additionalProperties: false
-      properties:
-        code:
-          type:
-          - string
-          - 'null'
-          description: The two-letter ISO 3166 code for the country.
-        name:
-          type:
-          - string
-          - 'null'
-          description: The name of the country.
-        _links:
-          oneOf:
-          - $ref: '#/components/schemas/CountryLinks'
+  responses:
+    internal_server_error:
+      description: Internal server error
+      content:
+        application/hal+json:
+          schema:
+            oneOf:
+            - $ref: '#/components/schemas/Error'
+    forbidden:
+      description: The request is understood, but it has been refused or access is not allowed. An accompanying error message will explain why.
+      content:
+        application/hal+json:
+          schema:
+            oneOf:
+            - $ref: '#/components/schemas/Error'
+    requires_authentication:
+      description: Authentication credentials were missing or incorrect.
+      content:
+        application/hal+json:
+          schema:
+            oneOf:
+            - $ref: '#/components/schemas/Error'
+    validation_failed:
+      description: The request data is not valid. errors will contain an object with a localized message that describes the validation error for each property of the data.
+      content:
+        application/hal+json:
+          schema:
+            oneOf:
+            - $ref: '#/components/schemas/Error'
   securitySchemes:
     OAuth2:
       type: oauth2

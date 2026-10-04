@@ -115,6 +115,40 @@ paths:
         - read:venues
 components:
   schemas:
+    Country:
+      type: object
+      additionalProperties: false
+      properties:
+        code:
+          type: string
+          description: The two-letter ISO 3166 code for the country.
+        name:
+          type: string
+          description: The name of the country.
+        _links:
+          oneOf:
+          - $ref: '#/components/schemas/CountryLinks'
+    Link:
+      type: object
+      additionalProperties: false
+      properties:
+        href:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        templated:
+          type: boolean
+    VenueLinks:
+      title: VenueLinks
+      type: object
+      properties:
+        self:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
     EmbeddedExternalMapping:
       type: object
       description: 'An external mapping between a resource on the viagogo platform and the same resource on another platforms. '
@@ -129,27 +163,6 @@ components:
         _links:
           oneOf:
           - $ref: '#/components/schemas/EmbeddedExternalMappingLinks'
-    VenueLinks:
-      title: VenueLinks
-      type: object
-      properties:
-        self:
-          oneOf:
-          - $ref: '#/components/schemas/Link'
-    Error:
-      type: object
-      additionalProperties: false
-      properties:
-        code:
-          type: string
-        message:
-          type: string
-        errors:
-          type: object
-          additionalProperties:
-            type: array
-            items:
-              type: string
     VenueEmbeddedResources:
       title: VenueEmbeddedResources
       type: object
@@ -165,19 +178,55 @@ components:
           description: The external mappings for this venue
           items:
             $ref: '#/components/schemas/EmbeddedExternalMapping'
-    Country:
+    CountryLinks:
+      title: CountryLinks
       type: object
-      additionalProperties: false
       properties:
-        code:
-          type: string
-          description: The two-letter ISO 3166 code for the country.
-        name:
-          type: string
-          description: The name of the country.
-        _links:
+        self:
           oneOf:
-          - $ref: '#/components/schemas/CountryLinks'
+          - $ref: '#/components/schemas/Link'
+    VenuesEmbeddedResources:
+      title: VenuesEmbeddedResources
+      type: object
+      properties:
+        deleted_items:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Venue'
+        items:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Venue'
+    VenuesLinks:
+      title: VenuesLinks
+      type: object
+      properties:
+        self:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+        first:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+        last:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+        next:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+        prev:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+    EmbeddedExternalMappingLinks:
+      title: EmbeddedExternalMappingLinks
+      type: object
+      properties:
+        self:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
     Venue:
       type: object
       description: An venue on the viagogo platform.
@@ -217,43 +266,20 @@ components:
         _embedded:
           oneOf:
           - $ref: '#/components/schemas/VenueEmbeddedResources'
-    Link:
+    Error:
       type: object
       additionalProperties: false
       properties:
-        href:
-          type:
-          - string
-          - 'null'
-        title:
-          type:
-          - string
-          - 'null'
-        templated:
-          type: boolean
-    CountryLinks:
-      title: CountryLinks
-      type: object
-      properties:
-        self:
-          oneOf:
-          - $ref: '#/components/schemas/Link'
-    VenuesEmbeddedResources:
-      title: VenuesEmbeddedResources
-      type: object
-      properties:
-        deleted_items:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Venue'
-        items:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Venue'
+        code:
+          type: string
+        message:
+          type: string
+        errors:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
     Venues:
       type: object
       additionalProperties: false
@@ -279,42 +305,9 @@ components:
         _embedded:
           oneOf:
           - $ref: '#/components/schemas/VenuesEmbeddedResources'
-    EmbeddedExternalMappingLinks:
-      title: EmbeddedExternalMappingLinks
-      type: object
-      properties:
-        self:
-          oneOf:
-          - $ref: '#/components/schemas/Link'
-    VenuesLinks:
-      title: VenuesLinks
-      type: object
-      properties:
-        self:
-          oneOf:
-          - $ref: '#/components/schemas/Link'
-        first:
-          oneOf:
-          - $ref: '#/components/schemas/Link'
-        last:
-          oneOf:
-          - $ref: '#/components/schemas/Link'
-        next:
-          oneOf:
-          - $ref: '#/components/schemas/Link'
-        prev:
-          oneOf:
-          - $ref: '#/components/schemas/Link'
   responses:
     internal_server_error:
       description: Internal server error
-      content:
-        application/hal+json:
-          schema:
-            oneOf:
-            - $ref: '#/components/schemas/Error'
-    not_found:
-      description: The URI requested is invalid or the resource requested, such as an event, does not exist.
       content:
         application/hal+json:
           schema:
@@ -329,6 +322,13 @@ components:
             - $ref: '#/components/schemas/Error'
     requires_authentication:
       description: Authentication credentials were missing or incorrect.
+      content:
+        application/hal+json:
+          schema:
+            oneOf:
+            - $ref: '#/components/schemas/Error'
+    not_found:
+      description: The URI requested is invalid or the resource requested, such as an event, does not exist.
       content:
         application/hal+json:
           schema:

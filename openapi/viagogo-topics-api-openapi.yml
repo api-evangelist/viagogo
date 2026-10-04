@@ -393,8 +393,41 @@ webhooks:
       description: Sandbox
 components:
   schemas:
-    ProvisionalSaleTopicEmbeddedResources:
-      title: ProvisionalSaleTopicEmbeddedResources
+    EmbeddedSale:
+      type: object
+      additionalProperties: false
+      properties:
+        id:
+          type:
+          - integer
+          - 'null'
+          description: The sale identifier.
+          format: int32
+        created_at:
+          type:
+          - string
+          - 'null'
+          description: The date when the sale was created.
+          format: date-time
+        seating:
+          description: The seating information for the ticket(s) that have been sold.
+          oneOf:
+          - $ref: '#/components/schemas/Seating'
+        proceeds:
+          description: The total amount that the seller will receive for the sale.
+          oneOf:
+          - $ref: '#/components/schemas/Money'
+        number_of_tickets:
+          type:
+          - integer
+          - 'null'
+          description: The number of tickets that have been sold.
+          format: int32
+        _links:
+          oneOf:
+          - $ref: '#/components/schemas/EmbeddedSaleLinks'
+    CancelProvisionalSaleTopicEmbeddedResources:
+      title: CancelProvisionalSaleTopicEmbeddedResources
       type: object
       properties:
         event:
@@ -417,30 +450,112 @@ components:
           description: The subscribed webhook.
           oneOf:
           - $ref: '#/components/schemas/Webhook'
-    Money:
+    Webhook:
       type: object
-      description: Returned for monetary values, such as ticket prices, fees charged and tax amounts.
+      description: 'A webhook is a subscription from a server application to certain topics
+
+        on the viagogo platform. When an occurrence of a topic is triggered,
+
+        we’ll POST a payload to the webhook’s configured url.'
       additionalProperties: false
-      required:
-      - amount
-      - currency_code
       properties:
-        amount:
+        id:
           type:
-          - number
+          - integer
           - 'null'
-          description: The decimal amount of the money.
-          format: decimal
-        currency_code:
-          type:
-          - string
-          - 'null'
-          description: The ISO 4217 currency code that the monetary value is represented in.
-        display:
+          description: The webhook identifier.
+          format: int32
+        name:
           type:
           - string
           - 'null'
-          description: A user-friendly string representing the monetary value.
+          description: The name of the webhook.
+        created_at:
+          type: string
+          description: The date when the webhook was created.
+          format: date-time
+        topics:
+          type:
+          - array
+          - 'null'
+          description: An array of the topics the webhook is trigger for.
+          items:
+            type: string
+        url:
+          type:
+          - string
+          - 'null'
+          description: The server endpoint that will receive the webhook payload.
+        authorization_header:
+          type:
+          - string
+          - 'null'
+          description: The Authorization header value that should be included in requests to the webhook.
+        _links:
+          oneOf:
+          - $ref: '#/components/schemas/WebhookLinks'
+    SalesTopicEmbeddedResources:
+      title: SalesTopicEmbeddedResources
+      type: object
+      properties:
+        event:
+          description: The event for this sale.
+          oneOf:
+          - $ref: '#/components/schemas/EmbeddedEvent'
+        sale:
+          description: The affected sale.
+          oneOf:
+          - $ref: '#/components/schemas/EmbeddedSale'
+        seller_listing:
+          description: The listing from which the tickets were sold.
+          oneOf:
+          - $ref: '#/components/schemas/EmbeddedSellerListing'
+        venue:
+          description: The venue where the event is taking place.
+          oneOf:
+          - $ref: '#/components/schemas/EmbeddedVenue'
+        webhook:
+          description: The subscribed webhook.
+          oneOf:
+          - $ref: '#/components/schemas/Webhook'
+    EmbeddedSaleLinks:
+      title: EmbeddedSaleLinks
+      type: object
+      properties:
+        self:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+    SaleUpdatesTopicEmbeddedResources:
+      title: SaleUpdatesTopicEmbeddedResources
+      type: object
+      properties:
+        event:
+          description: The event for this sale.
+          oneOf:
+          - $ref: '#/components/schemas/EmbeddedEvent'
+        sale:
+          description: The affected sale.
+          oneOf:
+          - $ref: '#/components/schemas/EmbeddedSale'
+        seller_listing:
+          description: The listing from which the tickets were sold.
+          oneOf:
+          - $ref: '#/components/schemas/EmbeddedSellerListing'
+        venue:
+          description: The venue where the event is taking place.
+          oneOf:
+          - $ref: '#/components/schemas/EmbeddedVenue'
+        webhook:
+          description: The subscribed webhook.
+          oneOf:
+          - $ref: '#/components/schemas/Webhook'
+    SellerListingUpdatesTopicLinks:
+      title: SellerListingUpdatesTopicLinks
+      type: object
+      properties:
+        self:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
     SeatingDetail:
       type: object
       additionalProperties: false
@@ -471,180 +586,15 @@ components:
           description: This field indicates whether the listing's seating is visible on the website on the venue map.
           oneOf:
           - $ref: '#/components/schemas/SeatingState'
-    SellerListingUpdatesTopicEmbeddedResources:
-      title: SellerListingUpdatesTopicEmbeddedResources
-      type: object
-      properties:
-        event:
-          description: The event for this listing.
-          oneOf:
-          - $ref: '#/components/schemas/EmbeddedEvent'
-        seller_listing:
-          description: The affected listing.
-          oneOf:
-          - $ref: '#/components/schemas/EmbeddedSellerListing'
-        venue:
-          description: The venue where the event is taking place.
-          oneOf:
-          - $ref: '#/components/schemas/EmbeddedVenue'
-        webhook:
-          description: The subscribed webhook.
-          oneOf:
-          - $ref: '#/components/schemas/Webhook'
-    Link:
+    SeatingState:
       type: object
       additionalProperties: false
       properties:
-        href:
-          type:
-          - string
-          - 'null'
-        title:
-          type:
-          - string
-          - 'null'
-        templated:
+        visible_in_venue_map:
           type: boolean
-    EmbeddedSellerListingLinks:
-      title: EmbeddedSellerListingLinks
-      type: object
-      properties:
-        self:
-          oneOf:
-          - $ref: '#/components/schemas/Link'
-    SalesTopicLinks:
-      title: SalesTopicLinks
-      type: object
-      properties:
-        self:
-          oneOf:
-          - $ref: '#/components/schemas/Link'
-    PingTopicLinks:
-      title: PingTopicLinks
-      type: object
-      properties:
-        self:
-          oneOf:
-          - $ref: '#/components/schemas/Link'
-    SaleUpdatesTopicEmbeddedResources:
-      title: SaleUpdatesTopicEmbeddedResources
-      type: object
-      properties:
-        event:
-          description: The event for this sale.
-          oneOf:
-          - $ref: '#/components/schemas/EmbeddedEvent'
-        sale:
-          description: The affected sale.
-          oneOf:
-          - $ref: '#/components/schemas/EmbeddedSale'
-        seller_listing:
-          description: The listing from which the tickets were sold.
-          oneOf:
-          - $ref: '#/components/schemas/EmbeddedSellerListing'
-        venue:
-          description: The venue where the event is taking place.
-          oneOf:
-          - $ref: '#/components/schemas/EmbeddedVenue'
-        webhook:
-          description: The subscribed webhook.
-          oneOf:
-          - $ref: '#/components/schemas/Webhook'
+          description: True when the seat is visible in the venue map that will be shown to buyers; Otherwise, false.
     ReTransferTicketTopicEmbeddedResources:
       title: ReTransferTicketTopicEmbeddedResources
-      type: object
-      properties:
-        event:
-          description: The event for this sale.
-          oneOf:
-          - $ref: '#/components/schemas/EmbeddedEvent'
-        sale:
-          description: The affected sale.
-          oneOf:
-          - $ref: '#/components/schemas/EmbeddedSale'
-        seller_listing:
-          description: The listing from which the tickets were sold.
-          oneOf:
-          - $ref: '#/components/schemas/EmbeddedSellerListing'
-        venue:
-          description: The venue where the event is taking place.
-          oneOf:
-          - $ref: '#/components/schemas/EmbeddedVenue'
-        webhook:
-          description: The subscribed webhook.
-          oneOf:
-          - $ref: '#/components/schemas/Webhook'
-    CancelProvisionalSaleTopicLinks:
-      title: CancelProvisionalSaleTopicLinks
-      type: object
-      properties:
-        self:
-          oneOf:
-          - $ref: '#/components/schemas/Link'
-    EmbeddedVenueEmbeddedResources:
-      title: EmbeddedVenueEmbeddedResources
-      type: object
-      properties:
-        country:
-          description: The Country where the venue is located.
-          oneOf:
-          - $ref: '#/components/schemas/Country'
-    WebhookLinks:
-      title: WebhookLinks
-      type: object
-      properties:
-        self:
-          oneOf:
-          - $ref: '#/components/schemas/Link'
-        webhook:delete:
-          description: Delete a webhook.
-          oneOf:
-          - $ref: '#/components/schemas/Link'
-        webhook:ping:
-          description: Ping a webhook.
-          oneOf:
-          - $ref: '#/components/schemas/Link'
-        webhook:update:
-          description: Update the details of a webhook.
-          oneOf:
-          - $ref: '#/components/schemas/Link'
-    SaleUpdatesTopicLinks:
-      title: SaleUpdatesTopicLinks
-      type: object
-      properties:
-        self:
-          oneOf:
-          - $ref: '#/components/schemas/Link'
-    ProvisionalSaleTopicLinks:
-      title: ProvisionalSaleTopicLinks
-      type: object
-      properties:
-        self:
-          oneOf:
-          - $ref: '#/components/schemas/Link'
-    ReTransferTicketTopicLinks:
-      title: ReTransferTicketTopicLinks
-      type: object
-      properties:
-        self:
-          oneOf:
-          - $ref: '#/components/schemas/Link'
-    SellerListingUpdatesTopicLinks:
-      title: SellerListingUpdatesTopicLinks
-      type: object
-      properties:
-        self:
-          oneOf:
-          - $ref: '#/components/schemas/Link'
-    EmbeddedSaleLinks:
-      title: EmbeddedSaleLinks
-      type: object
-      properties:
-        self:
-          oneOf:
-          - $ref: '#/components/schemas/Link'
-    SalesTopicEmbeddedResources:
-      title: SalesTopicEmbeddedResources
       type: object
       properties:
         event:
@@ -705,44 +655,48 @@ components:
         _links:
           oneOf:
           - $ref: '#/components/schemas/EmbeddedSellerListingLinks'
-    CountryLinks:
-      title: CountryLinks
+    CancelProvisionalSaleTopicLinks:
+      title: CancelProvisionalSaleTopicLinks
       type: object
       properties:
         self:
           oneOf:
           - $ref: '#/components/schemas/Link'
-        country:events:
-          description: The events taking place in a country.
-          oneOf:
-          - $ref: '#/components/schemas/Link'
-        country:localwebpage:
-          oneOf:
-          - $ref: '#/components/schemas/Link'
-    CancelProvisionalSaleTopicEmbeddedResources:
-      title: CancelProvisionalSaleTopicEmbeddedResources
+    MergedEntity:
+      type: object
+      description: An entity that has been merged into another entity.
+      additionalProperties: false
+      properties:
+        id:
+          type: integer
+          description: The identifier for this entity.
+          format: int32
+    ProvisionalSaleTopicLinks:
+      title: ProvisionalSaleTopicLinks
       type: object
       properties:
-        event:
-          description: The event for this sale.
+        self:
           oneOf:
-          - $ref: '#/components/schemas/EmbeddedEvent'
-        sale:
-          description: The affected sale.
+          - $ref: '#/components/schemas/Link'
+    WebhookLinks:
+      title: WebhookLinks
+      type: object
+      properties:
+        self:
           oneOf:
-          - $ref: '#/components/schemas/EmbeddedSale'
-        seller_listing:
-          description: The listing from which the tickets were sold.
+          - $ref: '#/components/schemas/Link'
+        webhook:delete:
+          description: Delete a webhook.
           oneOf:
-          - $ref: '#/components/schemas/EmbeddedSellerListing'
-        venue:
-          description: The venue where the event is taking place.
+          - $ref: '#/components/schemas/Link'
+        webhook:ping:
+          description: Ping a webhook.
           oneOf:
-          - $ref: '#/components/schemas/EmbeddedVenue'
-        webhook:
-          description: The subscribed webhook.
+          - $ref: '#/components/schemas/Link'
+        webhook:update:
+          description: Update the details of a webhook.
           oneOf:
-          - $ref: '#/components/schemas/Webhook'
+          - $ref: '#/components/schemas/Link'
     EmbeddedVenue:
       type: object
       description: A venue is a location where an event takes place.
@@ -787,36 +741,30 @@ components:
         _embedded:
           oneOf:
           - $ref: '#/components/schemas/EmbeddedVenueEmbeddedResources'
-    SeatingState:
+    Money:
       type: object
+      description: Returned for monetary values, such as ticket prices, fees charged and tax amounts.
       additionalProperties: false
+      required:
+      - amount
+      - currency_code
       properties:
-        visible_in_venue_map:
-          type: boolean
-          description: True when the seat is visible in the venue map that will be shown to buyers; Otherwise, false.
-    EmbeddedVenueLinks:
-      title: EmbeddedVenueLinks
-      type: object
-      properties:
-        self:
-          oneOf:
-          - $ref: '#/components/schemas/Link'
-    MergedEntity:
-      type: object
-      description: An entity that has been merged into another entity.
-      additionalProperties: false
-      properties:
-        id:
-          type: integer
-          description: The identifier for this entity.
-          format: int32
-    EmbeddedEventLinks:
-      title: EmbeddedEventLinks
-      type: object
-      properties:
-        self:
-          oneOf:
-          - $ref: '#/components/schemas/Link'
+        amount:
+          type:
+          - number
+          - 'null'
+          description: The decimal amount of the money.
+          format: decimal
+        currency_code:
+          type:
+          - string
+          - 'null'
+          description: The ISO 4217 currency code that the monetary value is represented in.
+        display:
+          type:
+          - string
+          - 'null'
+          description: A user-friendly string representing the monetary value.
     BarcodeInformation2:
       type: object
       description: A set of barcodes for a seat.
@@ -850,77 +798,92 @@ components:
           description: SHA256-hashed barcode(s) for this seat.
           items:
             type: string
-    Seating:
+    SaleUpdatesTopicLinks:
+      title: SaleUpdatesTopicLinks
       type: object
-      description: Represents the seating information for a ticket(s) in a Venue.
-      additionalProperties: false
-      required:
-      - section
       properties:
-        section:
-          type:
-          - string
-          - 'null'
-          description: The section of the ticket(s).
-        row:
-          type:
-          - string
-          - 'null'
-          description: The row of the ticket(s).
-        seat_from:
-          type:
-          - string
-          - 'null'
-          description: The first in a contiguous block of seats to which the tickets have been allocated.
-        seat_to:
-          type:
-          - string
-          - 'null'
-          description: The last in a contiguous block of seats to which the tickets have been allocated.
-    Webhook:
+        self:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+    Country:
       type: object
-      description: 'A webhook is a subscription from a server application to certain topics
-
-        on the viagogo platform. When an occurrence of a topic is triggered,
-
-        we’ll POST a payload to the webhook’s configured url.'
       additionalProperties: false
       properties:
-        id:
+        code:
           type:
-          - integer
+          - string
           - 'null'
-          description: The webhook identifier.
-          format: int32
+          description: The two-letter ISO 3166 code for the country.
         name:
           type:
           - string
           - 'null'
-          description: The name of the webhook.
-        created_at:
-          type: string
-          description: The date when the webhook was created.
-          format: date-time
-        topics:
-          type:
-          - array
-          - 'null'
-          description: An array of the topics the webhook is trigger for.
-          items:
-            type: string
-        url:
-          type:
-          - string
-          - 'null'
-          description: The server endpoint that will receive the webhook payload.
-        authorization_header:
-          type:
-          - string
-          - 'null'
-          description: The Authorization header value that should be included in requests to the webhook.
+          description: The name of the country.
         _links:
           oneOf:
-          - $ref: '#/components/schemas/WebhookLinks'
+          - $ref: '#/components/schemas/CountryLinks'
+    Link:
+      type: object
+      additionalProperties: false
+      properties:
+        href:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        templated:
+          type: boolean
+    EmbeddedVenueLinks:
+      title: EmbeddedVenueLinks
+      type: object
+      properties:
+        self:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+    SellerListingUpdatesTopicEmbeddedResources:
+      title: SellerListingUpdatesTopicEmbeddedResources
+      type: object
+      properties:
+        event:
+          description: The event for this listing.
+          oneOf:
+          - $ref: '#/components/schemas/EmbeddedEvent'
+        seller_listing:
+          description: The affected listing.
+          oneOf:
+          - $ref: '#/components/schemas/EmbeddedSellerListing'
+        venue:
+          description: The venue where the event is taking place.
+          oneOf:
+          - $ref: '#/components/schemas/EmbeddedVenue'
+        webhook:
+          description: The subscribed webhook.
+          oneOf:
+          - $ref: '#/components/schemas/Webhook'
+    SalesTopicLinks:
+      title: SalesTopicLinks
+      type: object
+      properties:
+        self:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+    CountryLinks:
+      title: CountryLinks
+      type: object
+      properties:
+        self:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+        country:events:
+          description: The events taking place in a country.
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+        country:localwebpage:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
     EmbeddedEvent:
       type: object
       description: An event on the viagogo platform.
@@ -970,6 +933,57 @@ components:
         _links:
           oneOf:
           - $ref: '#/components/schemas/EmbeddedEventLinks'
+    ProvisionalSaleTopicEmbeddedResources:
+      title: ProvisionalSaleTopicEmbeddedResources
+      type: object
+      properties:
+        event:
+          description: The event for this sale.
+          oneOf:
+          - $ref: '#/components/schemas/EmbeddedEvent'
+        sale:
+          description: The affected sale.
+          oneOf:
+          - $ref: '#/components/schemas/EmbeddedSale'
+        seller_listing:
+          description: The listing from which the tickets were sold.
+          oneOf:
+          - $ref: '#/components/schemas/EmbeddedSellerListing'
+        venue:
+          description: The venue where the event is taking place.
+          oneOf:
+          - $ref: '#/components/schemas/EmbeddedVenue'
+        webhook:
+          description: The subscribed webhook.
+          oneOf:
+          - $ref: '#/components/schemas/Webhook'
+    Seating:
+      type: object
+      description: Represents the seating information for a ticket(s) in a Venue.
+      additionalProperties: false
+      required:
+      - section
+      properties:
+        section:
+          type:
+          - string
+          - 'null'
+          description: The section of the ticket(s).
+        row:
+          type:
+          - string
+          - 'null'
+          description: The row of the ticket(s).
+        seat_from:
+          type:
+          - string
+          - 'null'
+          description: The first in a contiguous block of seats to which the tickets have been allocated.
+        seat_to:
+          type:
+          - string
+          - 'null'
+          description: The last in a contiguous block of seats to which the tickets have been allocated.
     PingTopicEmbeddedResources:
       title: PingTopicEmbeddedResources
       type: object
@@ -978,39 +992,35 @@ components:
           description: The subscribed webhook.
           oneOf:
           - $ref: '#/components/schemas/Webhook'
-    EmbeddedSale:
+    EmbeddedVenueEmbeddedResources:
+      title: EmbeddedVenueEmbeddedResources
       type: object
-      additionalProperties: false
       properties:
-        id:
-          type:
-          - integer
-          - 'null'
-          description: The sale identifier.
-          format: int32
-        created_at:
-          type:
-          - string
-          - 'null'
-          description: The date when the sale was created.
-          format: date-time
-        seating:
-          description: The seating information for the ticket(s) that have been sold.
+        country:
+          description: The Country where the venue is located.
           oneOf:
-          - $ref: '#/components/schemas/Seating'
-        proceeds:
-          description: The total amount that the seller will receive for the sale.
+          - $ref: '#/components/schemas/Country'
+    EmbeddedEventLinks:
+      title: EmbeddedEventLinks
+      type: object
+      properties:
+        self:
           oneOf:
-          - $ref: '#/components/schemas/Money'
-        number_of_tickets:
-          type:
-          - integer
-          - 'null'
-          description: The number of tickets that have been sold.
-          format: int32
-        _links:
+          - $ref: '#/components/schemas/Link'
+    ReTransferTicketTopicLinks:
+      title: ReTransferTicketTopicLinks
+      type: object
+      properties:
+        self:
           oneOf:
-          - $ref: '#/components/schemas/EmbeddedSaleLinks'
+          - $ref: '#/components/schemas/Link'
+    PingTopicLinks:
+      title: PingTopicLinks
+      type: object
+      properties:
+        self:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
     BarcodeInformation:
       type: object
       description: A set of barcodes for a seat.
@@ -1044,23 +1054,13 @@ components:
           description: Barcode(s) values for this seat.
           items:
             type: string
-    Country:
+    EmbeddedSellerListingLinks:
+      title: EmbeddedSellerListingLinks
       type: object
-      additionalProperties: false
       properties:
-        code:
-          type:
-          - string
-          - 'null'
-          description: The two-letter ISO 3166 code for the country.
-        name:
-          type:
-          - string
-          - 'null'
-          description: The name of the country.
-        _links:
+        self:
           oneOf:
-          - $ref: '#/components/schemas/CountryLinks'
+          - $ref: '#/components/schemas/Link'
   securitySchemes:
     OAuth2:
       type: oauth2

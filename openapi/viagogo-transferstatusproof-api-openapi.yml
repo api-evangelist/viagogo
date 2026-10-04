@@ -93,8 +93,8 @@ components:
           schema:
             oneOf:
             - $ref: '#/components/schemas/Error'
-    not_found:
-      description: The URI requested is invalid or the resource requested, such as an event, does not exist.
+    forbidden:
+      description: The request is understood, but it has been refused or access is not allowed. An accompanying error message will explain why.
       content:
         application/hal+json:
           schema:
@@ -107,8 +107,8 @@ components:
           schema:
             oneOf:
             - $ref: '#/components/schemas/Error'
-    forbidden:
-      description: The request is understood, but it has been refused or access is not allowed. An accompanying error message will explain why.
+    not_found:
+      description: The URI requested is invalid or the resource requested, such as an event, does not exist.
       content:
         application/hal+json:
           schema:
@@ -122,6 +122,18 @@ components:
             oneOf:
             - $ref: '#/components/schemas/Error'
   schemas:
+    TransferStatusProof:
+      type: object
+      description: Represents a simple resource that contains upload file guid.
+      properties:
+        document_id:
+          type: string
+          format: uuid
+          description: The identifier of the upload.
+        _links:
+          type:
+          - object
+          - 'null'
     Error:
       type: object
       additionalProperties: false
@@ -142,18 +154,6 @@ components:
             type: array
             items:
               type: string
-    TransferStatusProof:
-      type: object
-      description: Represents a simple resource that contains upload file guid.
-      properties:
-        document_id:
-          type: string
-          format: uuid
-          description: The identifier of the upload.
-        _links:
-          type:
-          - object
-          - 'null'
   securitySchemes:
     OAuth2:
       type: oauth2

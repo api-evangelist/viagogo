@@ -125,13 +125,137 @@ paths:
         - write:requestedevents
 components:
   schemas:
-    SplitTypeLinks:
-      title: SplitTypeLinks
+    Row:
+      type: object
+      additionalProperties: false
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+    SplitType:
+      type: object
+      description: The way that the ticket(s) in a listing are allowed to be split up when sold.
+      additionalProperties: false
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+          description: The type of split. Can be Any, None, AvoidOne, AvoidOneAndThree, or Pairs.
+        name:
+          type:
+          - string
+          - 'null'
+          description: The localised name of the type of split.
+        description:
+          type:
+          - string
+          - 'null'
+          description: The localised description of the split.
+        _links:
+          oneOf:
+          - $ref: '#/components/schemas/SplitTypeLinks'
+    ListingConstraintsLinks:
+      title: ListingConstraintsLinks
       type: object
       properties:
         self:
           oneOf:
           - $ref: '#/components/schemas/Link'
+    ListingNote:
+      type: object
+      description: Provides additional notes on a listing
+      additionalProperties: false
+      properties:
+        id:
+          type:
+          - integer
+          - 'null'
+          description: The listing note identifier.
+          format: int32
+        note:
+          type:
+          - string
+          - 'null'
+          description: The localized note.
+        type:
+          type:
+          - string
+          - 'null'
+          description: The listing note type name. Can be `Information`, `Perk`, `Defect` and `RestrictionOnUse`.
+        _links:
+          oneOf:
+          - $ref: '#/components/schemas/ListingNoteLinks'
+    Currency:
+      type: object
+      additionalProperties: false
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+          description: The ISO 4217 currency code that identifies the currency.
+        name:
+          type:
+          - string
+          - 'null'
+          description: The name of the currency.
+        symbol:
+          type:
+          - string
+          - 'null'
+          description: The symbol that identifies the currency.
+        decimal_places:
+          type:
+          - integer
+          - 'null'
+          description: The number of decimal places used to represent amounts in the currency.
+          format: int32
+        _links:
+          oneOf:
+          - $ref: '#/components/schemas/CurrencyLinks'
+    PutRequestedEventRequest:
+      type: object
+      description: A requested event.
+      additionalProperties: false
+      properties:
+        event:
+          description: The event information.
+          oneOf:
+          - $ref: '#/components/schemas/EventRequest'
+        venue:
+          description: The venue where the event will take place.
+          oneOf:
+          - $ref: '#/components/schemas/VenueRequest'
+        country:
+          description: The country where the event will take place.
+          oneOf:
+          - $ref: '#/components/schemas/CountryRequest'
+    Money:
+      type: object
+      description: Returned for monetary values, such as ticket prices, fees charged and tax amounts.
+      additionalProperties: false
+      required:
+      - amount
+      - currency_code
+      properties:
+        amount:
+          type:
+          - number
+          - 'null'
+          description: The decimal amount of the money.
+          format: decimal
+        currency_code:
+          type:
+          - string
+          - 'null'
+          description: The ISO 4217 currency code that the monetary value is represented in.
+        display:
+          type:
+          - string
+          - 'null'
+          description: A user-friendly string representing the monetary value.
     ListingNoteLinks:
       title: ListingNoteLinks
       type: object
@@ -139,6 +263,24 @@ components:
         self:
           oneOf:
           - $ref: '#/components/schemas/Link'
+    Section:
+      type: object
+      additionalProperties: false
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+        free_text_row:
+          type: boolean
+        queue_number_row:
+          type: boolean
+        rows:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Row'
     ListingConstraintsEmbeddedResources:
       title: ListingConstraintsEmbeddedResources
       type: object
@@ -189,30 +331,6 @@ components:
           description: The valid types of tickets.
           items:
             $ref: '#/components/schemas/TicketType'
-    Money:
-      type: object
-      description: Returned for monetary values, such as ticket prices, fees charged and tax amounts.
-      additionalProperties: false
-      required:
-      - amount
-      - currency_code
-      properties:
-        amount:
-          type:
-          - number
-          - 'null'
-          description: The decimal amount of the money.
-          format: decimal
-        currency_code:
-          type:
-          - string
-          - 'null'
-          description: The ISO 4217 currency code that the monetary value is represented in.
-        display:
-          type:
-          - string
-          - 'null'
-          description: A user-friendly string representing the monetary value.
     Link:
       type: object
       additionalProperties: false
@@ -227,17 +345,6 @@ components:
           - 'null'
         templated:
           type: boolean
-    CountryRequest:
-      type: object
-      additionalProperties: false
-      required:
-      - code
-      properties:
-        code:
-          type:
-          - string
-          - 'null'
-          description: The two-letter ISO 3166 code for the country.
     ListingConstraints:
       type: object
       description: The constraints applied to a listing for a particular event on the viagogo marketplace.
@@ -292,52 +399,6 @@ components:
         _embedded:
           oneOf:
           - $ref: '#/components/schemas/ListingConstraintsEmbeddedResources'
-    ListingConstraintsLinks:
-      title: ListingConstraintsLinks
-      type: object
-      properties:
-        self:
-          oneOf:
-          - $ref: '#/components/schemas/Link'
-    ListingNote:
-      type: object
-      description: Provides additional notes on a listing
-      additionalProperties: false
-      properties:
-        id:
-          type:
-          - integer
-          - 'null'
-          description: The listing note identifier.
-          format: int32
-        note:
-          type:
-          - string
-          - 'null'
-          description: The localized note.
-        type:
-          type:
-          - string
-          - 'null'
-          description: The listing note type name. Can be `Information`, `Perk`, `Defect` and `RestrictionOnUse`.
-        _links:
-          oneOf:
-          - $ref: '#/components/schemas/ListingNoteLinks'
-    TicketTypeLinks:
-      title: TicketTypeLinks
-      type: object
-      properties:
-        self:
-          oneOf:
-          - $ref: '#/components/schemas/Link'
-    Row:
-      type: object
-      additionalProperties: false
-      properties:
-        name:
-          type:
-          - string
-          - 'null'
     EventRequest:
       type: object
       additionalProperties: false
@@ -366,48 +427,15 @@ components:
           - string
           - 'null'
           description: Additional notes on the event.
-    SplitType:
+    TicketTypeLinks:
+      title: TicketTypeLinks
       type: object
-      description: The way that the ticket(s) in a listing are allowed to be split up when sold.
-      additionalProperties: false
       properties:
-        type:
-          type:
-          - string
-          - 'null'
-          description: The type of split. Can be Any, None, AvoidOne, AvoidOneAndThree, or Pairs.
-        name:
-          type:
-          - string
-          - 'null'
-          description: The localised name of the type of split.
-        description:
-          type:
-          - string
-          - 'null'
-          description: The localised description of the split.
-        _links:
+        self:
           oneOf:
-          - $ref: '#/components/schemas/SplitTypeLinks'
-    PutRequestedEventRequest:
-      type: object
-      description: A requested event.
-      additionalProperties: false
-      properties:
-        event:
-          description: The event information.
-          oneOf:
-          - $ref: '#/components/schemas/EventRequest'
-        venue:
-          description: The venue where the event will take place.
-          oneOf:
-          - $ref: '#/components/schemas/VenueRequest'
-        country:
-          description: The country where the event will take place.
-          oneOf:
-          - $ref: '#/components/schemas/CountryRequest'
-    CurrencyLinks:
-      title: CurrencyLinks
+          - $ref: '#/components/schemas/Link'
+    SplitTypeLinks:
+      title: SplitTypeLinks
       type: object
       properties:
         self:
@@ -436,24 +464,6 @@ components:
           - string
           - 'null'
           description: The name of the State or Province where the venue is located.
-    Section:
-      type: object
-      additionalProperties: false
-      properties:
-        name:
-          type:
-          - string
-          - 'null'
-        free_text_row:
-          type: boolean
-        queue_number_row:
-          type: boolean
-        rows:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Row'
     TicketType:
       type: object
       additionalProperties: false
@@ -472,34 +482,6 @@ components:
         _links:
           oneOf:
           - $ref: '#/components/schemas/TicketTypeLinks'
-    Currency:
-      type: object
-      additionalProperties: false
-      properties:
-        code:
-          type:
-          - string
-          - 'null'
-          description: The ISO 4217 currency code that identifies the currency.
-        name:
-          type:
-          - string
-          - 'null'
-          description: The name of the currency.
-        symbol:
-          type:
-          - string
-          - 'null'
-          description: The symbol that identifies the currency.
-        decimal_places:
-          type:
-          - integer
-          - 'null'
-          description: The number of decimal places used to represent amounts in the currency.
-          format: int32
-        _links:
-          oneOf:
-          - $ref: '#/components/schemas/CurrencyLinks'
     Error:
       type: object
       additionalProperties: false
@@ -520,7 +502,32 @@ components:
             type: array
             items:
               type: string
+    CountryRequest:
+      type: object
+      additionalProperties: false
+      required:
+      - code
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+          description: The two-letter ISO 3166 code for the country.
+    CurrencyLinks:
+      title: CurrencyLinks
+      type: object
+      properties:
+        self:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
   responses:
+    validation_failed:
+      description: The request data is not valid. errors will contain an object with a localized message that describes the validation error for each property of the data.
+      content:
+        application/hal+json:
+          schema:
+            oneOf:
+            - $ref: '#/components/schemas/Error'
     internal_server_error:
       description: Internal server error
       content:
@@ -535,8 +542,8 @@ components:
           schema:
             oneOf:
             - $ref: '#/components/schemas/Error'
-    validation_failed:
-      description: The request data is not valid. errors will contain an object with a localized message that describes the validation error for each property of the data.
+    forbidden:
+      description: The request is understood, but it has been refused or access is not allowed. An accompanying error message will explain why.
       content:
         application/hal+json:
           schema:
@@ -544,13 +551,6 @@ components:
             - $ref: '#/components/schemas/Error'
     not_found:
       description: The URI requested is invalid or the resource requested, such as an event, does not exist.
-      content:
-        application/hal+json:
-          schema:
-            oneOf:
-            - $ref: '#/components/schemas/Error'
-    forbidden:
-      description: The request is understood, but it has been refused or access is not allowed. An accompanying error message will explain why.
       content:
         application/hal+json:
           schema:
