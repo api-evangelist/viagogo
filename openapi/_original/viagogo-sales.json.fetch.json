@@ -1,0 +1,12 @@
+{
+ "url": "https://api.viagogo.net/v2/openapi/sales.json",
+ "requested_url": "https://api.viagogo.net/v2/openapi/sales.json",
+ "status": 200,
+ "content_type": "application/json",
+ "bytes": 125628,
+ "sha256": "eeab7812cf0b2fff5c9d37aab8c2e9fb92b98082852a6d21672e919f4ca15c1f",
+ "fetched_at": "2026-10-04",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "byte-identical",
+ "note": "Re-fetched from the provider by verify-openapi-sources.py; the archived file is byte-identical to what the provider serves."
+}
