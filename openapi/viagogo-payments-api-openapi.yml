@@ -122,6 +122,108 @@ paths:
         - read:payment
 components:
   schemas:
+    Money:
+      type: object
+      description: Returned for monetary values, such as ticket prices, fees charged and tax amounts.
+      additionalProperties: false
+      required:
+      - amount
+      - currency_code
+      properties:
+        amount:
+          type:
+          - number
+          - 'null'
+          description: The decimal amount of the money.
+          format: decimal
+        currency_code:
+          type:
+          - string
+          - 'null'
+          description: The ISO 4217 currency code that the monetary value is represented in.
+        display:
+          type:
+          - string
+          - 'null'
+          description: A user-friendly string representing the monetary value.
+    EmbeddedPaymentMethod:
+      type: object
+      additionalProperties: false
+      properties:
+        details:
+          type:
+          - string
+          - 'null'
+          description: The obfuscated details of the payment method
+        _links:
+          oneOf:
+          - $ref: '#/components/schemas/EmbeddedPaymentMethodLinks'
+    Seating:
+      type: object
+      description: Represents the seating information for a ticket(s) in a Venue.
+      additionalProperties: false
+      required:
+      - section
+      properties:
+        section:
+          type:
+          - string
+          - 'null'
+          description: The section of the ticket(s).
+        row:
+          type:
+          - string
+          - 'null'
+          description: The row of the ticket(s).
+        seat_from:
+          type:
+          - string
+          - 'null'
+          description: The first in a contiguous block of seats to which the tickets have been allocated.
+        seat_to:
+          type:
+          - string
+          - 'null'
+          description: The last in a contiguous block of seats to which the tickets have been allocated.
+    PaymentSale:
+      type: object
+      description: A sale related to a payment that belongs to the currently authenticated user.
+      additionalProperties: false
+      properties:
+        proceeds:
+          type:
+          - array
+          - 'null'
+          description: Money owed to the user from this sale.
+          items:
+            $ref: '#/components/schemas/ChargeDetail'
+        charges:
+          type:
+          - array
+          - 'null'
+          description: Charges, related to this sale, that are applied to the user's account.
+          items:
+            $ref: '#/components/schemas/ChargeDetail'
+        credits:
+          type:
+          - array
+          - 'null'
+          description: Non-proceeds credits, related to this sale, that are applied to the user's account.
+          items:
+            $ref: '#/components/schemas/ChargeDetail'
+        _links:
+          oneOf:
+          - $ref: '#/components/schemas/PaymentSaleLinks'
+        _embedded:
+          oneOf:
+          - $ref: '#/components/schemas/PaymentSaleEmbeddedResources'
+    EmbeddedPaymentMethodLinks:
+      title: EmbeddedPaymentMethodLinks
+      type: object
+      properties:
+        self:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
     Payment:
       type: object
       description: A payment on the viagogo marketplace that belongs to the currently authenticated user.
@@ -172,6 +274,60 @@ components:
         _embedded:
           oneOf:
           - $ref: '#/components/schemas/PaymentEmbeddedResources'
+    PaymentSaleLinks:
+      title: PaymentSaleLinks
+      type: object
+      properties:
+        self:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+    PaymentSaleEmbeddedResources:
+      title: PaymentSaleEmbeddedResources
+      type: object
+      properties:
+        event:
+          description: The event for this sale.
+          oneOf:
+          - $ref: '#/components/schemas/EmbeddedEvent'
+        sale:
+          description: A sale associated with a payment.
+          oneOf:
+          - $ref: '#/components/schemas/EmbeddedSale'
+        venue:
+          description: The venue where the event is taking place.
+          oneOf:
+          - $ref: '#/components/schemas/EmbeddedVenue'
+    CountryLinks:
+      title: CountryLinks
+      type: object
+      properties:
+        self:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+        country:events:
+          description: The events taking place in a country.
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+        country:localwebpage:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+    Country:
+      type: object
+      additionalProperties: false
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+          description: The two-letter ISO 3166 code for the country.
+        name:
+          type:
+          - string
+          - 'null'
+          description: The name of the country.
+        _links:
+          oneOf:
+          - $ref: '#/components/schemas/CountryLinks'
     EmbeddedSale:
       type: object
       additionalProperties: false
@@ -205,72 +361,26 @@ components:
         _links:
           oneOf:
           - $ref: '#/components/schemas/EmbeddedSaleLinks'
-    PaymentLinks:
-      title: PaymentLinks
-      type: object
-      properties:
-        self:
-          oneOf:
-          - $ref: '#/components/schemas/Link'
-    EmbeddedSaleLinks:
-      title: EmbeddedSaleLinks
-      type: object
-      properties:
-        self:
-          oneOf:
-          - $ref: '#/components/schemas/Link'
-    ChargeDetail:
+    Error:
       type: object
       additionalProperties: false
       properties:
-        amount:
-          oneOf:
-          - $ref: '#/components/schemas/Money'
-        reason_description:
+        code:
           type:
           - string
           - 'null'
-        sale_id:
-          type: integer
-          format: int32
-        id:
-          type:
-          - integer
-          - 'null'
-          format: int32
-    MergedEntity:
-      type: object
-      description: An entity that has been merged into another entity.
-      additionalProperties: false
-      properties:
-        id:
-          type: integer
-          description: The identifier for this entity.
-          format: int32
-    Money:
-      type: object
-      description: Returned for monetary values, such as ticket prices, fees charged and tax amounts.
-      additionalProperties: false
-      required:
-      - amount
-      - currency_code
-      properties:
-        amount:
-          type:
-          - number
-          - 'null'
-          description: The decimal amount of the money.
-          format: decimal
-        currency_code:
+        message:
           type:
           - string
           - 'null'
-          description: The ISO 4217 currency code that the monetary value is represented in.
-        display:
+        errors:
           type:
-          - string
+          - object
           - 'null'
-          description: A user-friendly string representing the monetary value.
+          additionalProperties:
+            type: array
+            items:
+              type: string
     EmbeddedVenue:
       type: object
       description: A venue is a location where an event takes place.
@@ -315,67 +425,28 @@ components:
         _embedded:
           oneOf:
           - $ref: '#/components/schemas/EmbeddedVenueEmbeddedResources'
-    PaymentSaleEmbeddedResources:
-      title: PaymentSaleEmbeddedResources
-      type: object
-      properties:
-        event:
-          description: The event for this sale.
-          oneOf:
-          - $ref: '#/components/schemas/EmbeddedEvent'
-        sale:
-          description: A sale associated with a payment.
-          oneOf:
-          - $ref: '#/components/schemas/EmbeddedSale'
-        venue:
-          description: The venue where the event is taking place.
-          oneOf:
-          - $ref: '#/components/schemas/EmbeddedVenue'
-    Country:
-      type: object
-      additionalProperties: false
-      properties:
-        code:
-          type:
-          - string
-          - 'null'
-          description: The two-letter ISO 3166 code for the country.
-        name:
-          type:
-          - string
-          - 'null'
-          description: The name of the country.
-        _links:
-          oneOf:
-          - $ref: '#/components/schemas/CountryLinks'
-    Link:
-      type: object
-      additionalProperties: false
-      properties:
-        href:
-          type:
-          - string
-          - 'null'
-        title:
-          type:
-          - string
-          - 'null'
-        templated:
-          type: boolean
-    PaymentSaleLinks:
-      title: PaymentSaleLinks
+    EmbeddedSaleLinks:
+      title: EmbeddedSaleLinks
       type: object
       properties:
         self:
           oneOf:
           - $ref: '#/components/schemas/Link'
-    EmbeddedVenueLinks:
-      title: EmbeddedVenueLinks
+    PaymentLinks:
+      title: PaymentLinks
       type: object
       properties:
         self:
           oneOf:
           - $ref: '#/components/schemas/Link'
+    EmbeddedVenueEmbeddedResources:
+      title: EmbeddedVenueEmbeddedResources
+      type: object
+      properties:
+        country:
+          description: The Country where the venue is located.
+          oneOf:
+          - $ref: '#/components/schemas/Country'
     PaymentEmbeddedResources:
       title: PaymentEmbeddedResources
       type: object
@@ -391,13 +462,46 @@ components:
           description: Sales associated with the payment.
           items:
             $ref: '#/components/schemas/PaymentSale'
-    EmbeddedPaymentMethodLinks:
-      title: EmbeddedPaymentMethodLinks
+    EmbeddedVenueLinks:
+      title: EmbeddedVenueLinks
       type: object
       properties:
         self:
           oneOf:
           - $ref: '#/components/schemas/Link'
+    ChargeDetail:
+      type: object
+      additionalProperties: false
+      properties:
+        amount:
+          oneOf:
+          - $ref: '#/components/schemas/Money'
+        reason_description:
+          type:
+          - string
+          - 'null'
+        sale_id:
+          type: integer
+          format: int32
+        id:
+          type:
+          - integer
+          - 'null'
+          format: int32
+    Link:
+      type: object
+      additionalProperties: false
+      properties:
+        href:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        templated:
+          type: boolean
     EmbeddedEvent:
       type: object
       description: An event on the viagogo platform.
@@ -447,55 +551,15 @@ components:
         _links:
           oneOf:
           - $ref: '#/components/schemas/EmbeddedEventLinks'
-    CountryLinks:
-      title: CountryLinks
+    MergedEntity:
       type: object
-      properties:
-        self:
-          oneOf:
-          - $ref: '#/components/schemas/Link'
-        country:events:
-          description: The events taking place in a country.
-          oneOf:
-          - $ref: '#/components/schemas/Link'
-        country:localwebpage:
-          oneOf:
-          - $ref: '#/components/schemas/Link'
-    Seating:
-      type: object
-      description: Represents the seating information for a ticket(s) in a Venue.
+      description: An entity that has been merged into another entity.
       additionalProperties: false
-      required:
-      - section
       properties:
-        section:
-          type:
-          - string
-          - 'null'
-          description: The section of the ticket(s).
-        row:
-          type:
-          - string
-          - 'null'
-          description: The row of the ticket(s).
-        seat_from:
-          type:
-          - string
-          - 'null'
-          description: The first in a contiguous block of seats to which the tickets have been allocated.
-        seat_to:
-          type:
-          - string
-          - 'null'
-          description: The last in a contiguous block of seats to which the tickets have been allocated.
-    EmbeddedVenueEmbeddedResources:
-      title: EmbeddedVenueEmbeddedResources
-      type: object
-      properties:
-        country:
-          description: The Country where the venue is located.
-          oneOf:
-          - $ref: '#/components/schemas/Country'
+        id:
+          type: integer
+          description: The identifier for this entity.
+          format: int32
     EmbeddedEventLinks:
       title: EmbeddedEventLinks
       type: object
@@ -503,70 +567,6 @@ components:
         self:
           oneOf:
           - $ref: '#/components/schemas/Link'
-    PaymentSale:
-      type: object
-      description: A sale related to a payment that belongs to the currently authenticated user.
-      additionalProperties: false
-      properties:
-        proceeds:
-          type:
-          - array
-          - 'null'
-          description: Money owed to the user from this sale.
-          items:
-            $ref: '#/components/schemas/ChargeDetail'
-        charges:
-          type:
-          - array
-          - 'null'
-          description: Charges, related to this sale, that are applied to the user's account.
-          items:
-            $ref: '#/components/schemas/ChargeDetail'
-        credits:
-          type:
-          - array
-          - 'null'
-          description: Non-proceeds credits, related to this sale, that are applied to the user's account.
-          items:
-            $ref: '#/components/schemas/ChargeDetail'
-        _links:
-          oneOf:
-          - $ref: '#/components/schemas/PaymentSaleLinks'
-        _embedded:
-          oneOf:
-          - $ref: '#/components/schemas/PaymentSaleEmbeddedResources'
-    Error:
-      type: object
-      additionalProperties: false
-      properties:
-        code:
-          type:
-          - string
-          - 'null'
-        message:
-          type:
-          - string
-          - 'null'
-        errors:
-          type:
-          - object
-          - 'null'
-          additionalProperties:
-            type: array
-            items:
-              type: string
-    EmbeddedPaymentMethod:
-      type: object
-      additionalProperties: false
-      properties:
-        details:
-          type:
-          - string
-          - 'null'
-          description: The obfuscated details of the payment method
-        _links:
-          oneOf:
-          - $ref: '#/components/schemas/EmbeddedPaymentMethodLinks'
   responses:
     internal_server_error:
       description: Internal server error

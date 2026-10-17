@@ -360,15 +360,22 @@ paths:
         - manage:listingoffers
 components:
   responses:
-    internal_server_error:
-      description: Internal server error
+    not_found:
+      description: The URI requested is invalid or the resource requested, such as an event, does not exist.
       content:
         application/hal+json:
           schema:
             oneOf:
             - $ref: '#/components/schemas/Error'
-    forbidden:
-      description: The request is understood, but it has been refused or access is not allowed. An accompanying error message will explain why.
+    validation_failed:
+      description: The request data is not valid. errors will contain an object with a localized message that describes the validation error for each property of the data.
+      content:
+        application/hal+json:
+          schema:
+            oneOf:
+            - $ref: '#/components/schemas/Error'
+    internal_server_error:
+      description: Internal server error
       content:
         application/hal+json:
           schema:
@@ -381,15 +388,8 @@ components:
           schema:
             oneOf:
             - $ref: '#/components/schemas/Error'
-    not_found:
-      description: The URI requested is invalid or the resource requested, such as an event, does not exist.
-      content:
-        application/hal+json:
-          schema:
-            oneOf:
-            - $ref: '#/components/schemas/Error'
-    validation_failed:
-      description: The request data is not valid. errors will contain an object with a localized message that describes the validation error for each property of the data.
+    forbidden:
+      description: The request is understood, but it has been refused or access is not allowed. An accompanying error message will explain why.
       content:
         application/hal+json:
           schema:
@@ -409,6 +409,30 @@ components:
       - 2
       - 3
       - 4
+    SetOfferStateRequest:
+      type: object
+      additionalProperties: false
+      required:
+      - State
+      properties:
+        State:
+          description: 'Target state: Active (1) to resume, Paused (4) to pause.'
+          oneOf:
+          - $ref: '#/components/schemas/InstantLiquidityOfferState'
+    Error:
+      type: object
+      additionalProperties: false
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        errors:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
     CreateListingOfferRequest:
       type: object
       additionalProperties: false
@@ -504,30 +528,6 @@ components:
           format: int32
           maximum: 100.0
           minimum: 1.0
-    Error:
-      type: object
-      additionalProperties: false
-      properties:
-        code:
-          type: string
-        message:
-          type: string
-        errors:
-          type: object
-          additionalProperties:
-            type: array
-            items:
-              type: string
-    SetOfferStateRequest:
-      type: object
-      additionalProperties: false
-      required:
-      - State
-      properties:
-        State:
-          description: 'Target state: Active (1) to resume, Paused (4) to pause.'
-          oneOf:
-          - $ref: '#/components/schemas/InstantLiquidityOfferState'
   securitySchemes:
     OAuth2:
       type: oauth2

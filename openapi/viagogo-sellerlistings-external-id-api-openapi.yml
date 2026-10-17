@@ -136,102 +136,91 @@ paths:
         - write:sellerlistings
 components:
   schemas:
-    SellerListingExternalEventInformation:
+    Money:
       type: object
-      description: Information about the listing's event on other platforms.
+      description: Returned for monetary values, such as ticket prices, fees charged and tax amounts.
+      additionalProperties: false
+      required:
+      - amount
+      - currency_code
+      properties:
+        amount:
+          type:
+          - number
+          - 'null'
+          description: The decimal amount of the money.
+          format: decimal
+        currency_code:
+          type:
+          - string
+          - 'null'
+          description: The ISO 4217 currency code that the monetary value is represented in.
+        display:
+          type:
+          - string
+          - 'null'
+          description: A user-friendly string representing the monetary value.
+    BarcodeInformation:
+      type: object
+      description: A set of barcodes for a seat.
       additionalProperties: false
       properties:
-        id:
-          type: integer
-          description: An identifier for the event on an external platform.
-          format: int32
-        platform:
-          type:
-          - string
-          - 'null'
-          description: The name of the external platform.
-        url:
-          type:
-          - string
-          - 'null'
-          description: The URL of the event on the external platform.
-        venue_id:
+        seat_ordinal:
           type:
           - integer
           - 'null'
-          description: An identifier for the event's venue on an external platform.
+          description: An ordinal number for a seat.
           format: int32
-        performer_id:
-          type:
-          - integer
-          - 'null'
-          description: An identifier for the event's category on an external platform.
-          format: int32
-    Row:
-      type: object
-      additionalProperties: false
-      properties:
-        name:
+        seat:
           type:
           - string
           - 'null'
-    SplitType:
-      type: object
-      description: The way that the ticket(s) in a listing are allowed to be split up when sold.
-      additionalProperties: false
-      properties:
-        type:
+          description: Seat number.
+        row:
           type:
           - string
           - 'null'
-          description: The type of split. Can be Any, None, AvoidOne, AvoidOneAndThree, or Pairs.
-        name:
+          description: Row of ticket.
+        status:
           type:
           - string
           - 'null'
-          description: The localised name of the type of split.
-        description:
-          type:
-          - string
-          - 'null'
-          description: The localised description of the split.
-        _links:
-          oneOf:
-          - $ref: '#/components/schemas/SplitTypeLinks'
-    SellerListingEmbeddedResources:
-      title: SellerListingEmbeddedResources
-      type: object
-      properties:
-        constraints:
-          description: The constraints applied to this listing.
-          oneOf:
-          - $ref: '#/components/schemas/ListingConstraints'
-        event:
-          description: The event for this listing.
-          oneOf:
-          - $ref: '#/components/schemas/EmbeddedEvent'
-        listing_notes:
+          description: Status of the barcode. Can be `Received` or `FailedValidation`
+        barcode_values_sha256_hashed:
           type:
           - array
           - 'null'
-          description: The notes for this listing.
+          description: SHA256-hashed barcode(s) for this seat.
           items:
-            $ref: '#/components/schemas/ListingNote'
-        relist_transaction:
+            type: string
+    Currency:
+      type: object
+      additionalProperties: false
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+          description: The ISO 4217 currency code that identifies the currency.
+        name:
+          type:
+          - string
+          - 'null'
+          description: The name of the currency.
+        symbol:
+          type:
+          - string
+          - 'null'
+          description: The symbol that identifies the currency.
+        decimal_places:
+          type:
+          - integer
+          - 'null'
+          description: The number of decimal places used to represent amounts in the currency.
+          format: int32
+        _links:
           oneOf:
-          - $ref: '#/components/schemas/RelistTransaction'
-        split_type:
-          description: The way that the ticket(s) are allowed to be split up when sold.
-          oneOf:
-          - $ref: '#/components/schemas/SplitType'
-        ticket_type:
-          description: The type of ticket(s) in this listing.
-          oneOf:
-          - $ref: '#/components/schemas/TicketType'
-        venue:
-          description: The venue where the event is taking place.
-          oneOf:
-          - $ref: '#/components/schemas/EmbeddedVenue'
+          - $ref: '#/components/schemas/CurrencyLinks'
     ListingConstraintsLinks:
       title: ListingConstraintsLinks
       type: object
@@ -239,43 +228,6 @@ components:
         self:
           oneOf:
           - $ref: '#/components/schemas/Link'
-    SeatingDetail:
-      type: object
-      additionalProperties: false
-      required:
-      - section
-      properties:
-        section:
-          type:
-          - string
-          - 'null'
-          description: The section of the ticket(s).
-        row:
-          type:
-          - string
-          - 'null'
-          description: The row of the ticket(s).
-        seat_from:
-          type:
-          - string
-          - 'null'
-          description: The first in a contiguous block of seats to which the tickets have been allocated.
-        seat_to:
-          type:
-          - string
-          - 'null'
-          description: The last in a contiguous block of seats to which the tickets have been allocated.
-        state:
-          description: This field indicates whether the listing's seating is visible on the website on the venue map.
-          oneOf:
-          - $ref: '#/components/schemas/SeatingState'
-    SeatingState:
-      type: object
-      additionalProperties: false
-      properties:
-        visible_in_venue_map:
-          type: boolean
-          description: True when the seat is visible in the venue map that will be shown to buyers; Otherwise, false.
     SellerListingLinks:
       title: SellerListingLinks
       type: object
@@ -420,14 +372,263 @@ components:
         _links:
           oneOf:
           - $ref: '#/components/schemas/ListingNoteLinks'
-    MergedEntity:
+    SellerListingEmbeddedResources:
+      title: SellerListingEmbeddedResources
       type: object
-      description: An entity that has been merged into another entity.
+      properties:
+        constraints:
+          description: The constraints applied to this listing.
+          oneOf:
+          - $ref: '#/components/schemas/ListingConstraints'
+        event:
+          description: The event for this listing.
+          oneOf:
+          - $ref: '#/components/schemas/EmbeddedEvent'
+        listing_notes:
+          type:
+          - array
+          - 'null'
+          description: The notes for this listing.
+          items:
+            $ref: '#/components/schemas/ListingNote'
+        relist_transaction:
+          oneOf:
+          - $ref: '#/components/schemas/RelistTransaction'
+        split_type:
+          description: The way that the ticket(s) are allowed to be split up when sold.
+          oneOf:
+          - $ref: '#/components/schemas/SplitType'
+        ticket_type:
+          description: The type of ticket(s) in this listing.
+          oneOf:
+          - $ref: '#/components/schemas/TicketType'
+        venue:
+          description: The venue where the event is taking place.
+          oneOf:
+          - $ref: '#/components/schemas/EmbeddedVenue'
+    SplitType:
+      type: object
+      description: The way that the ticket(s) in a listing are allowed to be split up when sold.
+      additionalProperties: false
+      properties:
+        type:
+          type:
+          - string
+          - 'null'
+          description: The type of split. Can be Any, None, AvoidOne, AvoidOneAndThree, or Pairs.
+        name:
+          type:
+          - string
+          - 'null'
+          description: The localised name of the type of split.
+        description:
+          type:
+          - string
+          - 'null'
+          description: The localised description of the split.
+        _links:
+          oneOf:
+          - $ref: '#/components/schemas/SplitTypeLinks'
+    ListingConstraintsEmbeddedResources:
+      title: ListingConstraintsEmbeddedResources
+      type: object
+      properties:
+        connected_seller_listing_notes:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ListingNote'
+        currencies:
+          type:
+          - array
+          - 'null'
+          description: The valid currencies for the listing ticket price.
+          items:
+            $ref: '#/components/schemas/Currency'
+        listing_notes:
+          type:
+          - array
+          - 'null'
+          description: The available notes for this listing.
+          items:
+            $ref: '#/components/schemas/ListingNote'
+        required_unique_listing_notes:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ListingNote'
+        restricted_on_use_listing_notes:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/ListingNote'
+        split_types:
+          type:
+          - array
+          - 'null'
+          description: The way that tickets are allowed to be split up when sold.
+          items:
+            $ref: '#/components/schemas/SplitType'
+        ticket_types:
+          type:
+          - array
+          - 'null'
+          description: The valid types of tickets.
+          items:
+            $ref: '#/components/schemas/TicketType'
+    SeatingState:
+      type: object
+      additionalProperties: false
+      properties:
+        visible_in_venue_map:
+          type: boolean
+          description: True when the seat is visible in the venue map that will be shown to buyers; Otherwise, false.
+    TicketTypeLinks:
+      title: TicketTypeLinks
+      type: object
+      properties:
+        self:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+    SellerListing:
+      type: object
+      description: A set of tickets for sale on the viagogo marketplace that belong to the currently authenticated user.
       additionalProperties: false
       properties:
         id:
-          type: integer
-          description: The identifier for this entity.
+          type:
+          - integer
+          - 'null'
+          description: The listing identifier.
+          format: int64
+        created_at:
+          type:
+          - string
+          - 'null'
+          description: The date when the listing was created.
+          format: date-time
+        number_of_tickets:
+          type:
+          - integer
+          - 'null'
+          description: The number of tickets available for purchase.
+          format: int32
+        seating:
+          description: The seating information for the ticket(s) in this listing.
+          oneOf:
+          - $ref: '#/components/schemas/SeatingDetail'
+        display_seating:
+          description: The seating information that will be displayed to buyers for the ticket(s) in this listing.
+          oneOf:
+          - $ref: '#/components/schemas/SeatingDetail'
+        ticket_price:
+          description: The price of each ticket in the listing.
+          oneOf:
+          - $ref: '#/components/schemas/Money'
+        updated_at:
+          type:
+          - string
+          - 'null'
+          description: The date when the listing was last updated.
+          format: date-time
+        external_id:
+          type:
+          - string
+          - 'null'
+          description: An identifier that has been assigned to the listing in an external inventory management system.
+        expires_at:
+          type:
+          - string
+          - 'null'
+          description: The date when the listing will be automatically unpublished from the marketplace.
+          format: date-time
+        display_number_of_tickets:
+          type:
+          - integer
+          - 'null'
+          description: The number of tickets that should be displayed to buyers as available for purchase.
+          format: int32
+        face_value:
+          description: The price printed on the ticket, not including any booking fees.
+          oneOf:
+          - $ref: '#/components/schemas/Money'
+        ticket_proceeds:
+          description: The amount that the seller will receive for each ticket sold.
+          oneOf:
+          - $ref: '#/components/schemas/Money'
+        in_hand_at:
+          type:
+          - string
+          - 'null'
+          description: The date when the seller will have the tickets in hand.
+          format: date-time
+        is_ticket_concierge:
+          type: boolean
+          description: Whether the listing represents a shorted ticket
+        is_auto_po:
+          type: boolean
+          description: Whether a listing was automatically generated from a purchase order
+        barcodes:
+          type:
+          - array
+          - 'null'
+          description: Barcode(s) for the ticket(s) in this listing.
+          items:
+            $ref: '#/components/schemas/BarcodeInformation'
+        instant_delivery:
+          type:
+          - boolean
+          - 'null'
+        undeliverable:
+          type:
+          - boolean
+          - 'null'
+          description: Shipment of the ticket to the buyer cannot be guaranteed before the event. To increase the deliverability of electronic type tickets, preupload them (e.g. pre-upload barcodes or PDF files.) To increase deliverability of paper tickets, opt your tickets into our LMS program.
+        purchase_price_per_ticket:
+          description: The purchase price paid by the seller for each ticket in the listing.
+          oneOf:
+          - $ref: '#/components/schemas/Money'
+        total_purchase_price:
+          description: The total purchase price paid by the seller.
+          oneOf:
+          - $ref: '#/components/schemas/Money'
+        sales_tax_paid:
+          type:
+          - boolean
+          - 'null'
+          description: True if the seller already paid sales tax for the ticket(s); otherwise, false.
+        _links:
+          oneOf:
+          - $ref: '#/components/schemas/SellerListingLinks'
+        _embedded:
+          oneOf:
+          - $ref: '#/components/schemas/SellerListingEmbeddedResources'
+    SplitTypeLinks:
+      title: SplitTypeLinks
+      type: object
+      properties:
+        self:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+    Row:
+      type: object
+      additionalProperties: false
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+    RelistTransaction:
+      type: object
+      additionalProperties: false
+      properties:
+        id:
+          type:
+          - integer
+          - 'null'
           format: int32
     SeatingRequest:
       type: object
@@ -461,7 +662,49 @@ components:
           - boolean
           - 'null'
           description: Do not display seats pre-purchase. May affect listing visibility in some regions.
-    Currency:
+    BarcodeInformation2:
+      type: object
+      description: A set of barcodes for a seat.
+      additionalProperties: false
+      properties:
+        seat_ordinal:
+          type:
+          - integer
+          - 'null'
+          description: An ordinal number for a seat.
+          format: int32
+        seat:
+          type:
+          - string
+          - 'null'
+          description: Seat number.
+        row:
+          type:
+          - string
+          - 'null'
+          description: Row of ticket.
+        barcode_values:
+          type:
+          - array
+          - 'null'
+          description: Barcode(s) values for this seat.
+          items:
+            type: string
+    CountryLinks:
+      title: CountryLinks
+      type: object
+      properties:
+        self:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+        country:events:
+          description: The events taking place in a country.
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+        country:localwebpage:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+    Country:
       type: object
       additionalProperties: false
       properties:
@@ -469,26 +712,35 @@ components:
           type:
           - string
           - 'null'
-          description: The ISO 4217 currency code that identifies the currency.
+          description: The two-letter ISO 3166 code for the country.
         name:
           type:
           - string
           - 'null'
-          description: The name of the currency.
-        symbol:
+          description: The name of the country.
+        _links:
+          oneOf:
+          - $ref: '#/components/schemas/CountryLinks'
+    Error:
+      type: object
+      additionalProperties: false
+      properties:
+        code:
           type:
           - string
           - 'null'
-          description: The symbol that identifies the currency.
-        decimal_places:
+        message:
           type:
-          - integer
+          - string
           - 'null'
-          description: The number of decimal places used to represent amounts in the currency.
-          format: int32
-        _links:
-          oneOf:
-          - $ref: '#/components/schemas/CurrencyLinks'
+        errors:
+          type:
+          - object
+          - 'null'
+          additionalProperties:
+            type: array
+            items:
+              type: string
     PatchSellerListingRequest:
       type: object
       description: A set of tickets for sale on the viagogo marketplace that belong to the currently authenticated user.
@@ -611,30 +863,24 @@ components:
           description: Barcode(s) for the ticket(s) in this listing.
           items:
             $ref: '#/components/schemas/BarcodeInformation2'
-    Money:
+    Section:
       type: object
-      description: Returned for monetary values, such as ticket prices, fees charged and tax amounts.
       additionalProperties: false
-      required:
-      - amount
-      - currency_code
       properties:
-        amount:
-          type:
-          - number
-          - 'null'
-          description: The decimal amount of the money.
-          format: decimal
-        currency_code:
+        name:
           type:
           - string
           - 'null'
-          description: The ISO 4217 currency code that the monetary value is represented in.
-        display:
+        free_text_row:
+          type: boolean
+        queue_number_row:
+          type: boolean
+        rows:
           type:
-          - string
+          - array
           - 'null'
-          description: A user-friendly string representing the monetary value.
+          items:
+            $ref: '#/components/schemas/Row'
     EmbeddedVenue:
       type: object
       description: A venue is a location where an event takes place.
@@ -679,140 +925,37 @@ components:
         _embedded:
           oneOf:
           - $ref: '#/components/schemas/EmbeddedVenueEmbeddedResources'
-    ListingNoteLinks:
-      title: ListingNoteLinks
+    SellerListingExternalEventInformation:
       type: object
-      properties:
-        self:
-          oneOf:
-          - $ref: '#/components/schemas/Link'
-    BarcodeInformation2:
-      type: object
-      description: A set of barcodes for a seat.
+      description: Information about the listing's event on other platforms.
       additionalProperties: false
       properties:
-        seat_ordinal:
+        id:
+          type: integer
+          description: An identifier for the event on an external platform.
+          format: int32
+        platform:
+          type:
+          - string
+          - 'null'
+          description: The name of the external platform.
+        url:
+          type:
+          - string
+          - 'null'
+          description: The URL of the event on the external platform.
+        venue_id:
           type:
           - integer
           - 'null'
-          description: An ordinal number for a seat.
+          description: An identifier for the event's venue on an external platform.
           format: int32
-        seat:
+        performer_id:
           type:
-          - string
+          - integer
           - 'null'
-          description: Seat number.
-        row:
-          type:
-          - string
-          - 'null'
-          description: Row of ticket.
-        barcode_values:
-          type:
-          - array
-          - 'null'
-          description: Barcode(s) values for this seat.
-          items:
-            type: string
-    Section:
-      type: object
-      additionalProperties: false
-      properties:
-        name:
-          type:
-          - string
-          - 'null'
-        free_text_row:
-          type: boolean
-        queue_number_row:
-          type: boolean
-        rows:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Row'
-    Country:
-      type: object
-      additionalProperties: false
-      properties:
-        code:
-          type:
-          - string
-          - 'null'
-          description: The two-letter ISO 3166 code for the country.
-        name:
-          type:
-          - string
-          - 'null'
-          description: The name of the country.
-        _links:
-          oneOf:
-          - $ref: '#/components/schemas/CountryLinks'
-    ListingConstraintsEmbeddedResources:
-      title: ListingConstraintsEmbeddedResources
-      type: object
-      properties:
-        connected_seller_listing_notes:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/ListingNote'
-        currencies:
-          type:
-          - array
-          - 'null'
-          description: The valid currencies for the listing ticket price.
-          items:
-            $ref: '#/components/schemas/Currency'
-        listing_notes:
-          type:
-          - array
-          - 'null'
-          description: The available notes for this listing.
-          items:
-            $ref: '#/components/schemas/ListingNote'
-        required_unique_listing_notes:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/ListingNote'
-        restricted_on_use_listing_notes:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/ListingNote'
-        split_types:
-          type:
-          - array
-          - 'null'
-          description: The way that tickets are allowed to be split up when sold.
-          items:
-            $ref: '#/components/schemas/SplitType'
-        ticket_types:
-          type:
-          - array
-          - 'null'
-          description: The valid types of tickets.
-          items:
-            $ref: '#/components/schemas/TicketType'
-    Link:
-      type: object
-      additionalProperties: false
-      properties:
-        href:
-          type:
-          - string
-          - 'null'
-        title:
-          type:
-          - string
-          - 'null'
-        templated:
-          type: boolean
+          description: An identifier for the event's category on an external platform.
+          format: int32
     ListingConstraints:
       type: object
       description: The constraints applied to a listing for a particular event on the viagogo marketplace.
@@ -867,140 +1010,43 @@ components:
         _embedded:
           oneOf:
           - $ref: '#/components/schemas/ListingConstraintsEmbeddedResources'
-    EmbeddedVenueLinks:
-      title: EmbeddedVenueLinks
+    SeatingDetail:
       type: object
-      properties:
-        self:
-          oneOf:
-          - $ref: '#/components/schemas/Link'
-    TicketTypeLinks:
-      title: TicketTypeLinks
-      type: object
-      properties:
-        self:
-          oneOf:
-          - $ref: '#/components/schemas/Link'
-    SplitTypeLinks:
-      title: SplitTypeLinks
-      type: object
-      properties:
-        self:
-          oneOf:
-          - $ref: '#/components/schemas/Link'
-    SellerListing:
-      type: object
-      description: A set of tickets for sale on the viagogo marketplace that belong to the currently authenticated user.
       additionalProperties: false
+      required:
+      - section
       properties:
-        id:
-          type:
-          - integer
-          - 'null'
-          description: The listing identifier.
-          format: int64
-        created_at:
+        section:
           type:
           - string
           - 'null'
-          description: The date when the listing was created.
-          format: date-time
-        number_of_tickets:
-          type:
-          - integer
-          - 'null'
-          description: The number of tickets available for purchase.
-          format: int32
-        seating:
-          description: The seating information for the ticket(s) in this listing.
-          oneOf:
-          - $ref: '#/components/schemas/SeatingDetail'
-        display_seating:
-          description: The seating information that will be displayed to buyers for the ticket(s) in this listing.
-          oneOf:
-          - $ref: '#/components/schemas/SeatingDetail'
-        ticket_price:
-          description: The price of each ticket in the listing.
-          oneOf:
-          - $ref: '#/components/schemas/Money'
-        updated_at:
+          description: The section of the ticket(s).
+        row:
           type:
           - string
           - 'null'
-          description: The date when the listing was last updated.
-          format: date-time
-        external_id:
+          description: The row of the ticket(s).
+        seat_from:
           type:
           - string
           - 'null'
-          description: An identifier that has been assigned to the listing in an external inventory management system.
-        expires_at:
+          description: The first in a contiguous block of seats to which the tickets have been allocated.
+        seat_to:
           type:
           - string
           - 'null'
-          description: The date when the listing will be automatically unpublished from the marketplace.
-          format: date-time
-        display_number_of_tickets:
-          type:
-          - integer
-          - 'null'
-          description: The number of tickets that should be displayed to buyers as available for purchase.
-          format: int32
-        face_value:
-          description: The price printed on the ticket, not including any booking fees.
+          description: The last in a contiguous block of seats to which the tickets have been allocated.
+        state:
+          description: This field indicates whether the listing's seating is visible on the website on the venue map.
           oneOf:
-          - $ref: '#/components/schemas/Money'
-        ticket_proceeds:
-          description: The amount that the seller will receive for each ticket sold.
+          - $ref: '#/components/schemas/SeatingState'
+    CurrencyLinks:
+      title: CurrencyLinks
+      type: object
+      properties:
+        self:
           oneOf:
-          - $ref: '#/components/schemas/Money'
-        in_hand_at:
-          type:
-          - string
-          - 'null'
-          description: The date when the seller will have the tickets in hand.
-          format: date-time
-        is_ticket_concierge:
-          type: boolean
-          description: Whether the listing represents a shorted ticket
-        is_auto_po:
-          type: boolean
-          description: Whether a listing was automatically generated from a purchase order
-        barcodes:
-          type:
-          - array
-          - 'null'
-          description: Barcode(s) for the ticket(s) in this listing.
-          items:
-            $ref: '#/components/schemas/BarcodeInformation'
-        instant_delivery:
-          type:
-          - boolean
-          - 'null'
-        undeliverable:
-          type:
-          - boolean
-          - 'null'
-          description: Shipment of the ticket to the buyer cannot be guaranteed before the event. To increase the deliverability of electronic type tickets, preupload them (e.g. pre-upload barcodes or PDF files.) To increase deliverability of paper tickets, opt your tickets into our LMS program.
-        purchase_price_per_ticket:
-          description: The purchase price paid by the seller for each ticket in the listing.
-          oneOf:
-          - $ref: '#/components/schemas/Money'
-        total_purchase_price:
-          description: The total purchase price paid by the seller.
-          oneOf:
-          - $ref: '#/components/schemas/Money'
-        sales_tax_paid:
-          type:
-          - boolean
-          - 'null'
-          description: True if the seller already paid sales tax for the ticket(s); otherwise, false.
-        _links:
-          oneOf:
-          - $ref: '#/components/schemas/SellerListingLinks'
-        _embedded:
-          oneOf:
-          - $ref: '#/components/schemas/SellerListingEmbeddedResources'
+          - $ref: '#/components/schemas/Link'
     TicketType:
       type: object
       additionalProperties: false
@@ -1019,20 +1065,35 @@ components:
         _links:
           oneOf:
           - $ref: '#/components/schemas/TicketTypeLinks'
-    CountryLinks:
-      title: CountryLinks
+    EmbeddedVenueEmbeddedResources:
+      title: EmbeddedVenueEmbeddedResources
+      type: object
+      properties:
+        country:
+          description: The Country where the venue is located.
+          oneOf:
+          - $ref: '#/components/schemas/Country'
+    EmbeddedVenueLinks:
+      title: EmbeddedVenueLinks
       type: object
       properties:
         self:
           oneOf:
           - $ref: '#/components/schemas/Link'
-        country:events:
-          description: The events taking place in a country.
-          oneOf:
-          - $ref: '#/components/schemas/Link'
-        country:localwebpage:
-          oneOf:
-          - $ref: '#/components/schemas/Link'
+    Link:
+      type: object
+      additionalProperties: false
+      properties:
+        href:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        templated:
+          type: boolean
     EmbeddedEvent:
       type: object
       description: An event on the viagogo platform.
@@ -1082,14 +1143,15 @@ components:
         _links:
           oneOf:
           - $ref: '#/components/schemas/EmbeddedEventLinks'
-    EmbeddedVenueEmbeddedResources:
-      title: EmbeddedVenueEmbeddedResources
+    MergedEntity:
       type: object
+      description: An entity that has been merged into another entity.
+      additionalProperties: false
       properties:
-        country:
-          description: The Country where the venue is located.
-          oneOf:
-          - $ref: '#/components/schemas/Country'
+        id:
+          type: integer
+          description: The identifier for this entity.
+          format: int32
     EmbeddedEventLinks:
       title: EmbeddedEventLinks
       type: object
@@ -1097,70 +1159,8 @@ components:
         self:
           oneOf:
           - $ref: '#/components/schemas/Link'
-    Error:
-      type: object
-      additionalProperties: false
-      properties:
-        code:
-          type:
-          - string
-          - 'null'
-        message:
-          type:
-          - string
-          - 'null'
-        errors:
-          type:
-          - object
-          - 'null'
-          additionalProperties:
-            type: array
-            items:
-              type: string
-    RelistTransaction:
-      type: object
-      additionalProperties: false
-      properties:
-        id:
-          type:
-          - integer
-          - 'null'
-          format: int32
-    BarcodeInformation:
-      type: object
-      description: A set of barcodes for a seat.
-      additionalProperties: false
-      properties:
-        seat_ordinal:
-          type:
-          - integer
-          - 'null'
-          description: An ordinal number for a seat.
-          format: int32
-        seat:
-          type:
-          - string
-          - 'null'
-          description: Seat number.
-        row:
-          type:
-          - string
-          - 'null'
-          description: Row of ticket.
-        status:
-          type:
-          - string
-          - 'null'
-          description: Status of the barcode. Can be `Received` or `FailedValidation`
-        barcode_values_sha256_hashed:
-          type:
-          - array
-          - 'null'
-          description: SHA256-hashed barcode(s) for this seat.
-          items:
-            type: string
-    CurrencyLinks:
-      title: CurrencyLinks
+    ListingNoteLinks:
+      title: ListingNoteLinks
       type: object
       properties:
         self:

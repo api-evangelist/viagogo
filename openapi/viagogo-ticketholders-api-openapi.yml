@@ -60,7 +60,67 @@ paths:
         - read:user
         - read:sales
 components:
+  responses:
+    not_found:
+      description: The URI requested is invalid or the resource requested, such as an event, does not exist.
+      content:
+        application/hal+json:
+          schema:
+            oneOf:
+            - $ref: '#/components/schemas/Error'
+    internal_server_error:
+      description: Internal server error
+      content:
+        application/hal+json:
+          schema:
+            oneOf:
+            - $ref: '#/components/schemas/Error'
+    requires_authentication:
+      description: Authentication credentials were missing or incorrect.
+      content:
+        application/hal+json:
+          schema:
+            oneOf:
+            - $ref: '#/components/schemas/Error'
+    forbidden:
+      description: The request is understood, but it has been refused or access is not allowed. An accompanying error message will explain why.
+      content:
+        application/hal+json:
+          schema:
+            oneOf:
+            - $ref: '#/components/schemas/Error'
   schemas:
+    TicketHolderEmbeddedResources:
+      title: TicketHolderEmbeddedResources
+      type: object
+      properties:
+        document_issuing_country:
+          oneOf:
+          - $ref: '#/components/schemas/Country'
+        nationality_country:
+          oneOf:
+          - $ref: '#/components/schemas/Country'
+    CountryLinks:
+      title: CountryLinks
+      type: object
+      properties:
+        self:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+        country:events:
+          description: The events taking place in a country.
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+        country:localwebpage:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+    TicketHolderLinks:
+      title: TicketHolderLinks
+      type: object
+      properties:
+        self:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
     Country:
       type: object
       additionalProperties: false
@@ -78,41 +138,6 @@ components:
         _links:
           oneOf:
           - $ref: '#/components/schemas/CountryLinks'
-    Link:
-      type: object
-      additionalProperties: false
-      properties:
-        href:
-          type:
-          - string
-          - 'null'
-        title:
-          type:
-          - string
-          - 'null'
-        templated:
-          type: boolean
-    TicketHolderLinks:
-      title: TicketHolderLinks
-      type: object
-      properties:
-        self:
-          oneOf:
-          - $ref: '#/components/schemas/Link'
-    CountryLinks:
-      title: CountryLinks
-      type: object
-      properties:
-        self:
-          oneOf:
-          - $ref: '#/components/schemas/Link'
-        country:events:
-          description: The events taking place in a country.
-          oneOf:
-          - $ref: '#/components/schemas/Link'
-        country:localwebpage:
-          oneOf:
-          - $ref: '#/components/schemas/Link'
     Error:
       type: object
       additionalProperties: false
@@ -133,6 +158,20 @@ components:
             type: array
             items:
               type: string
+    Link:
+      type: object
+      additionalProperties: false
+      properties:
+        href:
+          type:
+          - string
+          - 'null'
+        title:
+          type:
+          - string
+          - 'null'
+        templated:
+          type: boolean
     TicketHolder:
       type: object
       additionalProperties: false
@@ -209,45 +248,6 @@ components:
         _embedded:
           oneOf:
           - $ref: '#/components/schemas/TicketHolderEmbeddedResources'
-    TicketHolderEmbeddedResources:
-      title: TicketHolderEmbeddedResources
-      type: object
-      properties:
-        document_issuing_country:
-          oneOf:
-          - $ref: '#/components/schemas/Country'
-        nationality_country:
-          oneOf:
-          - $ref: '#/components/schemas/Country'
-  responses:
-    internal_server_error:
-      description: Internal server error
-      content:
-        application/hal+json:
-          schema:
-            oneOf:
-            - $ref: '#/components/schemas/Error'
-    forbidden:
-      description: The request is understood, but it has been refused or access is not allowed. An accompanying error message will explain why.
-      content:
-        application/hal+json:
-          schema:
-            oneOf:
-            - $ref: '#/components/schemas/Error'
-    requires_authentication:
-      description: Authentication credentials were missing or incorrect.
-      content:
-        application/hal+json:
-          schema:
-            oneOf:
-            - $ref: '#/components/schemas/Error'
-    not_found:
-      description: The URI requested is invalid or the resource requested, such as an event, does not exist.
-      content:
-        application/hal+json:
-          schema:
-            oneOf:
-            - $ref: '#/components/schemas/Error'
   securitySchemes:
     OAuth2:
       type: oauth2

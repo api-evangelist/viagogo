@@ -396,22 +396,6 @@ paths:
       description: Sandbox
 components:
   schemas:
-    AddressEmbeddedResources:
-      title: AddressEmbeddedResources
-      type: object
-      properties:
-        country:
-          description: The Country where the address is located.
-          oneOf:
-          - $ref: '#/components/schemas/Country'
-    PickupEmbeddedResources:
-      title: PickupEmbeddedResources
-      type: object
-      properties:
-        carrier:
-          description: A carrier (e.g. UPS) that will collect tickets that are to be delivered.
-          oneOf:
-          - $ref: '#/components/schemas/Carrier'
     Shipments:
       type: object
       description: 'The Shipments resource is a collection resource that contains zero or
@@ -444,28 +428,65 @@ components:
         _embedded:
           oneOf:
           - $ref: '#/components/schemas/ShipmentsEmbeddedResources'
-    DeliveryMethodType:
-      type: integer
-      description: ''
-      x-enumNames:
-      - Other
-      - Post
-      - Pickup
-      - ETicket
-      enum:
-      - 0
-      - 1
-      - 2
-      - 3
-    PickupLinks:
-      title: PickupLinks
+    EmbeddedDeliveryMethod:
+      type: object
+      additionalProperties: false
+      properties:
+        id:
+          type: integer
+          description: The delivery method identifier.
+          format: int32
+        type:
+          description: The type of delivery method. Can be ETicket, Post or Pickup.
+          oneOf:
+          - $ref: '#/components/schemas/DeliveryMethodType'
+        name:
+          type:
+          - string
+          - 'null'
+          description: The localised name of the delivery method.
+        description:
+          type:
+          - string
+          - 'null'
+          description: The localised description of the delivery method.
+        _links:
+          oneOf:
+          - $ref: '#/components/schemas/EmbeddedDeliveryMethodLinks'
+    PatchShipmentRequest:
+      type: object
+      additionalProperties: false
+      properties:
+        tracking_number:
+          type:
+          - string
+          - 'null'
+          description: The identifier used to track the shipment of the ticket(s).
+    PickupWindow:
+      type: object
+      description: Represents a window of time when a courier pickup can be arranged.
+      additionalProperties: false
+      properties:
+        start_date:
+          type: string
+          description: The date when the window starts.
+          format: date-time
+        end_date:
+          type: string
+          description: The date when the window ends.
+          format: date-time
+    ShipmentLinks:
+      title: ShipmentLinks
       type: object
       properties:
         self:
           oneOf:
           - $ref: '#/components/schemas/Link'
-        pickup:delete:
-          description: Delete/Cancel a courier pickup
+        shipment:entertrackingnumber:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+        shipment:label:
+          description: A courier shipping label.
           oneOf:
           - $ref: '#/components/schemas/Link'
     ShipmentEmbeddedResources:
@@ -494,146 +515,6 @@ components:
           description: The shipment state
           oneOf:
           - $ref: '#/components/schemas/StateInformation'
-    Address:
-      type: object
-      additionalProperties: false
-      properties:
-        full_name:
-          type:
-          - string
-          - 'null'
-        address_1:
-          type:
-          - string
-          - 'null'
-        address_2:
-          type:
-          - string
-          - 'null'
-        address_3:
-          type:
-          - string
-          - 'null'
-        city:
-          type:
-          - string
-          - 'null'
-        state_province:
-          type:
-          - string
-          - 'null'
-        postal_code:
-          type:
-          - string
-          - 'null'
-        country_code:
-          type:
-          - string
-          - 'null'
-        country:
-          type:
-          - string
-          - 'null'
-    Shipment:
-      type: object
-      description: A shipment of one or more tickets by a seller.
-      additionalProperties: false
-      properties:
-        id:
-          type: integer
-          description: The shipment identifier.
-          format: int32
-        tracking_number:
-          type:
-          - string
-          - 'null'
-          description: The identifier used to track the shipment of the ticket(s).
-        delivery_address:
-          description: The address that the seller must ship the tickets to.
-          oneOf:
-          - $ref: '#/components/schemas/Address'
-        _links:
-          oneOf:
-          - $ref: '#/components/schemas/ShipmentLinks'
-        _embedded:
-          oneOf:
-          - $ref: '#/components/schemas/ShipmentEmbeddedResources'
-    EmbeddedDeliveryMethodLinks:
-      title: EmbeddedDeliveryMethodLinks
-      type: object
-      properties:
-        self:
-          oneOf:
-          - $ref: '#/components/schemas/Link'
-        deliverymethod:logo:
-          description: An image file containing the logo for the delivery method.
-          oneOf:
-          - $ref: '#/components/schemas/Link'
-    ShipmentsEmbeddedResources:
-      title: ShipmentsEmbeddedResources
-      type: object
-      properties:
-        items:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/Shipment'
-    Country:
-      type: object
-      additionalProperties: false
-      properties:
-        code:
-          type:
-          - string
-          - 'null'
-          description: The two-letter ISO 3166 code for the country.
-        name:
-          type:
-          - string
-          - 'null'
-          description: The name of the country.
-        _links:
-          oneOf:
-          - $ref: '#/components/schemas/CountryLinks'
-    CarrierLinks:
-      title: CarrierLinks
-      type: object
-      properties:
-        self:
-          oneOf:
-          - $ref: '#/components/schemas/Link'
-        carrier:createpickup:
-          description: Creates a new pickup for the ticket(s).
-          oneOf:
-          - $ref: '#/components/schemas/Link'
-    PickupWindow:
-      type: object
-      description: Represents a window of time when a courier pickup can be arranged.
-      additionalProperties: false
-      properties:
-        start_date:
-          type: string
-          description: The date when the window starts.
-          format: date-time
-        end_date:
-          type: string
-          description: The date when the window ends.
-          format: date-time
-    Link:
-      type: object
-      additionalProperties: false
-      properties:
-        href:
-          type:
-          - string
-          - 'null'
-        title:
-          type:
-          - string
-          - 'null'
-        templated:
-          type: boolean
     StateInformation:
       type: object
       additionalProperties: false
@@ -653,33 +534,17 @@ components:
           type:
           - string
           - 'null'
-    Pickup:
+    CarrierLinks:
+      title: CarrierLinks
       type: object
-      description: A scheduled courier pickup for a package.
-      additionalProperties: false
       properties:
-        id:
-          type: integer
-          description: The pickup identifier.
-          format: int32
-        start_date:
-          type: string
-          description: The earliest date that the courier will pickup the package.
-          format: date-time
-        end_date:
-          type: string
-          description: The latest date that the courier will pickup the package.
-          format: date-time
-        address:
-          description: The address where the courier will pickup the package.
+        self:
           oneOf:
-          - $ref: '#/components/schemas/Address'
-        _links:
+          - $ref: '#/components/schemas/Link'
+        carrier:createpickup:
+          description: Creates a new pickup for the ticket(s).
           oneOf:
-          - $ref: '#/components/schemas/PickupLinks'
-        _embedded:
-          oneOf:
-          - $ref: '#/components/schemas/PickupEmbeddedResources'
+          - $ref: '#/components/schemas/Link'
     AddressLinks:
       title: AddressLinks
       type: object
@@ -723,52 +588,76 @@ components:
         _links:
           oneOf:
           - $ref: '#/components/schemas/CarrierLinks'
-    CountryLinks:
-      title: CountryLinks
+    PickupEmbeddedResources:
+      title: PickupEmbeddedResources
+      type: object
+      properties:
+        carrier:
+          description: A carrier (e.g. UPS) that will collect tickets that are to be delivered.
+          oneOf:
+          - $ref: '#/components/schemas/Carrier'
+    PickupLinks:
+      title: PickupLinks
       type: object
       properties:
         self:
           oneOf:
           - $ref: '#/components/schemas/Link'
-        country:events:
-          description: The events taking place in a country.
+        pickup:delete:
+          description: Delete/Cancel a courier pickup
           oneOf:
           - $ref: '#/components/schemas/Link'
-        country:localwebpage:
-          oneOf:
-          - $ref: '#/components/schemas/Link'
-    PatchShipmentRequest:
+    Pickup:
       type: object
+      description: A scheduled courier pickup for a package.
       additionalProperties: false
       properties:
+        id:
+          type: integer
+          description: The pickup identifier.
+          format: int32
+        start_date:
+          type: string
+          description: The earliest date that the courier will pickup the package.
+          format: date-time
+        end_date:
+          type: string
+          description: The latest date that the courier will pickup the package.
+          format: date-time
+        address:
+          description: The address where the courier will pickup the package.
+          oneOf:
+          - $ref: '#/components/schemas/Address'
+        _links:
+          oneOf:
+          - $ref: '#/components/schemas/PickupLinks'
+        _embedded:
+          oneOf:
+          - $ref: '#/components/schemas/PickupEmbeddedResources'
+    Shipment:
+      type: object
+      description: A shipment of one or more tickets by a seller.
+      additionalProperties: false
+      properties:
+        id:
+          type: integer
+          description: The shipment identifier.
+          format: int32
         tracking_number:
           type:
           - string
           - 'null'
           description: The identifier used to track the shipment of the ticket(s).
-    ShipmentsLinks:
-      title: ShipmentsLinks
-      type: object
-      properties:
-        self:
+        delivery_address:
+          description: The address that the seller must ship the tickets to.
           oneOf:
-          - $ref: '#/components/schemas/Link'
-        first:
+          - $ref: '#/components/schemas/Address'
+        _links:
           oneOf:
-          - $ref: '#/components/schemas/Link'
-        last:
+          - $ref: '#/components/schemas/ShipmentLinks'
+        _embedded:
           oneOf:
-          - $ref: '#/components/schemas/Link'
-        next:
-          oneOf:
-          - $ref: '#/components/schemas/Link'
-        prev:
-          oneOf:
-          - $ref: '#/components/schemas/Link'
-        shipment:create:
-          description: Creates a new shipment for the ticket(s).
-          oneOf:
-          - $ref: '#/components/schemas/Link'
+          - $ref: '#/components/schemas/ShipmentEmbeddedResources'
     Address2:
       type: object
       description: An address is a delivery, pickup or billing address associated with the current user.
@@ -826,6 +715,47 @@ components:
         _embedded:
           oneOf:
           - $ref: '#/components/schemas/AddressEmbeddedResources'
+    ShipmentsEmbeddedResources:
+      title: ShipmentsEmbeddedResources
+      type: object
+      properties:
+        items:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/Shipment'
+    CountryLinks:
+      title: CountryLinks
+      type: object
+      properties:
+        self:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+        country:events:
+          description: The events taking place in a country.
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+        country:localwebpage:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+    Country:
+      type: object
+      additionalProperties: false
+      properties:
+        code:
+          type:
+          - string
+          - 'null'
+          description: The two-letter ISO 3166 code for the country.
+        name:
+          type:
+          - string
+          - 'null'
+          description: The name of the country.
+        _links:
+          oneOf:
+          - $ref: '#/components/schemas/CountryLinks'
     Error:
       type: object
       additionalProperties: false
@@ -846,45 +776,115 @@ components:
             type: array
             items:
               type: string
-    EmbeddedDeliveryMethod:
+    DeliveryMethodType:
+      type: integer
+      description: ''
+      x-enumNames:
+      - Other
+      - Post
+      - Pickup
+      - ETicket
+      enum:
+      - 0
+      - 1
+      - 2
+      - 3
+    AddressEmbeddedResources:
+      title: AddressEmbeddedResources
+      type: object
+      properties:
+        country:
+          description: The Country where the address is located.
+          oneOf:
+          - $ref: '#/components/schemas/Country'
+    Link:
       type: object
       additionalProperties: false
       properties:
-        id:
-          type: integer
-          description: The delivery method identifier.
-          format: int32
-        type:
-          description: The type of delivery method. Can be ETicket, Post or Pickup.
-          oneOf:
-          - $ref: '#/components/schemas/DeliveryMethodType'
-        name:
+        href:
           type:
           - string
           - 'null'
-          description: The localised name of the delivery method.
-        description:
+        title:
           type:
           - string
           - 'null'
-          description: The localised description of the delivery method.
-        _links:
-          oneOf:
-          - $ref: '#/components/schemas/EmbeddedDeliveryMethodLinks'
-    ShipmentLinks:
-      title: ShipmentLinks
+        templated:
+          type: boolean
+    ShipmentsLinks:
+      title: ShipmentsLinks
       type: object
       properties:
         self:
           oneOf:
           - $ref: '#/components/schemas/Link'
-        shipment:entertrackingnumber:
+        first:
           oneOf:
           - $ref: '#/components/schemas/Link'
-        shipment:label:
-          description: A courier shipping label.
+        last:
           oneOf:
           - $ref: '#/components/schemas/Link'
+        next:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+        prev:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+        shipment:create:
+          description: Creates a new shipment for the ticket(s).
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+    EmbeddedDeliveryMethodLinks:
+      title: EmbeddedDeliveryMethodLinks
+      type: object
+      properties:
+        self:
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+        deliverymethod:logo:
+          description: An image file containing the logo for the delivery method.
+          oneOf:
+          - $ref: '#/components/schemas/Link'
+    Address:
+      type: object
+      additionalProperties: false
+      properties:
+        full_name:
+          type:
+          - string
+          - 'null'
+        address_1:
+          type:
+          - string
+          - 'null'
+        address_2:
+          type:
+          - string
+          - 'null'
+        address_3:
+          type:
+          - string
+          - 'null'
+        city:
+          type:
+          - string
+          - 'null'
+        state_province:
+          type:
+          - string
+          - 'null'
+        postal_code:
+          type:
+          - string
+          - 'null'
+        country_code:
+          type:
+          - string
+          - 'null'
+        country:
+          type:
+          - string
+          - 'null'
   responses:
     validation_failed:
       description: The request data is not valid. errors will contain an object with a localized message that describes the validation error for each property of the data.
