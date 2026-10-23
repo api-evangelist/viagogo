@@ -1829,3 +1829,9 @@ x-tagGroups:
   - Resource_SellerListings
   - Resource_Shipment
   - Resource_Shipments
+x-provenance:
+  method: harvested
+  publisher: viagogo
+  source: https://api.viagogo.net/v2/openapi/inventory.json
+  note: split by refine-openapis from the provider's own published document, verified by fetch (openapi/_original/*.fetch.json);
+    stamped by stamp-openapi-provenance.py (roadmap#793)

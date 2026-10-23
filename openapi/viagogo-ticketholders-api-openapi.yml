@@ -286,3 +286,9 @@ x-tagGroups:
   - Resource_Shipments
   - Resource_TicketHolder
   - Resource_TransferStatusProof
+x-provenance:
+  method: harvested
+  publisher: viagogo
+  source: https://api.viagogo.net/v2/openapi/sales.json
+  note: split by refine-openapis from the provider's own published document, verified by fetch (openapi/_original/*.fetch.json);
+    stamped by stamp-openapi-provenance.py (roadmap#793)
